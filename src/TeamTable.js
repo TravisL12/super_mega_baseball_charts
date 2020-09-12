@@ -1,7 +1,13 @@
 import React from "react";
+import { keys, omit, startCase } from "lodash";
 
 const TeamTable = ({ name, players }) => {
-  const headers = Object.keys(players[0].export());
+  const pitchers = players.filter((player) => player.position === "Pitcher");
+  const positionPlayers = players.filter(
+    (player) => player.position !== "Pitcher"
+  );
+  const headers = keys(positionPlayers[0]);
+  const pitcherHeaders = keys(omit(pitchers[0], ["position"]));
 
   return (
     <div>
@@ -10,21 +16,37 @@ const TeamTable = ({ name, players }) => {
         <thead>
           <tr>
             {headers.map((header) => (
-              <th>{header}</th>
+              <th key={header}>{startCase(header)}</th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {players.map((player) => {
-            return (
-              <tr key={player.name}>
-                {headers.map((header) => {
-                  const data = player.export();
-                  return <td key={header}>{data[header]}</td>;
-                })}
-              </tr>
-            );
-          })}
+          {positionPlayers.map((player) => (
+            <tr key={player.name}>
+              {headers.map((header) => (
+                <td key={header}>{player[header]}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <table>
+        <thead>
+          <tr>
+            {pitcherHeaders.map((header) => (
+              <th key={header}>{startCase(header)}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {pitchers.map((player) => (
+            <tr key={player.name}>
+              {pitcherHeaders.map((header) => (
+                <td key={header}>{player[header]}</td>
+              ))}
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

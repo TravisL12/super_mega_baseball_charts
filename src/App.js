@@ -24,11 +24,11 @@ function App() {
   if (!teams) {
     return "Loading...";
   }
-  console.log(teams);
+
   return (
     <div className="App">
       {Object.keys(teams).map((teamName) => (
-        <TeamTable name={teamName} players={teams[teamName]} />
+        <TeamTable key={teamName} name={teamName} players={teams[teamName]} />
       ))}
     </div>
   );

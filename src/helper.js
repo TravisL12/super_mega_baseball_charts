@@ -10,6 +10,13 @@ const positions = {
   9: { short: "RF", name: "Right Field" },
 };
 
+const pitcherRole = {
+  1: "SP",
+  2: "SP/RP",
+  3: "RP",
+  4: "CP",
+};
+
 // accuracy: "46"
 // age: "22"
 // arm: ""
@@ -25,30 +32,42 @@ const positions = {
 // teamName: "Beewolves"
 // velocity: "66"
 
-export class Player {
-  constructor(info) {
-    this.info = info;
-    this.name = `${info.firstName} ${info.lastName}`;
-    this.position = positions[info.primaryPosition];
-    this.team = info.teamName;
-  }
+const createPlayer = (info) => {
+  const position = positions[info.primaryPosition];
+  let pitcherStats = {};
+  let stats = {
+    name: `${info.firstName} ${info.lastName}`,
+    position: position.name,
+    age: info.age,
+    arm: info.arm,
+  };
 
-  export() {
-    return {
-      name: this.name,
-      position: this.position,
-      team: this.team,
+  if (position.name === "Pitcher") {
+    pitcherStats = {
+      pitcherRole: pitcherRole[info.pitcherRole],
+      accuracy: info.accuracy,
+      speed: info.speed,
+      velocity: info.velocity,
+      junk: info.junk,
     };
   }
-}
+
+  const positionStats = {
+    contact: info.contact,
+    fielding: info.fielding,
+    power: info.power,
+  };
+
+  return { ...stats, ...pitcherStats, ...positionStats };
+};
 
 export const buildTeams = (data) => {
   return data.reduce((teams, info) => {
-    const player = new Player(info);
-    if (teams[player.team]) {
-      teams[player.team].push(player);
+    const player = createPlayer(info);
+    if (teams[info.teamName]) {
+      teams[info.teamName].push(player);
     } else {
-      teams[player.team] = [player];
+      teams[info.teamName] = [player];
     }
     return teams;
   }, {});
