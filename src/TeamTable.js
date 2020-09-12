@@ -1,23 +1,22 @@
 import React, { useState } from "react";
-import { keys, startCase } from "lodash";
+import { keys, omit, startCase } from "lodash";
 
 const buildTable = (headers, players, setSortOrder) => {
+  const updateSort = (header) => {
+    if (!setSortOrder) return;
+
+    setSortOrder((prevHeader) => {
+      const direction = prevHeader.direction === "asc" ? "desc" : "asc";
+      return { header, direction };
+    });
+  };
+
   return (
     <table>
       <thead>
         <tr>
           {headers.map((header) => (
-            <th
-              onClick={() => {
-                if (!setSortOrder) return;
-                setSortOrder((prevHeader) => {
-                  const direction =
-                    prevHeader.direction === "asc" ? "desc" : "asc";
-                  return { header, direction };
-                });
-              }}
-              key={header}
-            >
+            <th onClick={() => updateSort(header)} key={header}>
               {startCase(header)}
             </th>
           ))}
@@ -27,15 +26,15 @@ const buildTable = (headers, players, setSortOrder) => {
         {players.map(({ display }) => (
           <tr key={display.name}>
             {headers.map((header) => {
-              const valueSize = !isNaN(display[header])
+              const ratingPercent = !isNaN(display[header])
                 ? `${display[header]}%`
                 : null;
               return (
                 <td className={`player-col player-${header}`} key={header}>
-                  {valueSize && (
+                  {ratingPercent && (
                     <span
                       className="rating-color"
-                      style={{ width: valueSize }}
+                      style={{ width: ratingPercent }}
                     ></span>
                   )}
                   <span className="rating-value">{display[header]}</span>
@@ -55,12 +54,12 @@ const sortPlayers = (players, sortAttr) => {
   }
 
   return players.sort((a, b) => {
-    const aDisplay = !isNaN(a.display[sortAttr.header])
-      ? +a.display[sortAttr.header]
-      : a.display[sortAttr.header];
-    const bDisplay = !isNaN(b.display[sortAttr.header])
-      ? +b.display[sortAttr.header]
-      : b.display[sortAttr.header];
+    const aDisplay = isNaN(a.display[sortAttr.header])
+      ? a.display[sortAttr.header]
+      : +a.display[sortAttr.header];
+    const bDisplay = isNaN(b.display[sortAttr.header])
+      ? b.display[sortAttr.header]
+      : +b.display[sortAttr.header];
 
     if (sortAttr.direction === "asc") {
       return aDisplay > bDisplay ? 1 : -1;
@@ -70,7 +69,7 @@ const sortPlayers = (players, sortAttr) => {
   });
 };
 
-const TeamTable = ({ players }) => {
+const TeamTable = ({ players, showAllPlayers = false }) => {
   const [sortOrder, setSortOrder] = useState({});
   const [sortPitcherOrder, setSortPitcherOrder] = useState({});
   const pitchers = sortPlayers(
@@ -81,8 +80,11 @@ const TeamTable = ({ players }) => {
     players.filter((player) => !player.isPitcher),
     sortOrder
   );
-  const headers = keys(positionPlayers[0].display);
-  const pitcherHeaders = keys(pitchers[0].display);
+
+  const omitColumn = showAllPlayers ? [] : ["team"];
+
+  const headers = keys(omit(positionPlayers[0].display, omitColumn));
+  const pitcherHeaders = keys(omit(pitchers[0].display, omitColumn));
 
   return (
     <div className="team-table">

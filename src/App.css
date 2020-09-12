@@ -27,6 +27,10 @@ h1 {
   grid-row: 2;
 }
 
+.all-players {
+  margin-bottom: 15px;
+}
+
 .team-list span {
   cursor: pointer;
   padding: 4px 10px;

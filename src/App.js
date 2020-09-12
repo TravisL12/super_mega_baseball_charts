@@ -3,16 +3,22 @@ import "./App.css";
 import Papa from "papaparse";
 import smbCsvData from "./smb_info.csv";
 import TeamTable from "./TeamTable";
-import { uniqBy } from "lodash";
+import { uniqBy, values } from "lodash";
 import { createPlayer } from "./helper";
 
+const ALL_PLAYERS = "All Players";
+
 const getTeam = (name, data) => {
+  if (name === ALL_PLAYERS) {
+    return data.map((player) => player);
+  }
+
   return data.filter(({ team }) => team === name);
 };
 
 function App() {
-  const [teams, setTeams] = useState({});
-  const [selectedTeam, setSelectedTeam] = useState();
+  const [teams, setTeams] = useState([]);
+  const [selectedTeam, setSelectedTeam] = useState("");
 
   useEffect(() => {
     const getStats = () => {
@@ -28,27 +34,32 @@ function App() {
     getStats();
   }, []);
 
-  if (!teams) {
-    return "Loading...";
-  }
-
   const uniqTeams = uniqBy(teams, "team").map(({ team }) => team);
 
   return (
     <div className="App">
       {selectedTeam && <h1 className="selected-team-name">{selectedTeam}</h1>}
+
       <div className="team-list">
-        {Object.values(uniqTeams).map((teamName) => (
+        <span
+          className="all-players"
+          onClick={() => setSelectedTeam(ALL_PLAYERS)}
+        >
+          All Players
+        </span>
+        {values(uniqTeams).map((teamName) => (
           <span key={teamName} onClick={() => setSelectedTeam(teamName)}>
             {teamName}
           </span>
         ))}
       </div>
+
       <div className="selected-team-table">
         {selectedTeam && (
           <TeamTable
             name={selectedTeam}
             players={getTeam(selectedTeam, teams)}
+            showAllPlayers={selectedTeam === ALL_PLAYERS}
           />
         )}
       </div>

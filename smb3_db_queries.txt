@@ -6,8 +6,6 @@ SQLITE output command
 
 use `.output` with no filename to stop this mode
 
-
-
 BASEBALL PLAYER ABILITIES
 GUID | originalGUID | teamGUID | power | contact | speed | fielding | arm | velocity | junk | accuracy | age
 select * from t_baseball_players;

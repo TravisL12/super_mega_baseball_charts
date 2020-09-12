@@ -1,3 +1,5 @@
+import { omit, values, mean } from "lodash";
+
 const positions = {
   1: { short: "P", name: "Pitcher" },
   2: { short: "C", name: "Catcher" },
@@ -32,11 +34,23 @@ const pitcherRole = {
 // teamName: "Beewolves"
 // velocity: "66"
 
+const getAverage = (data, isPitcher) => {
+  const sharedOmit = ["team", "name", "position", "age"];
+  const omitAttrs = isPitcher
+    ? [...sharedOmit, "arm", "contact", "fielding", "power"]
+    : [...sharedOmit, "accuracy", "velocity", "junk"];
+  const avgValues = values(omit(data, omitAttrs));
+  const averaged = mean(avgValues.map((val) => +val)).toFixed(0);
+
+  return { ...data, averaged };
+};
+
 export const createPlayer = (info) => {
   const position = positions[info.primaryPosition];
   const isPitcher = info.primaryPosition === "1";
   let pitcherStats = {};
   let stats = {
+    team: info.teamName,
     name: `${info.firstName} ${info.lastName}`,
     position: isPitcher ? pitcherRole[info.pitcherRole] : position.name,
     age: info.age,
@@ -58,9 +72,11 @@ export const createPlayer = (info) => {
     };
   }
 
+  const display = getAverage({ ...stats, ...positionStats, ...pitcherStats });
+
   return {
     team: info.teamName,
     isPitcher,
-    display: { ...stats, ...positionStats, ...pitcherStats },
+    display,
   };
 };
