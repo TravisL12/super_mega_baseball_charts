@@ -1,2 +1,65 @@
+body,
+h1 {
+  margin: 0;
+}
+
 .App {
+  display: grid;
+  margin: 50px;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: 50px 1fr;
+}
+
+.selected-team-name {
+  grid-column: 2 / 3;
+  grid-row: 1;
+}
+
+.selected-team-table {
+  grid-column: 2 / 3;
+  grid-row: 2;
+}
+
+.team-list {
+  display: flex;
+  flex-direction: column;
+  grid-column: 1 / 2;
+  grid-row: 2;
+}
+
+.team-list span {
+  cursor: pointer;
+  padding: 4px 10px;
+}
+
+.team-list span:hover {
+  background: lightgray;
+}
+
+.team-table th,
+.team-table td {
+  position: relative;
+  text-align: left;
+  min-width: 100px;
+  box-sizing: border-box;
+  padding: 4px 10px;
+}
+
+.team-table td.player-name {
+  width: 200px;
+}
+
+.team-table td.player-position {
+  width: 120px;
+}
+.rating-value {
+  color: black;
+  position: relative;
+}
+.rating-color {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: lightblue;
 }

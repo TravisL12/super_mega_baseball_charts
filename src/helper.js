@@ -34,17 +34,17 @@ const pitcherRole = {
 
 const createPlayer = (info) => {
   const position = positions[info.primaryPosition];
+  const isPitcher = info.primaryPosition === "1";
   let pitcherStats = {};
   let stats = {
     name: `${info.firstName} ${info.lastName}`,
-    position: position.name,
+    position: isPitcher ? pitcherRole[info.pitcherRole] : position.name,
     age: info.age,
     arm: info.arm,
   };
 
-  if (position.name === "Pitcher") {
+  if (isPitcher) {
     pitcherStats = {
-      pitcherRole: pitcherRole[info.pitcherRole],
       accuracy: info.accuracy,
       speed: info.speed,
       velocity: info.velocity,
@@ -58,7 +58,11 @@ const createPlayer = (info) => {
     power: info.power,
   };
 
-  return { ...stats, ...pitcherStats, ...positionStats };
+  return {
+    info,
+    isPitcher,
+    display: { ...stats, ...positionStats, ...pitcherStats },
+  };
 };
 
 export const buildTeams = (data) => {

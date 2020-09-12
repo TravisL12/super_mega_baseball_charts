@@ -7,6 +7,7 @@ import TeamTable from "./TeamTable";
 
 function App() {
   const [teams, setTeams] = useState({});
+  const [selectedTeam, setSelectedTeam] = useState();
 
   useEffect(() => {
     const getStats = () => {
@@ -27,9 +28,19 @@ function App() {
 
   return (
     <div className="App">
-      {Object.keys(teams).map((teamName) => (
-        <TeamTable key={teamName} name={teamName} players={teams[teamName]} />
-      ))}
+      {selectedTeam && <h1 className="selected-team-name">{selectedTeam}</h1>}
+      <div className="team-list">
+        {Object.keys(teams).map((teamName) => (
+          <span key={teamName} onClick={() => setSelectedTeam(teamName)}>
+            {teamName}
+          </span>
+        ))}
+      </div>
+      <div className="selected-team-table">
+        {selectedTeam && (
+          <TeamTable name={selectedTeam} players={teams[selectedTeam]} />
+        )}
+      </div>
     </div>
   );
 }
