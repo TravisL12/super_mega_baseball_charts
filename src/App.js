@@ -3,22 +3,20 @@ import "./App.css";
 import Papa from "papaparse";
 import smbCsvData from "./smb_info.csv";
 import TeamTable from "./TeamTable";
-import { uniqBy, values } from "lodash";
+import { uniqBy } from "lodash";
 import { createPlayer } from "./helper";
+import FilterTeams from "./FilterTeams";
 
-const ALL_PLAYERS = "All Players";
+export const ALL_PLAYERS = "All Players";
 
-const getTeam = (name, data) => {
-  if (name === ALL_PLAYERS) {
-    return data.map((player) => player);
-  }
-
-  return data.filter(({ display }) => display.team === name);
+const getPlayers = (filters, players) => {
+  const teams = players.filter((player) => filters.teams[player.display.team]);
+  return [...teams];
 };
 
 function App() {
   const [teams, setTeams] = useState([]);
-  const [selectedTeam, setSelectedTeam] = useState("");
+  const [filters, setFilters] = useState({});
 
   useEffect(() => {
     const getStats = () => {
@@ -27,10 +25,19 @@ function App() {
         header: true,
         complete: ({ data }) => {
           const buildPlayers = data.map((player) => createPlayer(player));
+          const uniqTeams = uniqBy(buildPlayers, "display.team")
+            .map(({ display }) => display.team)
+            .reduce((acc, team) => {
+              acc[team] = false;
+              return acc;
+            }, {});
+
+          setFilters({ teams: uniqTeams });
           setTeams(buildPlayers);
         },
       });
     };
+
     getStats();
   }, []);
 
@@ -40,30 +47,17 @@ function App() {
 
   return (
     <div className="App">
-      {selectedTeam && <h1 className="selected-team-name">{selectedTeam}</h1>}
-
-      <div className="team-list">
-        <span
-          className="all-players"
-          onClick={() => setSelectedTeam(ALL_PLAYERS)}
-        >
-          All Players
-        </span>
-        {values(uniqTeams).map((teamName) => (
-          <span key={teamName} onClick={() => setSelectedTeam(teamName)}>
-            {teamName}
-          </span>
-        ))}
+      <h1 className="selected-team-name">Super Mega Baseball 3 Rosters</h1>
+      <div className="filter-list">
+        <FilterTeams
+          teams={uniqTeams}
+          filters={filters}
+          setFilters={setFilters}
+        />
       </div>
 
       <div className="selected-team-table">
-        {selectedTeam && (
-          <TeamTable
-            name={selectedTeam}
-            players={getTeam(selectedTeam, teams)}
-            showAllPlayers={selectedTeam === ALL_PLAYERS}
-          />
-        )}
+        <TeamTable players={getPlayers(filters, teams)} />
       </div>
     </div>
   );

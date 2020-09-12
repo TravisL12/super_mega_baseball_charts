@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { keys, omit, startCase } from "lodash";
+import { keys, startCase } from "lodash";
 
 const buildTable = (headers, players, setSortOrder) => {
   const updateSort = (header) => {
@@ -69,9 +69,12 @@ const sortPlayers = (players, sortAttr) => {
   });
 };
 
-const TeamTable = ({ players, showAllPlayers = false }) => {
+const TeamTable = ({ players }) => {
   const [sortOrder, setSortOrder] = useState({});
   const [sortPitcherOrder, setSortPitcherOrder] = useState({});
+
+  if (!players.length) return null;
+
   const pitchers = sortPlayers(
     players.filter((player) => player.isPitcher),
     sortPitcherOrder
@@ -81,10 +84,8 @@ const TeamTable = ({ players, showAllPlayers = false }) => {
     sortOrder
   );
 
-  const omitColumn = showAllPlayers ? [] : ["team"];
-
-  const headers = keys(omit(positionPlayers[0].display, omitColumn));
-  const pitcherHeaders = keys(omit(pitchers[0].display, omitColumn));
+  const headers = keys(positionPlayers[0].display);
+  const pitcherHeaders = keys(pitchers[0].display);
 
   return (
     <>
