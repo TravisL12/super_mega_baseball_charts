@@ -65,7 +65,11 @@ const sortPlayers = (players, sortAttr) => {
 
 const TeamTable = ({ players }) => {
   const [sortOrder, setSortOrder] = useState({});
-  const pitchers = players.filter((player) => player.isPitcher);
+  const [sortPitcherOrder, setSortPitcherOrder] = useState({});
+  const pitchers = sortPlayers(
+    players.filter((player) => player.isPitcher),
+    sortPitcherOrder
+  );
   const positionPlayers = sortPlayers(
     players.filter((player) => !player.isPitcher),
     sortOrder
@@ -76,7 +80,7 @@ const TeamTable = ({ players }) => {
   return (
     <div className="team-table">
       {buildTable(headers, positionPlayers, setSortOrder)}
-      {buildTable(pitcherHeaders, pitchers)}
+      {buildTable(pitcherHeaders, pitchers, setSortPitcherOrder)}
     </div>
   );
 };
