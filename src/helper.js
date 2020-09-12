@@ -1,15 +1,27 @@
-import { omit, values, mean } from "lodash";
+import { uniqBy, omit, values, mean } from "lodash";
+
+export const positionList = [
+  "Pitcher",
+  "Catcher",
+  "First Base",
+  "Second Base",
+  "Third Base",
+  "Shortstop",
+  "Left Field",
+  "Center Field",
+  "Right Field",
+];
 
 const positions = {
-  1: { short: "P", name: "Pitcher" },
-  2: { short: "C", name: "Catcher" },
-  3: { short: "1B", name: "First Base" },
-  4: { short: "2B", name: "Second Base" },
-  5: { short: "3B", name: "Third Base" },
-  6: { short: "SS", name: "Shortstop" },
-  7: { short: "LF", name: "Left Field" },
-  8: { short: "CF", name: "Center Field" },
-  9: { short: "RF", name: "Right Field" },
+  1: { short: "P", name: positionList[0] },
+  2: { short: "C", name: positionList[1] },
+  3: { short: "1B", name: positionList[2] },
+  4: { short: "2B", name: positionList[3] },
+  5: { short: "3B", name: positionList[4] },
+  6: { short: "SS", name: positionList[5] },
+  7: { short: "LF", name: positionList[6] },
+  8: { short: "CF", name: positionList[7] },
+  9: { short: "RF", name: positionList[8] },
 };
 
 const pitcherRole = {
@@ -78,4 +90,31 @@ export const createPlayer = (info) => {
     isPitcher,
     display,
   };
+};
+
+export const ALL_PLAYERS = "All Players";
+
+export const filterPlayers = (filters, players) => {
+  const teams = players.filter((player) => filters.teams[player.display.team]);
+  const positions = teams.filter((player) => {
+    const isPitcher = player.isPitcher && filters.positions["Pitcher"];
+    return isPitcher || filters.positions[player.display.position];
+  });
+
+  return uniqBy(positions, "display.name");
+};
+
+export const getUniqTeams = (players) => {
+  return uniqBy(players, "display.team").map(({ display }) => display.team);
+};
+
+export const buildChecklist = (data, defaultVal = false) => {
+  return data.reduce((acc, value) => {
+    acc[value] = defaultVal;
+    return acc;
+  }, {});
+};
+
+export const initialFilters = {
+  positions: buildChecklist(positionList, true),
 };

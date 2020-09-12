@@ -1,36 +1,36 @@
 import React from "react";
 import { keys, values } from "lodash";
 
-const FilterTeams = ({ teams, filters, setFilters }) => {
-  const allSelected = values(filters.teams).every((team) => team);
+const FilterPositions = ({ filters, setFilters }) => {
+  const allSelected = values(filters.positions).every((team) => team);
   return (
     <div>
       <span
         className="all-players"
         onClick={() =>
           setFilters((oldFilters) => {
-            const teams = keys(oldFilters.teams).reduce((acc, team) => {
+            const positions = keys(oldFilters.positions).reduce((acc, team) => {
               acc[team] = !allSelected;
               return acc;
             }, {});
 
-            return { ...oldFilters, teams };
+            return { ...oldFilters, positions };
           })
         }
       >
-        {allSelected ? "Deselect" : "Select"} All Teams
+        {allSelected ? "Deselect" : "Select"} All Positions
       </span>
-      {values(teams).map((teamName) => (
+      {keys(filters.positions).map((teamName) => (
         <div key={teamName}>
           <input
             type="checkbox"
             id={teamName}
-            checked={filters.teams[teamName]}
+            checked={filters.positions[teamName]}
             onChange={() =>
               setFilters((oldFilters) => {
-                const teams = { ...oldFilters.teams };
-                teams[teamName] = !teams[teamName];
-                return { ...oldFilters, teams };
+                const positions = { ...oldFilters.positions };
+                positions[teamName] = !positions[teamName];
+                return { ...oldFilters, positions };
               })
             }
           />
@@ -41,4 +41,4 @@ const FilterTeams = ({ teams, filters, setFilters }) => {
   );
 };
 
-export default FilterTeams;
+export default FilterPositions;
