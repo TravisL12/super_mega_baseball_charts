@@ -35,7 +35,9 @@ h1 {
 .team-list span:hover {
   background: lightgray;
 }
-
+.team-table th {
+  cursor: pointer;
+}
 .team-table th,
 .team-table td {
   position: relative;

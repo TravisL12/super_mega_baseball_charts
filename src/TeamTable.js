@@ -1,13 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { keys, omit, startCase } from "lodash";
 
-const buildTable = (headers, players) => {
+const buildTable = (headers, players, setSortOrder) => {
   return (
     <table>
       <thead>
         <tr>
           {headers.map((header) => (
-            <th key={header}>{startCase(header)}</th>
+            <th
+              onClick={() => {
+                if (!setSortOrder) return;
+                setSortOrder((prevHeader) => {
+                  const direction =
+                    prevHeader.direction === "asc" ? "desc" : "asc";
+                  return { header, direction };
+                });
+              }}
+              key={header}
+            >
+              {startCase(header)}
+            </th>
           ))}
         </tr>
       </thead>
@@ -37,15 +49,33 @@ const buildTable = (headers, players) => {
   );
 };
 
-const TeamTable = ({ name, players }) => {
+const sortPlayers = (players, sortAttr) => {
+  if (!sortAttr.header) {
+    return players;
+  }
+
+  return players.sort((a, b) => {
+    if (sortAttr.direction === "asc") {
+      return +a.display[sortAttr.header] > +b.display[sortAttr.header] ? 1 : -1;
+    } else {
+      return +a.display[sortAttr.header] < +b.display[sortAttr.header] ? 1 : -1;
+    }
+  });
+};
+
+const TeamTable = ({ players }) => {
+  const [sortOrder, setSortOrder] = useState({});
   const pitchers = players.filter((player) => player.isPitcher);
-  const positionPlayers = players.filter((player) => !player.isPitcher);
+  const positionPlayers = sortPlayers(
+    players.filter((player) => !player.isPitcher),
+    sortOrder
+  );
   const headers = keys(positionPlayers[0].display);
   const pitcherHeaders = keys(omit(pitchers[0].display, ["arm"]));
 
   return (
     <div className="team-table">
-      {buildTable(headers, positionPlayers)}
+      {buildTable(headers, positionPlayers, setSortOrder)}
       {buildTable(pitcherHeaders, pitchers)}
     </div>
   );
