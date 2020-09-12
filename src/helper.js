@@ -34,7 +34,7 @@ const pitcherRole = {
 // teamName: "Beewolves"
 // velocity: "66"
 
-const getAverage = (data, isPitcher) => {
+const buildAverage = (data, isPitcher) => {
   const sharedOmit = ["team", "name", "position", "age"];
   const omitAttrs = isPitcher
     ? [...sharedOmit, "arm", "contact", "fielding", "power"]
@@ -72,10 +72,9 @@ export const createPlayer = (info) => {
     };
   }
 
-  const display = getAverage({ ...stats, ...positionStats, ...pitcherStats });
+  const display = buildAverage({ ...stats, ...positionStats, ...pitcherStats });
 
   return {
-    team: info.teamName,
     isPitcher,
     display,
   };

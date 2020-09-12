@@ -39,11 +39,11 @@ h1 {
 .team-list span:hover {
   background: lightgray;
 }
-.team-table th {
+.selected-team-table th {
   cursor: pointer;
 }
-.team-table th,
-.team-table td {
+.selected-team-table th,
+.selected-team-table td {
   position: relative;
   text-align: left;
   min-width: 100px;
@@ -51,11 +51,11 @@ h1 {
   padding: 4px 10px;
 }
 
-.team-table td.player-name {
+.selected-team-table td.player-name {
   width: 200px;
 }
 
-.team-table td.player-position {
+.selected-team-table td.player-position {
   width: 120px;
 }
 .rating-value {

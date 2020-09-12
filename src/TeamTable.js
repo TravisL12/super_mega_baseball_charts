@@ -87,10 +87,10 @@ const TeamTable = ({ players, showAllPlayers = false }) => {
   const pitcherHeaders = keys(omit(pitchers[0].display, omitColumn));
 
   return (
-    <div className="team-table">
+    <>
       {buildTable(headers, positionPlayers, setSortOrder)}
       {buildTable(pitcherHeaders, pitchers, setSortPitcherOrder)}
-    </div>
+    </>
   );
 };
 

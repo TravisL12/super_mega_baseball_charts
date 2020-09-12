@@ -13,7 +13,7 @@ const getTeam = (name, data) => {
     return data.map((player) => player);
   }
 
-  return data.filter(({ team }) => team === name);
+  return data.filter(({ display }) => display.team === name);
 };
 
 function App() {
@@ -34,7 +34,9 @@ function App() {
     getStats();
   }, []);
 
-  const uniqTeams = uniqBy(teams, "team").map(({ team }) => team);
+  const uniqTeams = uniqBy(teams, "display.team").map(
+    ({ display }) => display.team
+  );
 
   return (
     <div className="App">
