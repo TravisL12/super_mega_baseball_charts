@@ -2,8 +2,13 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import Papa from "papaparse";
 import smbCsvData from "./smb_info.csv";
-import { buildTeams } from "./helper";
 import TeamTable from "./TeamTable";
+import { uniqBy } from "lodash";
+import { createPlayer } from "./helper";
+
+const getTeam = (name, data) => {
+  return data.filter(({ team }) => team === name);
+};
 
 function App() {
   const [teams, setTeams] = useState({});
@@ -14,8 +19,9 @@ function App() {
       Papa.parse(smbCsvData, {
         download: true,
         header: true,
-        complete: (results) => {
-          setTeams(buildTeams(results.data));
+        complete: ({ data }) => {
+          const buildPlayers = data.map((player) => createPlayer(player));
+          setTeams(buildPlayers);
         },
       });
     };
@@ -26,11 +32,13 @@ function App() {
     return "Loading...";
   }
 
+  const uniqTeams = uniqBy(teams, "team").map(({ team }) => team);
+
   return (
     <div className="App">
       {selectedTeam && <h1 className="selected-team-name">{selectedTeam}</h1>}
       <div className="team-list">
-        {Object.keys(teams).map((teamName) => (
+        {Object.values(uniqTeams).map((teamName) => (
           <span key={teamName} onClick={() => setSelectedTeam(teamName)}>
             {teamName}
           </span>
@@ -38,7 +46,10 @@ function App() {
       </div>
       <div className="selected-team-table">
         {selectedTeam && (
-          <TeamTable name={selectedTeam} players={teams[selectedTeam]} />
+          <TeamTable
+            name={selectedTeam}
+            players={getTeam(selectedTeam, teams)}
+          />
         )}
       </div>
     </div>

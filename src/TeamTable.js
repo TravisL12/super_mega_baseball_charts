@@ -55,10 +55,17 @@ const sortPlayers = (players, sortAttr) => {
   }
 
   return players.sort((a, b) => {
+    const aDisplay = !isNaN(a.display[sortAttr.header])
+      ? +a.display[sortAttr.header]
+      : a.display[sortAttr.header];
+    const bDisplay = !isNaN(b.display[sortAttr.header])
+      ? +b.display[sortAttr.header]
+      : b.display[sortAttr.header];
+
     if (sortAttr.direction === "asc") {
-      return +a.display[sortAttr.header] > +b.display[sortAttr.header] ? 1 : -1;
+      return aDisplay > bDisplay ? 1 : -1;
     } else {
-      return +a.display[sortAttr.header] < +b.display[sortAttr.header] ? 1 : -1;
+      return aDisplay < bDisplay ? 1 : -1;
     }
   });
 };

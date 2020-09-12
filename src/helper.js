@@ -32,7 +32,7 @@ const pitcherRole = {
 // teamName: "Beewolves"
 // velocity: "66"
 
-const createPlayer = (info) => {
+export const createPlayer = (info) => {
   const position = positions[info.primaryPosition];
   const isPitcher = info.primaryPosition === "1";
   let pitcherStats = {};
@@ -59,20 +59,8 @@ const createPlayer = (info) => {
   }
 
   return {
-    info,
+    team: info.teamName,
     isPitcher,
     display: { ...stats, ...positionStats, ...pitcherStats },
   };
-};
-
-export const buildTeams = (data) => {
-  return data.reduce((teams, info) => {
-    const player = createPlayer(info);
-    if (teams[info.teamName]) {
-      teams[info.teamName].push(player);
-    } else {
-      teams[info.teamName] = [player];
-    }
-    return teams;
-  }, {});
 };
