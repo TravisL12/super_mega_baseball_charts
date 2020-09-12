@@ -1,24 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import "./App.css";
+import Papa from "papaparse";
+import smbCsvData from "./smb_info.csv";
+import { buildTeams } from "./helper";
+import TeamTable from "./TeamTable";
 
 function App() {
+  const [teams, setTeams] = useState({});
+
+  useEffect(() => {
+    const getStats = () => {
+      Papa.parse(smbCsvData, {
+        download: true,
+        header: true,
+        complete: (results) => {
+          setTeams(buildTeams(results.data));
+        },
+      });
+    };
+    getStats();
+  }, []);
+
+  if (!teams) {
+    return "Loading...";
+  }
+  console.log(teams);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {Object.keys(teams).map((teamName) => (
+        <TeamTable name={teamName} players={teams[teamName]} />
+      ))}
     </div>
   );
 }
