@@ -1,0 +1,50 @@
+Queries for SMB3 database
+
+SQLITE output command
+.output <filename>
+<any query will be concatenated to this file>
+
+use `.output` with no filename to stop this mode
+
+
+
+BASEBALL PLAYER ABILITIES
+GUID | originalGUID | teamGUID | power | contact | speed | fielding | arm | velocity | junk | accuracy | age
+select * from t_baseball_players;
+
+BASEBALL PLAYER NAMES/POSITION
+baseballPlayerGUID | firstName | lastName | primaryPosition | pitcherRole
+select * from v_baseball_player_info;
+
+TEAM TYPES
+select * from t_team_types;
+teamType | typeName
+0, standard
+1, sandbox
+2, template
+
+TEAMS
+GUID | originalGUID | teamName | isBuiltIn | isGenerated | teamType | templateTeamFamily | isHistorical
+select * from t_teams;
+
+GET PLAYERS AND ABILITIES AND TEAMS
+select 
+    team.teamName,
+    vbpi.firstName,
+    vbpi.lastName,
+    vbpi.primaryPosition,
+    vbpi.pitcherRole,
+    tbp.power,
+    tbp.contact,
+    tbp.speed,
+    tbp.fielding,
+    tbp.arm,
+    tbp.velocity,
+    tbp.junk,
+    tbp.accuracy,
+    tbp.age
+from v_baseball_player_info vbpi
+join t_baseball_players tbp
+    on vbpi.baseballPlayerGUID = tbp.GUID
+join t_teams team
+    on tbp.teamGUID = team.GUID

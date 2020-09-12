@@ -41,22 +41,22 @@ const createPlayer = (info) => {
     position: isPitcher ? pitcherRole[info.pitcherRole] : position.name,
     age: info.age,
     arm: info.arm,
+    speed: info.speed,
   };
-
-  if (isPitcher) {
-    pitcherStats = {
-      accuracy: info.accuracy,
-      speed: info.speed,
-      velocity: info.velocity,
-      junk: info.junk,
-    };
-  }
 
   const positionStats = {
     contact: info.contact,
     fielding: info.fielding,
     power: info.power,
   };
+
+  if (isPitcher) {
+    pitcherStats = {
+      accuracy: info.accuracy,
+      velocity: info.velocity,
+      junk: info.junk,
+    };
+  }
 
   return {
     info,

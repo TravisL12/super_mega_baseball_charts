@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { keys, omit, startCase } from "lodash";
+import { keys, startCase } from "lodash";
 
 const buildTable = (headers, players, setSortOrder) => {
   return (
@@ -75,7 +75,7 @@ const TeamTable = ({ players }) => {
     sortOrder
   );
   const headers = keys(positionPlayers[0].display);
-  const pitcherHeaders = keys(omit(pitchers[0].display, ["arm"]));
+  const pitcherHeaders = keys(pitchers[0].display);
 
   return (
     <div className="team-table">
