@@ -5,7 +5,12 @@ import { sortColumns } from "./helper";
 const TeamTable = ({ players }) => {
   const [sortOrder, setSortOrder] = useState({});
 
-  if (!players.length) return null;
+  if (!players.length)
+    return (
+      <div className="no-players">
+        No players found. Adjust the search filters.
+      </div>
+    );
 
   const updateSort = (header) => {
     setSortOrder((prevHeader) => {
