@@ -70,6 +70,7 @@ function App() {
       <div className="title-container">
         <h1>Super Mega Baseball 3 Rosters</h1>
         <PlayerTypeForm
+          playerCounts={{ pitchers, positionPlayers }}
           selectedOption={selectedOption}
           onChange={handlePlayerTableChange}
         />

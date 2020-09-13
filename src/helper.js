@@ -92,16 +92,11 @@ export const createPlayer = (info) => {
 export const ALL_PLAYERS = "All Players";
 
 export const filterPlayers = (filters, players) => {
-  if (values(filters.teams).some((val) => val)) {
-    players = players.filter((player) => filters.teams[player.display.team]);
-  }
-
-  if (values(filters.positions).some((val) => val)) {
-    players = players.filter((player) => {
-      const isPitcher = player.isPitcher && filters.positions["Pitcher"];
-      return isPitcher || filters.positions[player.display.position];
-    });
-  }
+  players = players.filter((player) => filters.teams[player.display.team]);
+  players = players.filter((player) => {
+    const isPitcher = player.isPitcher && filters.positions["Pitcher"];
+    return isPitcher || filters.positions[player.display.position];
+  });
 
   return uniqBy(players, "display.name");
 };
@@ -118,7 +113,7 @@ export const buildChecklist = (data, defaultVal = false) => {
 };
 
 export const initialFilters = {
-  positions: buildChecklist(positionList),
+  positions: buildChecklist(positionList, true),
 };
 
 export const sortColumns = (players, sortAttr) => {

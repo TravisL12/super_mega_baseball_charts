@@ -1,6 +1,6 @@
 import React from "react";
 
-const PlayerTypeForm = ({ selectedOption, onChange }) => {
+const PlayerTypeForm = ({ playerCounts, selectedOption, onChange }) => {
   return (
     <form className="player-type-form">
       <div className="radio">
@@ -11,7 +11,7 @@ const PlayerTypeForm = ({ selectedOption, onChange }) => {
             checked={selectedOption === "Positions"}
             onChange={onChange}
           />
-          Positions
+          Positions ({playerCounts.positionPlayers.length})
         </label>
       </div>
       <div className="radio">
@@ -22,7 +22,7 @@ const PlayerTypeForm = ({ selectedOption, onChange }) => {
             checked={selectedOption === "Pitchers"}
             onChange={onChange}
           />
-          Pitchers
+          Pitchers ({playerCounts.pitchers.length})
         </label>
       </div>
     </form>
