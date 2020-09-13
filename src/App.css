@@ -89,6 +89,7 @@ h4 {
 
 .filter-items .all-none-filters .toggle-all-items {
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .selected-team-table table {
@@ -103,6 +104,7 @@ h4 {
   text-align: center;
   cursor: pointer;
   position: sticky;
+  background: black;
   top: 0;
   padding: 10px;
   z-index: 1;
