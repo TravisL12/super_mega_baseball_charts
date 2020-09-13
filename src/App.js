@@ -4,6 +4,7 @@ import Papa from "papaparse";
 import smbCsvData from "./smb_info.csv";
 import TeamTable from "./TeamTable";
 import PlayerTypeForm from "./PlayerTypeForm";
+import { keys } from "lodash";
 import {
   createPlayer,
   initialFilters,
@@ -32,6 +33,20 @@ function App() {
       },
     });
   }, [filters]);
+
+  const checkPitcherOnly = useCallback(() => {
+    const positionFilter = keys(filters.positions).filter(
+      (p) => filters.positions[p]
+    );
+    const onlyPitchers =
+      positionFilter.length === 1 && positionFilter[0] === "Pitcher";
+    console.log(onlyPitchers);
+    setSelectedOption(onlyPitchers ? "Pitchers" : "Positions");
+  }, [filters.positions]);
+
+  useEffect(() => {
+    checkPitcherOnly();
+  }, [checkPitcherOnly]);
 
   useEffect(() => {
     getStats();

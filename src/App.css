@@ -62,6 +62,10 @@ h1 {
   background: yellow;
 }
 
+.selected-team-table table {
+  margin-bottom: 30px;
+}
+
 .selected-team-table td {
   position: relative;
 }
