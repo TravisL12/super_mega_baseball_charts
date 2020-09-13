@@ -10,27 +10,30 @@ import {
   getUniqTeams,
   filterPlayers,
 } from "./helper";
-import FilterTeams from "./FilterTeams";
-import FilterPositions from "./FilterPositions";
+import FilterList from "./FilterList";
 
 function App() {
   const [players, setPlayers] = useState([]);
   const [filters, setFilters] = useState(initialFilters);
 
   const getStats = useCallback(() => {
-    Papa.parse(smbCsvData, {
-      download: true,
-      header: true,
-      complete: ({ data }) => {
-        const buildPlayers = data.map((player) => createPlayer(player));
-        setFilters({
-          ...filters,
-          teams: buildChecklist(getUniqTeams(buildPlayers)),
-        });
-        setPlayers(buildPlayers);
+    Papa.parse(
+      smbCsvData,
+      {
+        download: true,
+        header: true,
+        complete: ({ data }) => {
+          const buildPlayers = data.map((player) => createPlayer(player));
+          setFilters({
+            ...filters,
+            teams: buildChecklist(getUniqTeams(buildPlayers)),
+          });
+          setPlayers(buildPlayers);
+        },
       },
-    });
-  }, [filters]);
+      [filters]
+    );
+  });
 
   useEffect(() => {
     getStats();
@@ -48,12 +51,16 @@ function App() {
     <div className="App">
       <h1 className="selected-team-name">Super Mega Baseball 3 Rosters</h1>
       <div className="filter-list">
-        <FilterTeams
-          teams={getUniqTeams(players)}
+        <FilterList
+          filterAttr="teams"
           filters={filters}
           setFilters={setFilters}
         />
-        <FilterPositions filters={filters} setFilters={setFilters} />
+        <FilterList
+          filterAttr="positions"
+          filters={filters}
+          setFilters={setFilters}
+        />
       </div>
 
       {/* do radio buttons to switch between player/pitcher tables */}
