@@ -23,7 +23,11 @@ const TeamTable = ({ players }) => {
       <thead>
         <tr>
           {headers.map((header) => (
-            <th onClick={() => updateSort(header)} key={header}>
+            <th
+              className={`header-col header-${header}`}
+              onClick={() => updateSort(header)}
+              key={header}
+            >
               {startCase(header)}
             </th>
           ))}

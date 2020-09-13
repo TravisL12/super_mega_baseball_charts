@@ -66,18 +66,18 @@ export const createPlayer = (info) => {
     name: `${info.firstName} ${info.lastName}`,
     position: isPitcher ? pitcherRole[info.pitcherRole] : position.name,
     age: info.age,
-    speed: info.speed,
-    arm: info.arm,
-    contact: info.contact,
-    fielding: info.fielding,
     power: info.power,
+    contact: info.contact,
+    speed: info.speed,
+    fielding: info.fielding,
+    arm: info.arm,
   };
 
   if (isPitcher) {
     pitcherStats = {
-      accuracy: info.accuracy,
       velocity: info.velocity,
       junk: info.junk,
+      accuracy: info.accuracy,
     };
   }
 
