@@ -68,7 +68,10 @@ function App() {
   return (
     <div className="App">
       <div className="title-container">
-        <h1>Super Mega Baseball 3 Rosters</h1>
+        <div className="title-search">
+          <h1>Super Mega Baseball 3 Rosters</h1>
+          <input type="text" placeholder="Search Players by name" />
+        </div>
         <PlayerTypeForm
           playerCounts={{ pitchers, positionPlayers }}
           selectedOption={selectedOption}
