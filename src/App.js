@@ -17,26 +17,23 @@ function App() {
   const [filters, setFilters] = useState(initialFilters);
 
   const getStats = useCallback(() => {
-    Papa.parse(
-      smbCsvData,
-      {
-        download: true,
-        header: true,
-        complete: ({ data }) => {
-          const buildPlayers = data.map((player) => createPlayer(player));
-          setFilters({
-            ...filters,
-            teams: buildChecklist(getUniqTeams(buildPlayers)),
-          });
-          setPlayers(buildPlayers);
-        },
+    Papa.parse(smbCsvData, {
+      download: true,
+      header: true,
+      complete: ({ data }) => {
+        const buildPlayers = data.map((player) => createPlayer(player));
+        setFilters({
+          ...filters,
+          teams: buildChecklist(getUniqTeams(buildPlayers)),
+        });
+        setPlayers(buildPlayers);
       },
-      [filters]
-    );
-  });
+    });
+  }, [filters]);
 
   useEffect(() => {
     getStats();
+    // eslint-disable-next-line
   }, []);
 
   const pitchers = filterPlayers(filters, players).filter(

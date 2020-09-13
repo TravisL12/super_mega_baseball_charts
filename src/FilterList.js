@@ -5,9 +5,9 @@ const FilterList = ({ filters, setFilters, filterAttr }) => {
   const allSelected = values(filters[filterAttr]).every((value) => value);
 
   return (
-    <div>
-      <span
-        className="all-players"
+    <div className="filter-items">
+      <div
+        className="all-items"
         onClick={() =>
           setFilters((prevFilters) => {
             const values = keys(prevFilters[filterAttr]).reduce(
@@ -23,9 +23,9 @@ const FilterList = ({ filters, setFilters, filterAttr }) => {
         }
       >
         {allSelected ? "Deselect" : "Select"} All {startCase(filterAttr)}
-      </span>
+      </div>
       {keys(filters[filterAttr]).map((value) => (
-        <div key={value}>
+        <div className="filter-checkbox-container" key={value}>
           <input
             type="checkbox"
             id={value}
