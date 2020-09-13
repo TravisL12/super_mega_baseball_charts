@@ -26,7 +26,7 @@ function App() {
         const buildPlayers = data.map((player) => createPlayer(player));
         setFilters({
           ...filters,
-          teams: buildChecklist(getUniqTeams(buildPlayers), true),
+          teams: buildChecklist(getUniqTeams(buildPlayers)),
         });
         setPlayers(buildPlayers);
       },

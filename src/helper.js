@@ -118,7 +118,7 @@ export const buildChecklist = (data, defaultVal = false) => {
 };
 
 export const initialFilters = {
-  positions: buildChecklist(positionList, true),
+  positions: buildChecklist(positionList),
 };
 
 export const sortColumns = (players, sortAttr) => {
