@@ -1,28 +1,47 @@
 import React from "react";
-import { keys, values, startCase } from "lodash";
+import { keys, startCase } from "lodash";
 
 const FilterList = ({ filters, setFilters, filterAttr }) => {
-  const allSelected = values(filters[filterAttr]).every((value) => value);
-
   return (
     <div className="filter-items">
-      <div
-        className="all-items"
-        onClick={() =>
-          setFilters((prevFilters) => {
-            const values = keys(prevFilters[filterAttr]).reduce(
-              (acc, value) => {
-                acc[value] = !allSelected;
-                return acc;
-              },
-              {}
-            );
+      <div className="title">{startCase(filterAttr)}</div>
+      <div className="all-none-filters">
+        <div
+          className="toggle-all-items"
+          onClick={() =>
+            setFilters((prevFilters) => {
+              const values = keys(prevFilters[filterAttr]).reduce(
+                (acc, value) => {
+                  acc[value] = true;
+                  return acc;
+                },
+                {}
+              );
 
-            return { ...prevFilters, [filterAttr]: values };
-          })
-        }
-      >
-        {allSelected ? "Deselect" : "Select"} All {startCase(filterAttr)}
+              return { ...prevFilters, [filterAttr]: values };
+            })
+          }
+        >
+          All
+        </div>
+        <div
+          className="toggle-all-items"
+          onClick={() =>
+            setFilters((prevFilters) => {
+              const values = keys(prevFilters[filterAttr]).reduce(
+                (acc, value) => {
+                  acc[value] = false;
+                  return acc;
+                },
+                {}
+              );
+
+              return { ...prevFilters, [filterAttr]: values };
+            })
+          }
+        >
+          None
+        </div>
       </div>
       {keys(filters[filterAttr]).map((value) => (
         <div className="filter-checkbox-container" key={value}>

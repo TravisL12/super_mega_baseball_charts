@@ -77,12 +77,12 @@ function App() {
 
       <div className="filter-list">
         <FilterList
-          filterAttr="teams"
+          filterAttr="positions"
           filters={filters}
           setFilters={setFilters}
         />
         <FilterList
-          filterAttr="positions"
+          filterAttr="teams"
           filters={filters}
           setFilters={setFilters}
         />

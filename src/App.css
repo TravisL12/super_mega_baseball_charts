@@ -1,5 +1,6 @@
 body,
-h1 {
+h1,
+h4 {
   margin: 0;
 }
 
@@ -68,6 +69,26 @@ h1 {
 .filter-list input[type="checkbox"]:checked + label {
   background: #163356;
   box-shadow: inset 0 0 0px 1px white;
+}
+
+.filter-items {
+  background: black;
+  padding: 2px;
+}
+
+.filter-items .title {
+  font-size: 18px;
+  text-align: center;
+}
+
+.filter-items .all-none-filters {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 5px;
+}
+
+.filter-items .all-none-filters .toggle-all-items {
+  text-decoration: underline;
 }
 
 .selected-team-table table {
