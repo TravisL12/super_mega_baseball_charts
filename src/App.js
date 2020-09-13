@@ -3,6 +3,7 @@ import "./App.css";
 import Papa from "papaparse";
 import smbCsvData from "./smb_info.csv";
 import TeamTable from "./TeamTable";
+import PlayerTypeForm from "./PlayerTypeForm";
 import {
   createPlayer,
   initialFilters,
@@ -15,6 +16,7 @@ import FilterList from "./FilterList";
 function App() {
   const [players, setPlayers] = useState([]);
   const [filters, setFilters] = useState(initialFilters);
+  const [selectedOption, setSelectedOption] = useState("Positions");
 
   const getStats = useCallback(() => {
     Papa.parse(smbCsvData, {
@@ -24,7 +26,7 @@ function App() {
         const buildPlayers = data.map((player) => createPlayer(player));
         setFilters({
           ...filters,
-          teams: buildChecklist(getUniqTeams(buildPlayers)),
+          teams: buildChecklist(getUniqTeams(buildPlayers), true),
         });
         setPlayers(buildPlayers);
       },
@@ -36,6 +38,10 @@ function App() {
     // eslint-disable-next-line
   }, []);
 
+  const handlePlayerTableChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
   const pitchers = filterPlayers(filters, players).filter(
     ({ isPitcher }) => isPitcher
   );
@@ -46,7 +52,14 @@ function App() {
 
   return (
     <div className="App">
-      <h1 className="selected-team-name">Super Mega Baseball 3 Rosters</h1>
+      <div className="title-container">
+        <h1>Super Mega Baseball 3 Rosters</h1>
+        <PlayerTypeForm
+          selectedOption={selectedOption}
+          onChange={handlePlayerTableChange}
+        />
+      </div>
+
       <div className="filter-list">
         <FilterList
           filterAttr="teams"
@@ -60,10 +73,10 @@ function App() {
         />
       </div>
 
-      {/* do radio buttons to switch between player/pitcher tables */}
       <div className="selected-team-table">
-        <TeamTable players={positionPlayers} />
-        <TeamTable players={pitchers} />
+        <TeamTable
+          players={selectedOption === "Pitchers" ? pitchers : positionPlayers}
+        />
       </div>
     </div>
   );

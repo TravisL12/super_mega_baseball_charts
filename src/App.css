@@ -7,14 +7,18 @@ h1 {
   display: grid;
   padding: 20px 20px 0;
   grid-template-columns: 200px 1fr;
-  grid-template-rows: 50px 1fr;
+  grid-template-rows: 80px 1fr;
   height: 100vh;
   box-sizing: border-box;
 }
 
-.selected-team-name {
+.title-container {
   grid-column: 2 / 3;
   grid-row: 1;
+}
+
+.title-container .player-type-form {
+  display: flex;
 }
 
 .selected-team-table {
@@ -51,6 +55,7 @@ h1 {
   display: block;
   padding: 4px 10px;
   background: lightgray;
+  cursor: pointer;
 }
 
 .filter-list input[type="checkbox"]:checked + label {

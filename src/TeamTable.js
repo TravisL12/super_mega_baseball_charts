@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { first, keys, startCase } from "lodash";
+import { first, keys, omit, startCase } from "lodash";
 import { sortColumns } from "./helper";
 
 const TeamTable = ({ players }) => {
@@ -15,8 +15,8 @@ const TeamTable = ({ players }) => {
   };
 
   const sortedPlayers = sortColumns(players, sortOrder);
-
-  const headers = keys(first(sortedPlayers).display);
+  const omitValues = first(sortedPlayers).isPitcher ? ["arm"] : [];
+  const headers = keys(omit(first(sortedPlayers).display, omitValues));
 
   return (
     <table>

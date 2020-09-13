@@ -49,7 +49,7 @@ const pitcherRole = {
 const buildAverage = (data, isPitcher) => {
   const sharedOmit = ["team", "name", "position", "age"];
   const omitAttrs = isPitcher
-    ? [...sharedOmit, "arm", "contact", "fielding", "power"]
+    ? [...sharedOmit, "arm", "contact", "fielding", "power", "speed"]
     : [...sharedOmit, "accuracy", "velocity", "junk"];
   const avgValues = values(omit(data, omitAttrs));
   const averaged = mean(avgValues.map((val) => +val)).toFixed(0);
@@ -61,16 +61,13 @@ export const createPlayer = (info) => {
   const position = positions[info.primaryPosition];
   const isPitcher = info.primaryPosition === "1";
   let pitcherStats = {};
-  let stats = {
+  const stats = {
     team: info.teamName,
     name: `${info.firstName} ${info.lastName}`,
     position: isPitcher ? pitcherRole[info.pitcherRole] : position.name,
     age: info.age,
-    arm: info.arm,
     speed: info.speed,
-  };
-
-  const positionStats = {
+    arm: info.arm,
     contact: info.contact,
     fielding: info.fielding,
     power: info.power,
@@ -84,7 +81,7 @@ export const createPlayer = (info) => {
     };
   }
 
-  const display = buildAverage({ ...stats, ...positionStats, ...pitcherStats });
+  const display = buildAverage({ ...stats, ...pitcherStats }, isPitcher);
 
   return {
     isPitcher,
@@ -95,13 +92,18 @@ export const createPlayer = (info) => {
 export const ALL_PLAYERS = "All Players";
 
 export const filterPlayers = (filters, players) => {
-  const teams = players.filter((player) => filters.teams[player.display.team]);
-  const positions = teams.filter((player) => {
-    const isPitcher = player.isPitcher && filters.positions["Pitcher"];
-    return isPitcher || filters.positions[player.display.position];
-  });
+  if (values(filters.teams).some((val) => val)) {
+    players = players.filter((player) => filters.teams[player.display.team]);
+  }
 
-  return uniqBy(positions, "display.name");
+  if (values(filters.positions).some((val) => val)) {
+    players = players.filter((player) => {
+      const isPitcher = player.isPitcher && filters.positions["Pitcher"];
+      return isPitcher || filters.positions[player.display.position];
+    });
+  }
+
+  return uniqBy(players, "display.name");
 };
 
 export const getUniqTeams = (players) => {
