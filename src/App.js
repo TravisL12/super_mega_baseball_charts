@@ -53,6 +53,14 @@ function App() {
     // eslint-disable-next-line
   }, []);
 
+  const searchNames = useCallback((event) => {
+    event.persist();
+
+    setFilters((prevFilters) => {
+      return { ...prevFilters, name: event.target.value };
+    });
+  }, []);
+
   const handlePlayerTableChange = (event) => {
     setSelectedOption(event.target.value);
   };
@@ -70,7 +78,11 @@ function App() {
       <div className="title-container">
         <div className="title-search">
           <h1>Super Mega Baseball 3 Rosters</h1>
-          <input type="text" placeholder="Search Players by name" />
+          <input
+            type="text"
+            placeholder="Search Players by name"
+            onChange={searchNames}
+          />
         </div>
         <PlayerTypeForm
           playerCounts={{ pitchers, positionPlayers }}

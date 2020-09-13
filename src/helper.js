@@ -98,6 +98,12 @@ export const filterPlayers = (filters, players) => {
     return isPitcher || filters.positions[player.display.position];
   });
 
+  if (filters.name) {
+    players = players.filter((player) =>
+      player.display.name.toLowerCase().includes(filters.name.toLowerCase())
+    );
+  }
+
   return uniqBy(players, "display.name");
 };
 
@@ -114,6 +120,7 @@ export const buildChecklist = (data, defaultVal = false) => {
 
 export const initialFilters = {
   positions: buildChecklist(positionList, true),
+  name: "",
 };
 
 export const sortColumns = (players, sortAttr) => {
