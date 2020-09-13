@@ -26,8 +26,9 @@ GUID | originalGUID | teamName | isBuiltIn | isGenerated | teamType | templateTe
 select * from t_teams;
 
 GET PLAYERS AND ABILITIES AND TEAMS
+- Some duplicate players show up with different traits. Not sure why
+
 select 
-    team.teamName,
     vbpi.firstName,
     vbpi.lastName,
     vbpi.primaryPosition,
@@ -40,9 +41,22 @@ select
     tbp.velocity,
     tbp.junk,
     tbp.accuracy,
-    tbp.age
+    tbp.age,
+    traits.trait,
+    traits.subType
 from v_baseball_player_info vbpi
 join t_baseball_players tbp
     on vbpi.baseballPlayerGUID = tbp.GUID
 join t_teams team
     on tbp.teamGUID = team.GUID
+join t_baseball_player_local_ids localId
+    on localId.GUID = tbp.GUID
+left join t_baseball_player_traits traits
+    on localId.localID = traits.baseballPlayerLocalID
+order by vbpi.lastName;
+
+select count(*) from v_baseball_player_info vbpi 
+    join t_baseball_players tbp on vbpi.baseballPlayerGUID = tbp.GUID 
+    join t_teams team on tbp.teamGUID = team.GUID 
+    join t_baseball_player_local_ids localId on localId.GUID = tbp.GUID
+    left join t_baseball_player_traits traits on localId.localID = traits.baseballPlayerLocalID

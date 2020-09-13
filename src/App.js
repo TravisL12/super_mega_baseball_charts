@@ -27,7 +27,7 @@ function App() {
         const buildPlayers = data.map((player) => createPlayer(player));
         setFilters({
           ...filters,
-          teams: buildChecklist(getUniqTeams(buildPlayers)),
+          teams: buildChecklist(getUniqTeams(buildPlayers), true),
         });
         setPlayers(buildPlayers);
       },
@@ -40,7 +40,6 @@ function App() {
     );
     const onlyPitchers =
       positionFilter.length === 1 && positionFilter[0] === "Pitcher";
-    console.log(onlyPitchers);
     setSelectedOption(onlyPitchers ? "Pitchers" : "Positions");
   }, [filters.positions]);
 

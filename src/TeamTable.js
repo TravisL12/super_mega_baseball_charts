@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { first, keys, omit, startCase } from "lodash";
-import { sortColumns } from "./helper";
+import { sortColumns, positionsAbbrev } from "./helper";
 
 const TeamTable = ({ players }) => {
   const [sortOrder, setSortOrder] = useState({});
@@ -39,12 +39,17 @@ const TeamTable = ({ players }) => {
         </tr>
       </thead>
       <tbody>
-        {players.map(({ display }) => (
+        {players.map(({ display, isPitcher }) => (
           <tr key={display.name}>
             {headers.map((header) => {
-              const ratingPercent = !isNaN(display[header])
-                ? `${display[header]}%`
-                : null;
+              const ratingPercent =
+                !isNaN(display[header]) && header !== "age"
+                  ? `${display[header]}%`
+                  : null;
+              const displayValue =
+                header === "position" && !isPitcher
+                  ? positionsAbbrev[display[header]]
+                  : display[header];
               return (
                 <td className={`player-col player-${header}`} key={header}>
                   {ratingPercent && (
@@ -53,7 +58,7 @@ const TeamTable = ({ players }) => {
                       style={{ width: ratingPercent }}
                     ></span>
                   )}
-                  <span className="rating-value">{display[header]}</span>
+                  <span className="rating-value">{displayValue}</span>
                 </td>
               );
             })}

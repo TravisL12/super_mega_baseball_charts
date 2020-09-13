@@ -1,6 +1,7 @@
 import { uniqBy, omit, values, mean } from "lodash";
 
-export const positionList = [
+const positionList = ["P", "C", "1B", "2B", "3B", "SS", "LF", "CF", "RF"];
+const positionLongList = [
   "Pitcher",
   "Catcher",
   "First Base",
@@ -13,15 +14,27 @@ export const positionList = [
 ];
 
 const positions = {
-  1: { short: "P", name: positionList[0] },
-  2: { short: "C", name: positionList[1] },
-  3: { short: "1B", name: positionList[2] },
-  4: { short: "2B", name: positionList[3] },
-  5: { short: "3B", name: positionList[4] },
-  6: { short: "SS", name: positionList[5] },
-  7: { short: "LF", name: positionList[6] },
-  8: { short: "CF", name: positionList[7] },
-  9: { short: "RF", name: positionList[8] },
+  1: positionLongList[0],
+  2: positionLongList[1],
+  3: positionLongList[2],
+  4: positionLongList[3],
+  5: positionLongList[4],
+  6: positionLongList[5],
+  7: positionLongList[6],
+  8: positionLongList[7],
+  9: positionLongList[8],
+};
+
+export const positionsAbbrev = {
+  [positionLongList[0]]: positionList[0],
+  [positionLongList[1]]: positionList[1],
+  [positionLongList[2]]: positionList[2],
+  [positionLongList[3]]: positionList[3],
+  [positionLongList[4]]: positionList[4],
+  [positionLongList[5]]: positionList[5],
+  [positionLongList[6]]: positionList[6],
+  [positionLongList[7]]: positionList[7],
+  [positionLongList[8]]: positionList[8],
 };
 
 const pitcherRole = {
@@ -64,7 +77,7 @@ export const createPlayer = (info) => {
   const stats = {
     team: info.teamName,
     name: `${info.firstName} ${info.lastName}`,
-    position: isPitcher ? pitcherRole[info.pitcherRole] : position.name,
+    position: isPitcher ? pitcherRole[info.pitcherRole] : position,
     age: info.age,
     power: info.power,
     contact: info.contact,
@@ -119,7 +132,7 @@ export const buildChecklist = (data, defaultVal = false) => {
 };
 
 export const initialFilters = {
-  positions: buildChecklist(positionList, true),
+  positions: buildChecklist(positionLongList, true),
   name: "",
 };
 
