@@ -4,16 +4,36 @@ import Papa from "papaparse";
 import smbCsvData from "./smb_info.csv";
 import TeamTable from "./TeamTable";
 import PlayerTypeForm from "./PlayerTypeForm";
-import { keys } from "lodash";
+import { keys, uniqBy } from "lodash";
 import {
   createPlayer,
-  initialFilters,
   buildChecklist,
   getUniqTeams,
-  filterPlayers,
+  positionLongList,
 } from "./helper";
 import FilterList from "./FilterList";
 import smbLogo from "./smb_logo.png";
+
+const initialFilters = {
+  positions: buildChecklist(positionLongList, true),
+  name: "",
+};
+
+const filterPlayers = (filters, players) => {
+  players = players.filter((player) => filters.teams[player.display.team]);
+  players = players.filter((player) => {
+    const isPitcher = player.isPitcher && filters.positions["Pitcher"];
+    return isPitcher || filters.positions[player.display.position];
+  });
+
+  if (filters.name) {
+    players = players.filter((player) =>
+      player.display.name.toLowerCase().includes(filters.name.toLowerCase())
+    );
+  }
+
+  return uniqBy(players, "display.name");
+};
 
 function App() {
   const [players, setPlayers] = useState([]);

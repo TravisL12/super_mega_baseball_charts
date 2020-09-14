@@ -1,6 +1,27 @@
 import React, { useState } from "react";
 import { first, keys, omit, startCase } from "lodash";
-import { sortColumns, positionsAbbrev } from "./helper";
+import { positionsAbbrev } from "./helper";
+
+const sortColumns = (players, sortAttr) => {
+  if (!sortAttr.header) {
+    return players;
+  }
+
+  return players.sort((a, b) => {
+    const aDisplay = isNaN(a.display[sortAttr.header])
+      ? a.display[sortAttr.header]
+      : +a.display[sortAttr.header];
+    const bDisplay = isNaN(b.display[sortAttr.header])
+      ? b.display[sortAttr.header]
+      : +b.display[sortAttr.header];
+
+    if (sortAttr.direction === "asc") {
+      return aDisplay > bDisplay ? 1 : -1;
+    } else {
+      return aDisplay < bDisplay ? 1 : -1;
+    }
+  });
+};
 
 const TeamTable = ({ players }) => {
   const [sortOrder, setSortOrder] = useState({});

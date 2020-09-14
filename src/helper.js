@@ -1,7 +1,7 @@
 import { uniqBy, omit, values, mean } from "lodash";
 
 const positionList = ["P", "C", "1B", "2B", "3B", "SS", "LF", "CF", "RF"];
-const positionLongList = [
+export const positionLongList = [
   "Pitcher",
   "Catcher",
   "First Base",
@@ -102,24 +102,6 @@ export const createPlayer = (info) => {
   };
 };
 
-export const ALL_PLAYERS = "All Players";
-
-export const filterPlayers = (filters, players) => {
-  players = players.filter((player) => filters.teams[player.display.team]);
-  players = players.filter((player) => {
-    const isPitcher = player.isPitcher && filters.positions["Pitcher"];
-    return isPitcher || filters.positions[player.display.position];
-  });
-
-  if (filters.name) {
-    players = players.filter((player) =>
-      player.display.name.toLowerCase().includes(filters.name.toLowerCase())
-    );
-  }
-
-  return uniqBy(players, "display.name");
-};
-
 export const getUniqTeams = (players) => {
   return uniqBy(players, "display.team").map(({ display }) => display.team);
 };
@@ -129,30 +111,4 @@ export const buildChecklist = (data, defaultVal = false) => {
     acc[value] = defaultVal;
     return acc;
   }, {});
-};
-
-export const initialFilters = {
-  positions: buildChecklist(positionLongList, true),
-  name: "",
-};
-
-export const sortColumns = (players, sortAttr) => {
-  if (!sortAttr.header) {
-    return players;
-  }
-
-  return players.sort((a, b) => {
-    const aDisplay = isNaN(a.display[sortAttr.header])
-      ? a.display[sortAttr.header]
-      : +a.display[sortAttr.header];
-    const bDisplay = isNaN(b.display[sortAttr.header])
-      ? b.display[sortAttr.header]
-      : +b.display[sortAttr.header];
-
-    if (sortAttr.direction === "asc") {
-      return aDisplay > bDisplay ? 1 : -1;
-    } else {
-      return aDisplay < bDisplay ? 1 : -1;
-    }
-  });
 };
