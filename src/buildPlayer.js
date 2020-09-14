@@ -1,5 +1,6 @@
 import { keys, pick, values, mean } from 'lodash';
 import { positions, pitcherPositions } from './helper';
+import { options } from './playerOptions';
 
 const buildAverage = (data, isPitcher) => {
   const attributesToAverage = isPitcher
@@ -13,17 +14,20 @@ const buildAverage = (data, isPitcher) => {
 
 export const createPlayer = (info) => {
   const isPitcher = info.primaryPosition === '1';
+
+  const position2 = !isPitcher ? positions[info['55']] : null;
+  const gender = ['M', 'F'][info[0]] || 'M';
+  const throws = ['L', 'R'][info[4]] || 'R';
+  const bats = ['L', 'R'][info[5]] || 'R';
   const position = isPitcher
     ? pitcherPositions[info.pitcherRole]
     : positions[info.primaryPosition];
-  const position2 = !isPitcher ? positions[info['55']] : null;
-  let pitcherStats = {};
+
   const stats = {
     team: info.teamName,
     name: `${info.firstName} ${info.lastName}`,
     position,
     position2,
-    age: info.age,
     power: info.power,
     contact: info.contact,
     speed: info.speed,
@@ -31,12 +35,9 @@ export const createPlayer = (info) => {
     arm: info.arm,
   };
 
-  const traits = {
-    trait: info.trait,
-    trait2: info.subType,
-  };
-
+  let pitcherStats = {};
   if (isPitcher) {
+    delete stats.position2;
     pitcherStats = {
       velocity: info.velocity,
       junk: info.junk,
@@ -44,10 +45,16 @@ export const createPlayer = (info) => {
     };
   }
 
-  const display = buildAverage(
-    { ...stats, ...pitcherStats, ...traits },
-    isPitcher
-  );
+  const traits = {
+    trait: info.trait,
+    trait2: info.subType,
+    bat: bats,
+    thr: throws,
+    age: info.age,
+    gen: gender,
+  };
+
+  const display = { ...stats, ...pitcherStats, ...traits };
 
   return {
     isPitcher,
@@ -77,6 +84,7 @@ export const createPlayer = (info) => {
 // optionKey: '0';
 // optionType: '0';
 // optionValue: '0';
+
 export const compileOptions = (info) => {
   return info.reduce((acc, option) => {
     const optionKeys = keys(option);

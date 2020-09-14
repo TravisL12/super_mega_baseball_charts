@@ -183,6 +183,7 @@
 }
 
 .selected-team-table .header-col {
+  text-transform: uppercase;
   text-align: center;
   cursor: pointer;
   position: sticky;
@@ -223,17 +224,19 @@
 }
 
 .selected-team-table .header-age,
-.selected-team-table .player-col.player-age,
 .selected-team-table .header-position,
-.selected-team-table .player-col.player-position {
-  min-width: 20px;
-}
-
+.selected-team-table .player-col.player-age,
+.selected-team-table .player-col.player-position,
 .selected-team-table .player-col.player-trait,
-.selected-team-table .player-col.player-trait2 {
+.selected-team-table .player-col.player-trait2,
+.selected-team-table .player-col.player-bat,
+.selected-team-table .player-col.player-thr,
+.selected-team-table .player-col.player-position2,
+.selected-team-table .player-col.player-gen,
+.selected-team-table .player-col.player-age {
+  min-width: 20px;
   text-align: center;
 }
-
 .selected-team-table .player-col.player-speed .rating-color {
   background: #1e5290;
 }
