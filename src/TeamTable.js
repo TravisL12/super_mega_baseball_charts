@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { first, keys, omit, startCase } from "lodash";
-import { positionsAbbrev } from "./helper";
+import React, { useState } from 'react';
+import { first, keys, omit, startCase } from 'lodash';
+import { positionsAbbrev } from './helper';
 
 const sortColumns = (players, sortAttr) => {
   if (!sortAttr.header) {
@@ -15,7 +15,7 @@ const sortColumns = (players, sortAttr) => {
       ? b.display[sortAttr.header]
       : +b.display[sortAttr.header];
 
-    if (sortAttr.direction === "asc") {
+    if (sortAttr.direction === 'asc') {
       return aDisplay > bDisplay ? 1 : -1;
     } else {
       return aDisplay < bDisplay ? 1 : -1;
@@ -23,25 +23,29 @@ const sortColumns = (players, sortAttr) => {
   });
 };
 
-const TeamTable = ({ players }) => {
+const TeamTable = ({ players, isPitchers }) => {
   const [sortOrder, setSortOrder] = useState({});
 
   if (!players.length)
     return (
       <div className="no-players">
-        No players found. Adjust the search filters.
+        <p>No {isPitchers ? 'Pitchers' : 'Position players'} found.</p>
+        <p>
+          Check the {isPitchers ? 'Positions' : 'Pitchers'} button at the top,
+        </p>
+        <p>or adjust the search filters.</p>
       </div>
     );
 
   const updateSort = (header) => {
     setSortOrder((prevHeader) => {
-      const direction = prevHeader.direction === "asc" ? "desc" : "asc";
+      const direction = prevHeader.direction === 'asc' ? 'desc' : 'asc';
       return { header, direction };
     });
   };
 
   const sortedPlayers = sortColumns(players, sortOrder);
-  const omitValues = first(sortedPlayers).isPitcher ? ["arm"] : [];
+  const omitValues = first(sortedPlayers).isPitcher ? ['arm'] : [];
   const headers = keys(omit(first(sortedPlayers).display, omitValues));
 
   return (
@@ -65,11 +69,11 @@ const TeamTable = ({ players }) => {
             {headers.map((header) => {
               const ratingPercent =
                 !isNaN(display[header]) &&
-                !["age", "trait", "trait2"].includes(header)
+                !['age', 'trait', 'trait2'].includes(header)
                   ? `${display[header]}%`
                   : null;
               const displayValue =
-                header === "position" && !isPitcher
+                header === 'position' && !isPitcher
                   ? positionsAbbrev[display[header]]
                   : display[header];
               return (

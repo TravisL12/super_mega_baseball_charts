@@ -1,44 +1,51 @@
-import React, { useEffect, useState, useCallback } from "react";
-import "./App.css";
-import Papa from "papaparse";
-import smbCsvData from "./smb_info.csv";
-import TeamTable from "./TeamTable";
-import PlayerTypeForm from "./PlayerTypeForm";
-import { sortBy, keys, uniqBy } from "lodash";
+import React, { useEffect, useState, useCallback } from 'react';
+import './App.css';
+import Papa from 'papaparse';
+import smbCsvData from './smb_info.csv';
+import TeamTable from './TeamTable';
+import PlayerTypeForm from './PlayerTypeForm';
+import { sortBy, keys, uniqBy, values } from 'lodash';
 import {
   createPlayer,
   buildChecklist,
   getUniqTeams,
-  positionLongList,
-} from "./helper";
-import FilterList from "./FilterList";
-import smbLogo from "./smb_logo.png";
+  positions,
+  pitcherRole,
+} from './helper';
+import FilterList from './FilterList';
+import smbLogo from './smb_logo.png';
 
 const initialFilters = {
-  positions: buildChecklist(positionLongList, true),
-  name: "",
+  positions: buildChecklist(values(positions).slice(1), true),
+  pitchers: buildChecklist(values(pitcherRole), true),
+  name: '',
 };
 
 const filterPlayers = (filters, players) => {
+  // Filter team names
   players = players.filter((player) => filters.teams[player.display.team]);
-  players = players.filter((player) => {
-    const isPitcher = player.isPitcher && filters.positions["Pitcher"];
-    return isPitcher || filters.positions[player.display.position];
+
+  // Filter positions
+  players = players.filter(({ display: { position } }) => {
+    const isPitcher = filters.pitchers[position];
+    const isPosition = filters.positions[position];
+    return isPitcher || isPosition;
   });
 
+  // Filter name search
   if (filters.name) {
     players = players.filter((player) =>
       player.display.name.toLowerCase().includes(filters.name.toLowerCase())
     );
   }
 
-  return uniqBy(players, "display.name");
+  return uniqBy(players, 'display.name');
 };
 
 function App() {
   const [players, setPlayers] = useState([]);
   const [filters, setFilters] = useState(initialFilters);
-  const [selectedOption, setSelectedOption] = useState("Positions");
+  const [selectedOption, setSelectedOption] = useState('Positions');
 
   const getStats = useCallback(() => {
     Papa.parse(smbCsvData, {
@@ -60,8 +67,8 @@ function App() {
       (p) => filters.positions[p]
     );
     const onlyPitchers =
-      positionFilter.length === 1 && positionFilter[0] === "Pitcher";
-    setSelectedOption(onlyPitchers ? "Pitchers" : "Positions");
+      positionFilter.length === 1 && positionFilter[0] === 'Pitcher';
+    setSelectedOption(onlyPitchers ? 'Pitchers' : 'Positions');
   }, [filters.positions]);
 
   useEffect(() => {
@@ -100,21 +107,26 @@ function App() {
       </div>
 
       <div className="title-search">
-        <input
-          type="text"
-          placeholder="Search Players by name"
-          onChange={searchNames}
-        />
         <PlayerTypeForm
           playerCounts={{ pitchers, positionPlayers }}
           selectedOption={selectedOption}
           onChange={handlePlayerTableChange}
+        />
+        <input
+          type="text"
+          placeholder="Search Players by name"
+          onChange={searchNames}
         />
       </div>
 
       <div className="filter-list">
         <FilterList
           filterAttr="positions"
+          filters={filters}
+          setFilters={setFilters}
+        />
+        <FilterList
+          filterAttr="pitchers"
           filters={filters}
           setFilters={setFilters}
         />
@@ -127,7 +139,8 @@ function App() {
 
       <div className="selected-team-table">
         <TeamTable
-          players={selectedOption === "Pitchers" ? pitchers : positionPlayers}
+          isPitchers={selectedOption === 'Pitchers'}
+          players={selectedOption === 'Pitchers' ? pitchers : positionPlayers}
         />
       </div>
     </div>

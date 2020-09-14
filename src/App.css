@@ -2,25 +2,25 @@
   background: #1e2a2f;
   color: white;
   display: grid;
-  padding: 0 20px;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 220px 1fr;
   grid-template-rows: 80px 1fr;
-  grid-column-gap: 15px;
   height: 100vh;
   box-sizing: border-box;
 }
 
 .title-search {
   display: flex;
+  background: black;
   align-items: center;
   grid-column: 2 / 3;
   grid-row: 1;
+  padding: 0 20px;
+  justify-content: space-between;
 }
 
 .title-search input {
   width: 400px;
   height: 40px;
-  margin-right: 20px;
   font-size: 18px;
   padding: 8px 10px;
 }
@@ -28,15 +28,30 @@
 .title-search .player-type-form {
   display: flex;
   justify-content: space-between;
-  min-width: 300px;
+  align-self: flex-end;
+  height: 50px;
+  min-width: 320px;
 }
 
-.title-search .player-type-form .player-type input[type="radio"] {
+.title-search .player-type-form .player-type input[type='radio'] {
   display: none;
 }
 
-.title-search .player-type-form .player-type input[type="radio"] + label {
-  background: #272727;
+.title-search .player-type-form .player-type input[type='radio'] + label {
+  display: flex;
+  align-items: center;
+  min-width: 150px;
+  height: 100%;
+  justify-content: center;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(30, 42, 47, 1) 70%,
+    rgba(30, 42, 47, 1) 100%
+  );
   cursor: pointer;
   padding: 4px 10px;
 }
@@ -44,14 +59,14 @@
 .title-search
   .player-type-form
   .player-type
-  input[type="radio"]:checked
+  input[type='radio']:checked
   + label {
-  background: #163356;
-  box-shadow: inset 0 0 0px 1px white;
+  background: #1e2a2f;
 }
 
 .title-logo {
   display: flex;
+  background: black;
   align-items: center;
   grid-column: 1;
   grid-row: 1;
@@ -73,6 +88,8 @@
   flex-direction: column;
   grid-column: 1 / 2;
   grid-row: 2;
+  padding: 20px 20px 0;
+  background: #1e2a2f;
   overflow: auto;
   font-size: 14px;
 }
@@ -87,7 +104,7 @@
   margin-top: 2px;
 }
 
-.filter-list input[type="checkbox"] {
+.filter-list input[type='checkbox'] {
   display: none;
 }
 
@@ -103,7 +120,7 @@
   background: #505050;
 }
 
-.filter-list input[type="checkbox"]:checked + label {
+.filter-list input[type='checkbox']:checked + label {
   background: #163356;
   box-shadow: inset 0 0 0px 1px white;
 }
@@ -129,6 +146,11 @@
   cursor: pointer;
 }
 
+.selected-team-table {
+  background: #1e2a2f;
+  padding: 20px 20px 0 0;
+}
+
 .selected-team-table table {
   margin-bottom: 30px;
   padding: 10px;
@@ -140,12 +162,17 @@
 
 .no-players {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background: #272727;
   box-shadow: inset 0 0 0px 2px black;
   width: 100%;
   height: 200px;
+}
+
+.no-players p {
+  margin: 0 0 10px;
 }
 
 :root {
@@ -250,7 +277,7 @@
 }
 
 .rating-color:after {
-  content: "";
+  content: '';
   position: absolute;
   right: 0;
   width: 4px;

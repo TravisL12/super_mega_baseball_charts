@@ -1,47 +1,34 @@
-import { uniqBy, omit, values, mean } from "lodash";
+import { uniqBy, pick, values, mean } from 'lodash';
 
-const positionList = ["P", "C", "1B", "2B", "3B", "SS", "LF", "CF", "RF"];
-export const positionLongList = [
-  "Pitcher",
-  "Catcher",
-  "First Base",
-  "Second Base",
-  "Third Base",
-  "Shortstop",
-  "Left Field",
-  "Center Field",
-  "Right Field",
-];
-
-const positions = {
-  1: positionLongList[0],
-  2: positionLongList[1],
-  3: positionLongList[2],
-  4: positionLongList[3],
-  5: positionLongList[4],
-  6: positionLongList[5],
-  7: positionLongList[6],
-  8: positionLongList[7],
-  9: positionLongList[8],
+export const positions = {
+  1: 'Pitcher',
+  2: 'Catcher',
+  3: 'First Base',
+  4: 'Second Base',
+  5: 'Third Base',
+  6: 'Shortstop',
+  7: 'Left Field',
+  8: 'Center Field',
+  9: 'Right Field',
 };
 
 export const positionsAbbrev = {
-  [positionLongList[0]]: positionList[0],
-  [positionLongList[1]]: positionList[1],
-  [positionLongList[2]]: positionList[2],
-  [positionLongList[3]]: positionList[3],
-  [positionLongList[4]]: positionList[4],
-  [positionLongList[5]]: positionList[5],
-  [positionLongList[6]]: positionList[6],
-  [positionLongList[7]]: positionList[7],
-  [positionLongList[8]]: positionList[8],
+  [positions[1]]: 'P',
+  [positions[2]]: 'C',
+  [positions[3]]: '1B',
+  [positions[4]]: '2B',
+  [positions[5]]: '3B',
+  [positions[6]]: 'SS',
+  [positions[7]]: 'LF',
+  [positions[8]]: 'CF',
+  [positions[9]]: 'RF',
 };
 
-const pitcherRole = {
-  1: "SP",
-  2: "SP/RP",
-  3: "RP",
-  4: "CP",
+export const pitcherRole = {
+  1: 'SP',
+  2: 'SP/RP',
+  3: 'RP',
+  4: 'CP',
 };
 
 // accuracy: "46"
@@ -58,13 +45,14 @@ const pitcherRole = {
 // speed: "35"
 // teamName: "Beewolves"
 // velocity: "66"
+// trait: "1"
+// trait2: "5"
 
 const buildAverage = (data, isPitcher) => {
-  const sharedOmit = ["team", "name", "position", "age"];
-  const omitAttrs = isPitcher
-    ? [...sharedOmit, "arm", "contact", "fielding", "power", "speed"]
-    : [...sharedOmit, "accuracy", "velocity", "junk"];
-  const avgValues = values(omit(data, omitAttrs));
+  const attributesToAverage = isPitcher
+    ? ['accuracy', 'velocity', 'junk']
+    : ['arm', 'contact', 'fielding', 'power', 'speed'];
+  const avgValues = values(pick(data, attributesToAverage));
   const averaged = mean(avgValues.map((val) => +val)).toFixed(0);
 
   return { ...data, averaged };
@@ -72,7 +60,7 @@ const buildAverage = (data, isPitcher) => {
 
 export const createPlayer = (info) => {
   const position = positions[info.primaryPosition];
-  const isPitcher = info.primaryPosition === "1";
+  const isPitcher = info.primaryPosition === '1';
   let pitcherStats = {};
   const stats = {
     team: info.teamName,
@@ -111,7 +99,7 @@ export const createPlayer = (info) => {
 };
 
 export const getUniqTeams = (players) => {
-  return uniqBy(players, "display.team").map(({ display }) => display.team);
+  return uniqBy(players, 'display.team').map(({ display }) => display.team);
 };
 
 export const buildChecklist = (data, defaultVal = false) => {
