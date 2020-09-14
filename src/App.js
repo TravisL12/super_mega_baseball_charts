@@ -13,6 +13,7 @@ import {
   filterPlayers,
 } from "./helper";
 import FilterList from "./FilterList";
+import smbLogo from "./smb_logo.png";
 
 function App() {
   const [players, setPlayers] = useState([]);
@@ -74,15 +75,15 @@ function App() {
 
   return (
     <div className="App">
-      <div className="title-container">
-        <div className="title-search">
-          <h1>Super Mega Baseball 3 Rosters</h1>
-          <input
-            type="text"
-            placeholder="Search Players by name"
-            onChange={searchNames}
-          />
-        </div>
+      <div className="title-logo">
+        <img src={smbLogo} />
+      </div>
+      <div className="title-search">
+        <input
+          type="text"
+          placeholder="Search Players by name"
+          onChange={searchNames}
+        />
         <PlayerTypeForm
           playerCounts={{ pitchers, positionPlayers }}
           selectedOption={selectedOption}
