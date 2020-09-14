@@ -64,7 +64,7 @@ const TeamTable = ({ players, isPitchers }) => {
         </tr>
       </thead>
       <tbody>
-        {players.map(({ display, isPitcher }) => (
+        {players.map(({ display }) => (
           <tr key={display.name}>
             {headers.map((header) => {
               const ratingPercent =
@@ -72,10 +72,11 @@ const TeamTable = ({ players, isPitchers }) => {
                 !['age', 'trait', 'trait2'].includes(header)
                   ? `${display[header]}%`
                   : null;
-              const displayValue =
-                header === 'position'
-                  ? positionsAbbrev[display[header]]
-                  : display[header];
+
+              const displayValue = header.includes('position')
+                ? positionsAbbrev[display[header]]
+                : display[header];
+
               return (
                 <td className={`player-col player-${header}`} key={header}>
                   {ratingPercent && (

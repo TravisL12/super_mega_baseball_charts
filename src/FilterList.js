@@ -1,5 +1,5 @@
-import React from "react";
-import { keys, startCase } from "lodash";
+import React from 'react';
+import { keys, startCase } from 'lodash';
 
 const FilterList = ({ filters, setFilters, filterAttr }) => {
   return (

@@ -1,15 +1,16 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import './App.css';
 import Papa from 'papaparse';
-import smbCsvData from './smb_info.csv';
+import smbCsvData from './smb_data.csv';
 import TeamTable from './TeamTable';
 import PlayerTypeForm from './PlayerTypeForm';
 import { sortBy, uniqBy, values } from 'lodash';
+import { compileOptions, createPlayer } from './buildPlayer';
 import {
-  createPlayer,
   buildChecklist,
   getUniqTeams,
   positions,
+  secondaryPositions,
   pitcherPositions,
 } from './helper';
 import FilterList from './FilterList';
@@ -17,6 +18,7 @@ import smbLogo from './smb_logo.png';
 
 const initialFilters = {
   positions: buildChecklist(values(positions).slice(1), true),
+  positions2: buildChecklist(values(secondaryPositions), true),
   pitchers: buildChecklist(values(pitcherPositions), true),
   name: '',
 };
@@ -42,43 +44,31 @@ const filterPlayers = (filters, players) => {
   return uniqBy(players, 'display.name');
 };
 
+const loadPlayers = (cb) => {
+  Papa.parse(smbCsvData, {
+    download: true,
+    header: true,
+    complete: cb,
+  });
+};
+
 function App() {
   const [players, setPlayers] = useState([]);
   const [filters, setFilters] = useState(initialFilters);
   const [selectedOption, setSelectedOption] = useState('Positions');
 
-  const getStats = useCallback(() => {
-    Papa.parse(smbCsvData, {
-      download: true,
-      header: true,
-      complete: ({ data }) => {
-        const buildPlayers = data.map((player) => createPlayer(player));
-        setFilters({
-          ...filters,
-          teams: buildChecklist(sortBy(getUniqTeams(buildPlayers)), true),
-        });
-        setPlayers(buildPlayers);
-      },
+  useEffect(() => {
+    loadPlayers(({ data }) => {
+      const options = compileOptions(data);
+      const buildPlayers = values(options).map((player) =>
+        createPlayer(player)
+      );
+      setFilters({
+        ...filters,
+        teams: buildChecklist(sortBy(getUniqTeams(buildPlayers)), true),
+      });
+      setPlayers(buildPlayers);
     });
-  }, [filters]);
-
-  const checkPitcherOnly = useCallback(() => {
-    const allPositionFiltersOff = values(filters.positions).every((p) => !p);
-    const somePitcherFiltersOn = values(filters.pitchers).some((p) => p);
-
-    setSelectedOption(
-      allPositionFiltersOff && somePitcherFiltersOn
-        ? 'Pitchers'
-        : selectedOption
-    );
-  }, [filters.positions, filters.pitchers, selectedOption]);
-
-  useEffect(() => {
-    checkPitcherOnly();
-  }, [checkPitcherOnly]);
-
-  useEffect(() => {
-    getStats();
     // eslint-disable-next-line
   }, []);
 

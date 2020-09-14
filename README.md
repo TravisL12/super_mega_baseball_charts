@@ -12,6 +12,8 @@ The database was named `bigfly.sqlite`, I made a copy of it and used `sqlite3` t
 - `SELECT * from <table_name>` simple query use `limit 10` to just see the headers.
 - `.output output.csv` to output the query to a CSV file
 
+Additional data for the options was shared to me.
+
 ## Queries used
 
 These are some simple queries used to eventually output the data in this site. I added the headers for each of the table outputs.
