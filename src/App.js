@@ -4,7 +4,7 @@ import Papa from "papaparse";
 import smbCsvData from "./smb_info.csv";
 import TeamTable from "./TeamTable";
 import PlayerTypeForm from "./PlayerTypeForm";
-import { keys, uniqBy } from "lodash";
+import { sortBy, keys, uniqBy } from "lodash";
 import {
   createPlayer,
   buildChecklist,
@@ -48,7 +48,7 @@ function App() {
         const buildPlayers = data.map((player) => createPlayer(player));
         setFilters({
           ...filters,
-          teams: buildChecklist(getUniqTeams(buildPlayers), true),
+          teams: buildChecklist(sortBy(getUniqTeams(buildPlayers)), true),
         });
         setPlayers(buildPlayers);
       },
@@ -96,8 +96,9 @@ function App() {
   return (
     <div className="App">
       <div className="title-logo">
-        <img src={smbLogo} />
+        <img alt="Super Mega Baseball Logo" src={smbLogo} />
       </div>
+
       <div className="title-search">
         <input
           type="text"

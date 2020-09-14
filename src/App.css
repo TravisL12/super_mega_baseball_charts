@@ -177,7 +177,7 @@
   position: relative;
   height: 40px;
   text-align: left;
-  min-width: 100px;
+  min-width: 80px;
   box-sizing: border-box;
   font-weight: 500;
   padding: var(--cell-padding-tb) var(--cell-padding-lr);
@@ -185,12 +185,12 @@
 
 .selected-team-table .header-team,
 .selected-team-table .player-col.player-team {
-  min-width: 140px;
+  min-width: 100px;
 }
 
 .selected-team-table .header-name,
 .selected-team-table .player-col.player-name {
-  min-width: 200px;
+  min-width: 160px;
 }
 
 .selected-team-table .header-age,
@@ -198,6 +198,11 @@
 .selected-team-table .header-position,
 .selected-team-table .player-col.player-position {
   min-width: 20px;
+}
+
+.selected-team-table .player-col.player-trait,
+.selected-team-table .player-col.player-trait2 {
+  text-align: center;
 }
 
 .selected-team-table .player-col.player-speed .rating-color {

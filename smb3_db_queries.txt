@@ -55,8 +55,22 @@ left join t_baseball_player_traits traits
     on localId.localID = traits.baseballPlayerLocalID
 order by vbpi.lastName;
 
-select count(*) from v_baseball_player_info vbpi 
-    join t_baseball_players tbp on vbpi.baseballPlayerGUID = tbp.GUID 
-    join t_teams team on tbp.teamGUID = team.GUID 
-    join t_baseball_player_local_ids localId on localId.GUID = tbp.GUID
-    left join t_baseball_player_traits traits on localId.localID = traits.baseballPlayerLocalID
+DUPLICATES
+select
+    vbpi.firstName,
+    vbpi.lastName,
+    traits.trait,
+    traits.subType,
+    count(*)
+from v_baseball_player_info vbpi
+join t_baseball_players tbp
+    on vbpi.baseballPlayerGUID = tbp.GUID
+join t_teams team
+    on tbp.teamGUID = team.GUID
+join t_baseball_player_local_ids localId
+    on localId.GUID = tbp.GUID
+left join t_baseball_player_traits traits
+    on localId.localID = traits.baseballPlayerLocalID
+GROUP BY vbpi.firstName, vbpi.lastName
+HAVING COUNT(*) > 1
+

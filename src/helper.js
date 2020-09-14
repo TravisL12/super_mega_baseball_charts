@@ -86,6 +86,11 @@ export const createPlayer = (info) => {
     arm: info.arm,
   };
 
+  const traits = {
+    trait: info.trait,
+    trait2: info.subType,
+  };
+
   if (isPitcher) {
     pitcherStats = {
       velocity: info.velocity,
@@ -94,7 +99,10 @@ export const createPlayer = (info) => {
     };
   }
 
-  const display = buildAverage({ ...stats, ...pitcherStats }, isPitcher);
+  const display = buildAverage(
+    { ...stats, ...pitcherStats, ...traits },
+    isPitcher
+  );
 
   return {
     isPitcher,
@@ -107,6 +115,7 @@ export const getUniqTeams = (players) => {
 };
 
 export const buildChecklist = (data, defaultVal = false) => {
+  console.log(data);
   return data.reduce((acc, value) => {
     acc[value] = defaultVal;
     return acc;

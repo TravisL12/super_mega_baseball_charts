@@ -64,7 +64,8 @@ const TeamTable = ({ players }) => {
           <tr key={display.name}>
             {headers.map((header) => {
               const ratingPercent =
-                !isNaN(display[header]) && header !== "age"
+                !isNaN(display[header]) &&
+                !["age", "trait", "trait2"].includes(header)
                   ? `${display[header]}%`
                   : null;
               const displayValue =
