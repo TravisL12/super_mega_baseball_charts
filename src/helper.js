@@ -115,7 +115,6 @@ export const getUniqTeams = (players) => {
 };
 
 export const buildChecklist = (data, defaultVal = false) => {
-  console.log(data);
   return data.reduce((acc, value) => {
     acc[value] = defaultVal;
     return acc;
