@@ -4,20 +4,20 @@ import Papa from 'papaparse';
 import smbCsvData from './smb_info.csv';
 import TeamTable from './TeamTable';
 import PlayerTypeForm from './PlayerTypeForm';
-import { sortBy, keys, uniqBy, values } from 'lodash';
+import { sortBy, uniqBy, values } from 'lodash';
 import {
   createPlayer,
   buildChecklist,
   getUniqTeams,
   positions,
-  pitcherRole,
+  pitcherPositions,
 } from './helper';
 import FilterList from './FilterList';
 import smbLogo from './smb_logo.png';
 
 const initialFilters = {
   positions: buildChecklist(values(positions).slice(1), true),
-  pitchers: buildChecklist(values(pitcherRole), true),
+  pitchers: buildChecklist(values(pitcherPositions), true),
   name: '',
 };
 
@@ -63,13 +63,15 @@ function App() {
   }, [filters]);
 
   const checkPitcherOnly = useCallback(() => {
-    const positionFilter = keys(filters.positions).filter(
-      (p) => filters.positions[p]
+    const allPositionFiltersOff = values(filters.positions).every((p) => !p);
+    const somePitcherFiltersOn = values(filters.pitchers).some((p) => p);
+
+    setSelectedOption(
+      allPositionFiltersOff && somePitcherFiltersOn
+        ? 'Pitchers'
+        : selectedOption
     );
-    const onlyPitchers =
-      positionFilter.length === 1 && positionFilter[0] === 'Pitcher';
-    setSelectedOption(onlyPitchers ? 'Pitchers' : 'Positions');
-  }, [filters.positions]);
+  }, [filters.positions, filters.pitchers, selectedOption]);
 
   useEffect(() => {
     checkPitcherOnly();

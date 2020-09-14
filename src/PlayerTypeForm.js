@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const PlayerTypeForm = ({ playerCounts, selectedOption, onChange }) => {
   return (
@@ -8,7 +8,7 @@ const PlayerTypeForm = ({ playerCounts, selectedOption, onChange }) => {
           type="radio"
           value="Positions"
           id="positions"
-          checked={selectedOption === "Positions"}
+          checked={selectedOption === 'Positions'}
           onChange={onChange}
         />
         <label htmlFor="positions">
@@ -20,7 +20,7 @@ const PlayerTypeForm = ({ playerCounts, selectedOption, onChange }) => {
           type="radio"
           value="Pitchers"
           id="pitchers"
-          checked={selectedOption === "Pitchers"}
+          checked={selectedOption === 'Pitchers'}
           onChange={onChange}
         />
         <label htmlFor="pitchers">

@@ -12,6 +12,13 @@ export const positions = {
   9: 'Right Field',
 };
 
+export const pitcherPositions = {
+  1: 'Starting',
+  2: 'Starting/Relief',
+  3: 'Relief',
+  4: 'Closer',
+};
+
 export const positionsAbbrev = {
   [positions[1]]: 'P',
   [positions[2]]: 'C',
@@ -22,13 +29,10 @@ export const positionsAbbrev = {
   [positions[7]]: 'LF',
   [positions[8]]: 'CF',
   [positions[9]]: 'RF',
-};
-
-export const pitcherRole = {
-  1: 'SP',
-  2: 'SP/RP',
-  3: 'RP',
-  4: 'CP',
+  [pitcherPositions[1]]: 'SP',
+  [pitcherPositions[2]]: 'SP/RP',
+  [pitcherPositions[3]]: 'RP',
+  [pitcherPositions[4]]: 'CP',
 };
 
 // accuracy: "46"
@@ -65,7 +69,7 @@ export const createPlayer = (info) => {
   const stats = {
     team: info.teamName,
     name: `${info.firstName} ${info.lastName}`,
-    position: isPitcher ? pitcherRole[info.pitcherRole] : position,
+    position: isPitcher ? pitcherPositions[info.pitcherRole] : position,
     age: info.age,
     power: info.power,
     contact: info.contact,

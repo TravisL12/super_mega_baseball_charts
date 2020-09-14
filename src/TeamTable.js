@@ -73,7 +73,7 @@ const TeamTable = ({ players, isPitchers }) => {
                   ? `${display[header]}%`
                   : null;
               const displayValue =
-                header === 'position' && !isPitcher
+                header === 'position'
                   ? positionsAbbrev[display[header]]
                   : display[header];
               return (
