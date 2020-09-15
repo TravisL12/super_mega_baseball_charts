@@ -1,29 +1,34 @@
-import { keys, pick, values, mean } from 'lodash';
+import { keys, pick, reduce } from 'lodash';
 import { positions, pitcherPositions } from './helper';
 import { options } from './playerOptions';
 
-const buildAverage = (data, isPitcher) => {
-  const attributesToAverage = isPitcher
-    ? ['accuracy', 'velocity', 'junk']
-    : ['arm', 'contact', 'fielding', 'power', 'speed'];
-  const avgValues = values(pick(data, attributesToAverage));
-  const averaged = mean(avgValues.map((val) => +val)).toFixed(0);
-
-  return { ...data, averaged };
+const buildArsenal = (info) => {
+  const pitches = pick(info, ['58', '59', '60', '61', '62', '63', '64', '65']);
+  return reduce(
+    pitches,
+    (total, value, id) => {
+      if (value === '1') {
+        total.push(options[id]);
+      }
+      return total;
+    },
+    []
+  );
 };
 
 export const createPlayer = (info) => {
   const isPitcher = info.primaryPosition === '1';
 
   const position2 = !isPitcher ? positions[info['55']] : null;
-  const gender = ['M', 'F'][info[0]] || 'M';
-  const throws = ['L', 'R'][info[4]] || 'R';
-  const bats = ['L', 'R'][info[5]] || 'R';
+  const gender = ['M', 'F'][info[0]];
+  const throws = ['L', 'R'][info[4]];
+  const bats = ['L', 'R', 'S'][info[5]];
+  const arsenal = buildArsenal(info);
   const position = isPitcher
     ? pitcherPositions[info.pitcherRole]
     : positions[info.primaryPosition];
 
-  const stats = {
+  const display = {
     team: info.teamName,
     name: `${info.firstName} ${info.lastName}`,
     position,
@@ -33,28 +38,17 @@ export const createPlayer = (info) => {
     speed: info.speed,
     fielding: info.fielding,
     arm: info.arm,
-  };
-
-  let pitcherStats = {};
-  if (isPitcher) {
-    delete stats.position2;
-    pitcherStats = {
-      velocity: info.velocity,
-      junk: info.junk,
-      accuracy: info.accuracy,
-    };
-  }
-
-  const traits = {
     trait: info.trait,
     trait2: info.subType,
-    bat: bats,
-    thr: throws,
+    bats,
+    throws,
     age: info.age,
-    gen: gender,
+    gender: gender,
+    arsenal,
+    velocity: info.velocity,
+    junk: info.junk,
+    accuracy: info.accuracy,
   };
-
-  const display = { ...stats, ...pitcherStats, ...traits };
 
   return {
     isPitcher,
@@ -62,28 +56,6 @@ export const createPlayer = (info) => {
     info,
   };
 };
-
-// accuracy: "46"
-// age: "22"
-// arm: ""
-// contact: "38"
-// fielding: "98"
-// firstName: "Fran"
-// junk: "54"
-// lastName: "Gipani"
-// pitcherRole: "1"
-// power: "2"
-// primaryPosition: "1"
-// speed: "35"
-// teamName: "Beewolves"
-// velocity: "66"
-// trait: "1"
-// trait2: "5"
-
-// baseballPlayerLocalID: '1';
-// optionKey: '0';
-// optionType: '0';
-// optionValue: '0';
 
 export const compileOptions = (info) => {
   return info.reduce((acc, option) => {

@@ -229,10 +229,10 @@
 .selected-team-table .player-col.player-position,
 .selected-team-table .player-col.player-trait,
 .selected-team-table .player-col.player-trait2,
-.selected-team-table .player-col.player-bat,
-.selected-team-table .player-col.player-thr,
+.selected-team-table .player-col.player-bats,
+.selected-team-table .player-col.player-throws,
 .selected-team-table .player-col.player-position2,
-.selected-team-table .player-col.player-gen,
+.selected-team-table .player-col.player-gender,
 .selected-team-table .player-col.player-age {
   min-width: 20px;
   text-align: center;

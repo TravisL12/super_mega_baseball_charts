@@ -1,6 +1,65 @@
 import React, { useState } from 'react';
-import { first, keys, omit, startCase } from 'lodash';
 import { positionsAbbrev } from './helper';
+
+const columnNameMap = {
+  team: 'team',
+  name: 'name',
+  position: 'P. Pos',
+  position2: 'S. Pos',
+  power: 'pow',
+  contact: 'con',
+  speed: 'spd',
+  fielding: 'fld',
+  arm: 'arm',
+  arsenal: 'arsenal',
+  velocity: 'velocity',
+  junk: 'junk',
+  accuracy: 'accuracy',
+  trait: 'trait 1',
+  trait2: 'trait 2',
+  bats: 'bat',
+  throws: 'thr',
+  age: 'age',
+  gender: 'gen',
+};
+
+const columnOrderMap = [
+  'team',
+  'name',
+  'position',
+  'position2',
+  'power',
+  'contact',
+  'speed',
+  'fielding',
+  'arm',
+  'trait',
+  'trait2',
+  'bats',
+  'throws',
+  'age',
+  'gender',
+];
+
+const pitcherColumnOrderMap = [
+  'team',
+  'name',
+  'position',
+  'arsenal',
+  'power',
+  'contact',
+  'speed',
+  'fielding',
+  'velocity',
+  'junk',
+  'accuracy',
+  'trait',
+  'trait2',
+  'bats',
+  'throws',
+  'age',
+  'gender',
+];
 
 const sortColumns = (players, sortAttr) => {
   if (!sortAttr.header) {
@@ -45,8 +104,7 @@ const TeamTable = ({ players, isPitchers }) => {
   };
 
   const sortedPlayers = sortColumns(players, sortOrder);
-  const omitValues = first(sortedPlayers).isPitcher ? ['arm'] : [];
-  const headers = keys(omit(first(sortedPlayers).display, omitValues));
+  const headers = isPitchers ? pitcherColumnOrderMap : columnOrderMap;
 
   return (
     <table>
@@ -58,7 +116,7 @@ const TeamTable = ({ players, isPitchers }) => {
               onClick={() => updateSort(header)}
               key={header}
             >
-              {startCase(header)}
+              {columnNameMap[header]}
             </th>
           ))}
         </tr>
@@ -73,9 +131,13 @@ const TeamTable = ({ players, isPitchers }) => {
                   ? `${display[header]}%`
                   : null;
 
-              const displayValue = header.includes('position')
+              let displayValue = header.includes('position')
                 ? positionsAbbrev[display[header]]
                 : display[header];
+
+              if (header === 'arsenal') {
+                displayValue = display[header].join(', ');
+              }
 
               return (
                 <td className={`player-col player-${header}`} key={header}>
