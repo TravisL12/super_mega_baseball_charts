@@ -1,64 +1,87 @@
-import React, { useState } from 'react';
-import { positionsAbbrev } from './helper';
+import React, { useState } from "react";
+import { positionsAbbrev } from "./helper";
+import {
+  TEAM,
+  NAME,
+  POSITION,
+  POSITION_2,
+  PITCHER_ROLE,
+  POWER,
+  CONTACT,
+  SPEED,
+  FIELDING,
+  ARM,
+  TRAIT,
+  TRAIT_2,
+  BATS,
+  THROWS,
+  AGE,
+  GENDER,
+  ARSENAL,
+  VELOCITY,
+  JUNK,
+  ACCURACY,
+} from "./buildPlayer";
 
 const columnNameMap = {
-  team: 'team',
-  name: 'name',
-  position: 'P. Pos',
-  position2: 'S. Pos',
-  power: 'pow',
-  contact: 'con',
-  speed: 'spd',
-  fielding: 'fld',
-  arm: 'arm',
-  arsenal: 'arsenal',
-  velocity: 'velocity',
-  junk: 'junk',
-  accuracy: 'accuracy',
-  trait: 'trait 1',
-  trait2: 'trait 2',
-  bats: 'bat',
-  throws: 'thr',
-  age: 'age',
-  gender: 'gen',
+  [TEAM]: "team",
+  [NAME]: "name",
+  [POSITION]: "P. Pos",
+  [POSITION_2]: "S. Pos",
+  [PITCHER_ROLE]: "role",
+  [POWER]: "pow",
+  [CONTACT]: "con",
+  [SPEED]: "spd",
+  [FIELDING]: "fld",
+  [ARM]: "arm",
+  [ARSENAL]: "arsenal",
+  [VELOCITY]: "vel",
+  [JUNK]: "jnk",
+  [ACCURACY]: "acc",
+  [TRAIT]: "trait 1",
+  [TRAIT_2]: "trait 2",
+  [BATS]: "bat",
+  [THROWS]: "thr",
+  [AGE]: "age",
+  [GENDER]: "gen",
 };
 
 const columnOrderMap = [
-  'team',
-  'name',
-  'position',
-  'position2',
-  'power',
-  'contact',
-  'speed',
-  'fielding',
-  'arm',
-  'trait',
-  'trait2',
-  'bats',
-  'throws',
-  'age',
-  'gender',
+  TEAM,
+  NAME,
+  POSITION,
+  POSITION_2,
+  POWER,
+  CONTACT,
+  SPEED,
+  FIELDING,
+  ARM,
+  TRAIT,
+  TRAIT_2,
+  BATS,
+  THROWS,
+  AGE,
+  GENDER,
 ];
 
 const pitcherColumnOrderMap = [
-  'team',
-  'name',
-  'position',
-  'arsenal',
-  'power',
-  'contact',
-  'speed',
-  'fielding',
-  'velocity',
-  'junk',
-  'accuracy',
-  'trait',
-  'trait2',
-  'bats',
-  'throws',
-  'age',
-  'gender',
+  TEAM,
+  NAME,
+  PITCHER_ROLE,
+  ARSENAL,
+  POWER,
+  CONTACT,
+  SPEED,
+  FIELDING,
+  VELOCITY,
+  JUNK,
+  ACCURACY,
+  TRAIT,
+  TRAIT_2,
+  BATS,
+  THROWS,
+  AGE,
+  GENDER,
 ];
 
 const sortColumns = (players, sortAttr) => {
@@ -74,7 +97,7 @@ const sortColumns = (players, sortAttr) => {
       ? b.display[sortAttr.header]
       : +b.display[sortAttr.header];
 
-    if (sortAttr.direction === 'asc') {
+    if (sortAttr.direction === "asc") {
       return aDisplay > bDisplay ? 1 : -1;
     } else {
       return aDisplay < bDisplay ? 1 : -1;
@@ -88,9 +111,9 @@ const TeamTable = ({ players, isPitchers }) => {
   if (!players.length)
     return (
       <div className="no-players">
-        <p>No {isPitchers ? 'Pitchers' : 'Position players'} found.</p>
+        <p>No {isPitchers ? "Pitchers" : "Position players"} found.</p>
         <p>
-          Check the {isPitchers ? 'Positions' : 'Pitchers'} button at the top,
+          Check the {isPitchers ? "Positions" : "Pitchers"} button at the top,
         </p>
         <p>or adjust the search filters.</p>
       </div>
@@ -98,7 +121,7 @@ const TeamTable = ({ players, isPitchers }) => {
 
   const updateSort = (header) => {
     setSortOrder((prevHeader) => {
-      const direction = prevHeader.direction === 'asc' ? 'desc' : 'asc';
+      const direction = prevHeader.direction === "asc" ? "desc" : "asc";
       return { header, direction };
     });
   };
@@ -122,21 +145,27 @@ const TeamTable = ({ players, isPitchers }) => {
         </tr>
       </thead>
       <tbody>
-        {players.map(({ display }) => (
+        {sortedPlayers.map(({ display }) => (
           <tr key={display.name}>
             {headers.map((header) => {
               const ratingPercent =
                 !isNaN(display[header]) &&
-                !['age', 'trait', 'trait2'].includes(header)
+                !["age", "trait", "trait2"].includes(header)
                   ? `${display[header]}%`
                   : null;
 
-              let displayValue = header.includes('position')
+              let displayValue = [POSITION, POSITION_2, PITCHER_ROLE].includes(
+                header
+              )
                 ? positionsAbbrev[display[header]]
                 : display[header];
 
-              if (header === 'arsenal') {
-                displayValue = display[header].join(', ');
+              if (header === ARSENAL) {
+                displayValue = display[header].map((pitch) => {
+                  return (
+                    <span className={`pitch-type pitch-${pitch}`}>{pitch}</span>
+                  );
+                });
               }
 
               return (
