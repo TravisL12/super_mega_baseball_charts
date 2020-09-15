@@ -248,7 +248,13 @@
 
 .selected-team-table .header-team,
 .selected-team-table .player-col.player-team {
+  display: flex;
+  align-items: center;
   min-width: 100px;
+}
+.selected-team-table .player-col.player-team img {
+  max-height: 100%;
+  margin-right: 10px;
 }
 
 .selected-team-table .header-name,

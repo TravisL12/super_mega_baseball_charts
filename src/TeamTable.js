@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import teamLogos from "./team_logos";
 import { positionsAbbrev } from "./helper";
 import {
   TEAM,
@@ -168,6 +169,16 @@ const TeamTable = ({ players, isPitchers }) => {
                 });
               }
 
+              const logo =
+                header === TEAM ? (
+                  <img
+                    alt={`${display[header]} logo`}
+                    src={
+                      teamLogos[display[header].replace(/\s/, "").toLowerCase()]
+                    }
+                  />
+                ) : null;
+
               return (
                 <td className={`player-col player-${header}`} key={header}>
                   {ratingPercent && (
@@ -176,6 +187,7 @@ const TeamTable = ({ players, isPitchers }) => {
                       style={{ width: ratingPercent }}
                     ></span>
                   )}
+                  {logo}
                   <span className="rating-value">{displayValue}</span>
                 </td>
               );
