@@ -1,26 +1,28 @@
-import React, { useEffect, useState, useCallback } from "react";
-import "./App.css";
-import Papa from "papaparse";
-import smbCsvData from "./smb_data.csv";
-import TeamTable from "./TeamTable";
-import PlayerTypeForm from "./PlayerTypeForm";
-import { sortBy, uniqBy, values } from "lodash";
-import { compileOptions, createPlayer } from "./buildPlayer";
+import React, { useEffect, useState, useCallback } from 'react';
+import './App.css';
+import Papa from 'papaparse';
+import smbCsvData from './smb_data.csv';
+import PlayerTable from './tables/PlayerTable';
+import PitcherTable from './tables/PitcherTable';
+import TeamTable from './tables/TeamTable';
+import PlayerTypeForm from './PlayerTypeForm';
+import { sortBy, uniqBy, values } from 'lodash';
+import { buildTeams, compileOptions, createPlayer } from './buildPlayer';
 import {
   buildChecklist,
   getUniqTeams,
   ALL_POSITIONS,
   SECONDARY_POSITIONS,
   PITCHER_ROLES,
-} from "./helper";
-import FilterList from "./FilterList";
-import smbLogo from "./smb_logo.png";
+} from './helper';
+import FilterList from './FilterList';
+import smbLogo from './smb_logo.png';
 
 const initialFilters = {
   positions: buildChecklist(values(ALL_POSITIONS), true),
   positions2: buildChecklist(values(SECONDARY_POSITIONS), true),
   pitchers: buildChecklist(values(PITCHER_ROLES), true),
-  name: "",
+  name: '',
 };
 
 const filterPlayers = (filters, players) => {
@@ -41,7 +43,7 @@ const filterPlayers = (filters, players) => {
     );
   }
 
-  return uniqBy(players, "display.name");
+  return uniqBy(players, 'display.name');
 };
 
 const loadPlayers = (cb) => {
@@ -54,8 +56,9 @@ const loadPlayers = (cb) => {
 
 function App() {
   const [players, setPlayers] = useState([]);
+  const [teams, setTeams] = useState([]);
   const [filters, setFilters] = useState(initialFilters);
-  const [selectedOption, setSelectedOption] = useState("Positions");
+  const [selectedOption, setSelectedOption] = useState('Positions');
 
   useEffect(() => {
     loadPlayers(({ data }) => {
@@ -63,10 +66,13 @@ function App() {
       const buildPlayers = values(options).map((player) =>
         createPlayer(player)
       );
+      const teams = buildTeams(buildPlayers);
       setFilters({
         ...filters,
         teams: buildChecklist(sortBy(getUniqTeams(buildPlayers)), true),
       });
+      console.log(teams);
+      setTeams(teams);
       setPlayers(buildPlayers);
     });
     // eslint-disable-next-line
@@ -91,6 +97,18 @@ function App() {
   const positionPlayers = filterPlayers(filters, players).filter(
     ({ isPitcher }) => !isPitcher
   );
+
+  const getTable = () => {
+    switch (selectedOption) {
+      case 'Pitchers':
+        return <PitcherTable players={pitchers} />;
+      case 'Positions':
+        return <PlayerTable players={positionPlayers} />;
+      case 'Teams':
+        return <TeamTable teams={teams} />;
+      default:
+    }
+  };
 
   return (
     <div className="App">
@@ -129,12 +147,7 @@ function App() {
         />
       </div>
 
-      <div className="selected-team-table">
-        <TeamTable
-          isPitchers={selectedOption === "Pitchers"}
-          players={selectedOption === "Pitchers" ? pitchers : positionPlayers}
-        />
-      </div>
+      <div className="selected-team-table">{getTable()}</div>
     </div>
   );
 }

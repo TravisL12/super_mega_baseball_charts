@@ -27,6 +27,16 @@ const PlayerTypeForm = ({ playerCounts, selectedOption, onChange }) => {
           Pitchers ({playerCounts.pitchers.length})
         </label>
       </div>
+      <div className="player-type">
+        <input
+          type="radio"
+          value="Teams"
+          id="teams"
+          checked={selectedOption === 'Teams'}
+          onChange={onChange}
+        />
+        <label htmlFor="teams">Teams</label>
+      </div>
     </form>
   );
 };

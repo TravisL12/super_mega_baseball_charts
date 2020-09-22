@@ -1,17 +1,14 @@
-import React, { useState } from "react";
-import teamLogos from "./team_logos";
-import { positionsAbbrev } from "./helper";
+import React, { useState } from 'react';
+import teamLogos from '../team_logos';
+import { positionsAbbrev } from '../helper';
 import {
   TEAM,
   NAME,
-  POSITION,
-  POSITION_2,
   PITCHER_ROLE,
   POWER,
   CONTACT,
   SPEED,
   FIELDING,
-  ARM,
   TRAIT,
   TRAIT_2,
   BATS,
@@ -22,48 +19,27 @@ import {
   VELOCITY,
   JUNK,
   ACCURACY,
-} from "./buildPlayer";
+} from '../buildPlayer';
 
 const columnNameMap = {
-  [TEAM]: "team",
-  [NAME]: "name",
-  [POSITION]: "P. Pos",
-  [POSITION_2]: "S. Pos",
-  [PITCHER_ROLE]: "role",
-  [POWER]: "pow",
-  [CONTACT]: "con",
-  [SPEED]: "spd",
-  [FIELDING]: "fld",
-  [ARM]: "arm",
-  [ARSENAL]: "arsenal",
-  [VELOCITY]: "vel",
-  [JUNK]: "jnk",
-  [ACCURACY]: "acc",
-  [TRAIT]: "trait 1",
-  [TRAIT_2]: "trait 2",
-  [BATS]: "bat",
-  [THROWS]: "thr",
-  [AGE]: "age",
-  [GENDER]: "gen",
+  [TEAM]: 'team',
+  [NAME]: 'name',
+  [PITCHER_ROLE]: 'role',
+  [POWER]: 'pow',
+  [CONTACT]: 'con',
+  [SPEED]: 'spd',
+  [FIELDING]: 'fld',
+  [ARSENAL]: 'arsenal',
+  [VELOCITY]: 'vel',
+  [JUNK]: 'jnk',
+  [ACCURACY]: 'acc',
+  [TRAIT]: 'trait 1',
+  [TRAIT_2]: 'trait 2',
+  [BATS]: 'bat',
+  [THROWS]: 'thr',
+  [AGE]: 'age',
+  [GENDER]: 'gen',
 };
-
-const columnOrderMap = [
-  TEAM,
-  NAME,
-  POSITION,
-  POSITION_2,
-  POWER,
-  CONTACT,
-  SPEED,
-  FIELDING,
-  ARM,
-  TRAIT,
-  TRAIT_2,
-  BATS,
-  THROWS,
-  AGE,
-  GENDER,
-];
 
 const pitcherColumnOrderMap = [
   TEAM,
@@ -98,7 +74,7 @@ const sortColumns = (players, sortAttr) => {
       ? b.display[sortAttr.header]
       : +b.display[sortAttr.header];
 
-    if (sortAttr.direction === "asc") {
+    if (sortAttr.direction === 'asc') {
       return aDisplay > bDisplay ? 1 : -1;
     } else {
       return aDisplay < bDisplay ? 1 : -1;
@@ -106,29 +82,27 @@ const sortColumns = (players, sortAttr) => {
   });
 };
 
-const TeamTable = ({ players, isPitchers }) => {
+const PitcherTable = ({ players }) => {
   const [sortOrder, setSortOrder] = useState({});
 
   if (!players.length)
     return (
       <div className="no-players">
-        <p>No {isPitchers ? "Pitchers" : "Position players"} found.</p>
-        <p>
-          Check the {isPitchers ? "Positions" : "Pitchers"} button at the top,
-        </p>
+        <p>No Pitchers found.</p>
+        <p>Check the Positions button at the top,</p>
         <p>or adjust the search filters.</p>
       </div>
     );
 
   const updateSort = (header) => {
     setSortOrder((prevHeader) => {
-      const direction = prevHeader.direction === "asc" ? "desc" : "asc";
+      const direction = prevHeader.direction === 'asc' ? 'desc' : 'asc';
       return { header, direction };
     });
   };
 
   const sortedPlayers = sortColumns(players, sortOrder);
-  const headers = isPitchers ? pitcherColumnOrderMap : columnOrderMap;
+  const headers = pitcherColumnOrderMap;
 
   return (
     <table>
@@ -151,20 +125,20 @@ const TeamTable = ({ players, isPitchers }) => {
             {headers.map((header) => {
               const ratingPercent =
                 !isNaN(display[header]) &&
-                !["age", "trait", "trait2"].includes(header)
+                !['age', 'trait', 'trait2'].includes(header)
                   ? `${display[header]}%`
                   : null;
 
-              let displayValue = [POSITION, POSITION_2, PITCHER_ROLE].includes(
-                header
-              )
+              let displayValue = [PITCHER_ROLE].includes(header)
                 ? positionsAbbrev[display[header]]
                 : display[header];
 
               if (header === ARSENAL) {
                 displayValue = display[header].map((pitch) => {
                   return (
-                    <span className={`pitch-type pitch-${pitch}`}>{pitch}</span>
+                    <span key={pitch} className={`pitch-type pitch-${pitch}`}>
+                      {pitch}
+                    </span>
                   );
                 });
               }
@@ -174,7 +148,7 @@ const TeamTable = ({ players, isPitchers }) => {
                   <img
                     alt={`${display[header]} logo`}
                     src={
-                      teamLogos[display[header].replace(/\s/, "").toLowerCase()]
+                      teamLogos[display[header].replace(/\s/, '').toLowerCase()]
                     }
                   />
                 ) : null;
@@ -199,4 +173,4 @@ const TeamTable = ({ players, isPitchers }) => {
   );
 };
 
-export default TeamTable;
+export default PitcherTable;

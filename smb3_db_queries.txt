@@ -78,3 +78,51 @@ left join t_baseball_player_traits traits
 GROUP BY vbpi.firstName, vbpi.lastName
 HAVING COUNT(*) > 1
 
+whiffer
+McGee,Brown,Kringer,Rojas,Nale,Batts
+
+utility
+Idoya,Fielder,Leathar,Efforto,Hand,Steak,Hobbes,rags
+
+tough out
+Dexterez,Gutterson,Bolter,Elyve,Crisp,Slam,Gold,Kauffman,Storm,
+
+stealer
+Nubswubbles,Sax,Jumps,Tools,Magikko,Baker,Miles,
+
+pow vs rhp
+Monstur,Steed,O'Ften,King,Hart,Starr,Stadkleef,Bobbit,Song,
+
+pow vs lhp
+Bigsby,Baskette,Miyoshi,Dingers,Rodriguez,Young Jr.,Plattune,Bergman,Gaspar,
+
+RBI Man
+Greene,Blastman,Jackman,Bambino,Manly,Vinicio,Goodwood,Studwick,Tantrum,Jones,Liner,
+
+RBI Dud
+Swanson,Oowanga,Berko,Yatter,Stern,Sandbrick,Nutmeg,
+
+outside pitch
+James,Sparks,Stanza,Straus,
+
+low
+Glover,Quaker,Fowl,Bags,Goyo,
+
+inside
+Evergreen,Hackman,Tobo,
+
+high
+LeBoink,Hampster,Moonshota,Blings,
+
+contact v right
+Woodburn,Wilson,Gobbleson,Pickleford,Yew,Trips,Addonomus,
+
+contact v left
+Hardman,Moore,Delgado,Yamamoto,Zoner,Young Sr.,Battery
+
+bad JumpsRicky Quan
+Candela,Dazzler,Swiner,Park,
+
+
+trait2
+Tobo,Dexterez,Storm,Tools,Manly,Sparks,Young Sr.,Berko,Steed,Yew,Dingers,King,Bigsby,Blastman,Yatter,Zoner,Stadkleef,Baskette,Rodriguez,O'Ften,
