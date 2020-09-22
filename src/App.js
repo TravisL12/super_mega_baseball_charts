@@ -64,7 +64,7 @@ function App() {
   const [players, setPlayers] = useState([]);
   const [teams, setTeams] = useState([]);
   const [filters, setFilters] = useState(initialFilters);
-  const [selectedOption, setSelectedOption] = useState('Positions');
+  const [selectedOption, setSelectedOption] = useState('Teams');
 
   useEffect(() => {
     loadPlayers(({ data }) => {

@@ -19,6 +19,7 @@ import {
   GENDER,
   ARSENAL,
 } from '../buildPlayer';
+import { TeamTableContainer } from '../styles';
 
 const columnNameMap = {
   [TEAM]: 'team',
@@ -79,21 +80,21 @@ const sortColumns = (players, sortAttr) => {
 
 const TeamTable = ({ teams }) => {
   return (
-    <div className="team-table">
+    <TeamTableContainer>
       {Object.values(teams).map(({ name }) => (
-        <div key={name}>
-          <div>
-            <img
-              alt={`${name} logo`}
-              src={teamLogos[name.replace(/\s/, '').toLowerCase()]}
-            />
-          </div>
-          <div>
+        <div className="team" key={name}>
+          <div className="title" key={name}>
+            <div>
+              <img
+                alt={`${name} logo`}
+                src={teamLogos[name.replace(/\s/, '').toLowerCase()]}
+              />
+            </div>
             <h1>{name}</h1>
           </div>
         </div>
       ))}
-    </div>
+    </TeamTableContainer>
   );
   // const [sortOrder, setSortOrder] = useState({});
 

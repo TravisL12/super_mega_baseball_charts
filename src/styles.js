@@ -327,3 +327,11 @@ export const DisplayedTableContainer = styled.div`
     }
   }
 `;
+
+export const TeamTableContainer = styled.div`
+  font-size: 12px;
+
+  .team {
+    display: flex;
+  }
+`;

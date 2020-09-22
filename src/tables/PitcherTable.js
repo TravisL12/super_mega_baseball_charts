@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import teamLogos from '../team_logos';
 import { positionsAbbrev } from '../helper';
+import usePlayerSort from '../usePlayerSort';
 import {
   TEAM,
   NAME,
@@ -41,7 +42,7 @@ const columnNameMap = {
   [GENDER]: 'gen',
 };
 
-const pitcherColumnOrderMap = [
+const headers = [
   TEAM,
   NAME,
   PITCHER_ROLE,
@@ -61,29 +62,8 @@ const pitcherColumnOrderMap = [
   GENDER,
 ];
 
-const sortColumns = (players, sortAttr) => {
-  if (!sortAttr.header) {
-    return players;
-  }
-
-  return players.sort((a, b) => {
-    const aDisplay = isNaN(a.display[sortAttr.header])
-      ? a.display[sortAttr.header]
-      : +a.display[sortAttr.header];
-    const bDisplay = isNaN(b.display[sortAttr.header])
-      ? b.display[sortAttr.header]
-      : +b.display[sortAttr.header];
-
-    if (sortAttr.direction === 'asc') {
-      return aDisplay > bDisplay ? 1 : -1;
-    } else {
-      return aDisplay < bDisplay ? 1 : -1;
-    }
-  });
-};
-
 const PitcherTable = ({ players }) => {
-  const [sortOrder, setSortOrder] = useState({});
+  const { sortOrder, updateSort, sortColumns } = usePlayerSort();
 
   if (!players.length)
     return (
@@ -93,16 +73,6 @@ const PitcherTable = ({ players }) => {
         <p>or adjust the search filters.</p>
       </div>
     );
-
-  const updateSort = (header) => {
-    setSortOrder((prevHeader) => {
-      const direction = prevHeader.direction === 'asc' ? 'desc' : 'asc';
-      return { header, direction };
-    });
-  };
-
-  const sortedPlayers = sortColumns(players, sortOrder);
-  const headers = pitcherColumnOrderMap;
 
   return (
     <table>
@@ -120,7 +90,7 @@ const PitcherTable = ({ players }) => {
         </tr>
       </thead>
       <tbody>
-        {sortedPlayers.map(({ display }) => (
+        {sortColumns(players, sortOrder).map(({ display }) => (
           <tr key={display.name}>
             {headers.map((header) => {
               const ratingPercent =
