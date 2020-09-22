@@ -2,7 +2,7 @@ import React from 'react';
 
 const PlayerTypeForm = ({ playerCounts, selectedOption, onChange }) => {
   return (
-    <form className="player-type-form">
+    <div className="player-type-form">
       <div className="player-type">
         <input
           type="radio"
@@ -37,7 +37,7 @@ const PlayerTypeForm = ({ playerCounts, selectedOption, onChange }) => {
         />
         <label htmlFor="teams">Teams</label>
       </div>
-    </form>
+    </div>
   );
 };
 

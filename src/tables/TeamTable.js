@@ -79,7 +79,7 @@ const sortColumns = (players, sortAttr) => {
 
 const TeamTable = ({ teams }) => {
   return (
-    <div>
+    <div className="team-table">
       {Object.values(teams).map(({ name }) => (
         <div key={name}>
           <div>

@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import './App.css';
 import Papa from 'papaparse';
 import smbCsvData from './smb_data.csv';
 import PlayerTable from './tables/PlayerTable';
@@ -17,6 +16,13 @@ import {
 } from './helper';
 import FilterList from './FilterList';
 import smbLogo from './smb_logo.png';
+
+import {
+  FilterListContainer,
+  AppContainer,
+  HeaderContainer,
+  DisplayedTableContainer,
+} from './styles';
 
 const initialFilters = {
   positions: buildChecklist(values(ALL_POSITIONS), true),
@@ -71,7 +77,6 @@ function App() {
         ...filters,
         teams: buildChecklist(sortBy(getUniqTeams(buildPlayers)), true),
       });
-      console.log(teams);
       setTeams(teams);
       setPlayers(buildPlayers);
     });
@@ -111,12 +116,12 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <AppContainer>
       <div className="title-logo">
         <img alt="Super Mega Baseball Logo" src={smbLogo} />
       </div>
 
-      <div className="title-search">
+      <HeaderContainer>
         <PlayerTypeForm
           playerCounts={{ pitchers, positionPlayers }}
           selectedOption={selectedOption}
@@ -127,9 +132,9 @@ function App() {
           placeholder="Search Players by name"
           onChange={searchNames}
         />
-      </div>
+      </HeaderContainer>
 
-      <div className="filter-list">
+      <FilterListContainer>
         <FilterList
           filterAttr="positions"
           filters={filters}
@@ -145,10 +150,10 @@ function App() {
           filters={filters}
           setFilters={setFilters}
         />
-      </div>
+      </FilterListContainer>
 
-      <div className="selected-team-table">{getTable()}</div>
-    </div>
+      <DisplayedTableContainer>{getTable()}</DisplayedTableContainer>
+    </AppContainer>
   );
 }
 
