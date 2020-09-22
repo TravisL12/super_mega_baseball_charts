@@ -2,64 +2,46 @@ import React, { useState } from 'react';
 import teamLogos from '../team_logos';
 import { positionsAbbrev } from '../helper';
 import usePlayerSort from '../usePlayerSort';
-import {
-  TEAM,
-  NAME,
-  PITCHER_ROLE,
-  POWER,
-  CONTACT,
-  SPEED,
-  FIELDING,
-  TRAIT,
-  TRAIT_2,
-  BATS,
-  THROWS,
-  AGE,
-  GENDER,
-  ARSENAL,
-  VELOCITY,
-  JUNK,
-  ACCURACY,
-} from '../buildPlayer';
+import { SKILLS } from '../buildPlayer';
 
 const columnNameMap = {
-  [TEAM]: 'team',
-  [NAME]: 'name',
-  [PITCHER_ROLE]: 'role',
-  [POWER]: 'pow',
-  [CONTACT]: 'con',
-  [SPEED]: 'spd',
-  [FIELDING]: 'fld',
-  [ARSENAL]: 'arsenal',
-  [VELOCITY]: 'vel',
-  [JUNK]: 'jnk',
-  [ACCURACY]: 'acc',
-  [TRAIT]: 'trait 1',
-  [TRAIT_2]: 'trait 2',
-  [BATS]: 'bat',
-  [THROWS]: 'thr',
-  [AGE]: 'age',
-  [GENDER]: 'gen',
+  [SKILLS.TEAM]: 'team',
+  [SKILLS.NAME]: 'name',
+  [SKILLS.PITCHER_ROLE]: 'role',
+  [SKILLS.POWER]: 'pow',
+  [SKILLS.CONTACT]: 'con',
+  [SKILLS.SPEED]: 'spd',
+  [SKILLS.FIELDING]: 'fld',
+  [SKILLS.ARSENAL]: 'arsenal',
+  [SKILLS.VELOCITY]: 'vel',
+  [SKILLS.JUNK]: 'jnk',
+  [SKILLS.ACCURACY]: 'acc',
+  [SKILLS.TRAIT]: 'trait 1',
+  [SKILLS.TRAIT_2]: 'trait 2',
+  [SKILLS.BATS]: 'bat',
+  [SKILLS.THROWS]: 'thr',
+  [SKILLS.AGE]: 'age',
+  [SKILLS.GENDER]: 'gen',
 };
 
 const headers = [
-  TEAM,
-  NAME,
-  PITCHER_ROLE,
-  ARSENAL,
-  POWER,
-  CONTACT,
-  SPEED,
-  FIELDING,
-  VELOCITY,
-  JUNK,
-  ACCURACY,
-  TRAIT,
-  TRAIT_2,
-  BATS,
-  THROWS,
-  AGE,
-  GENDER,
+  SKILLS.TEAM,
+  SKILLS.NAME,
+  SKILLS.PITCHER_ROLE,
+  SKILLS.ARSENAL,
+  SKILLS.POWER,
+  SKILLS.CONTACT,
+  SKILLS.SPEED,
+  SKILLS.FIELDING,
+  SKILLS.VELOCITY,
+  SKILLS.JUNK,
+  SKILLS.ACCURACY,
+  SKILLS.TRAIT,
+  SKILLS.TRAIT_2,
+  SKILLS.BATS,
+  SKILLS.THROWS,
+  SKILLS.AGE,
+  SKILLS.GENDER,
 ];
 
 const PitcherTable = ({ players }) => {
@@ -99,11 +81,11 @@ const PitcherTable = ({ players }) => {
                   ? `${display[header]}%`
                   : null;
 
-              let displayValue = [PITCHER_ROLE].includes(header)
+              let displayValue = [SKILLS.PITCHER_ROLE].includes(header)
                 ? positionsAbbrev[display[header]]
                 : display[header];
 
-              if (header === ARSENAL) {
+              if (header === SKILLS.ARSENAL) {
                 displayValue = display[header].map((pitch) => {
                   return (
                     <span key={pitch} className={`pitch-type pitch-${pitch}`}>
@@ -114,7 +96,7 @@ const PitcherTable = ({ players }) => {
               }
 
               const logo =
-                header === TEAM ? (
+                header === SKILLS.TEAM ? (
                   <img
                     alt={`${display[header]} logo`}
                     src={

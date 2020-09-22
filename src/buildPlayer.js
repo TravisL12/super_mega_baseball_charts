@@ -2,26 +2,28 @@ import { keys, pick, reduce } from 'lodash';
 import { ALL_POSITIONS, PITCHER_ROLES } from './helper';
 import { options } from './playerOptions';
 
-export const TEAM = 'team';
-export const NAME = 'name';
-export const POSITION = 'position';
-export const POSITION_2 = 'position2';
-export const PITCHER_ROLE = 'pitcherRole';
-export const POWER = 'power';
-export const CONTACT = 'contact';
-export const SPEED = 'speed';
-export const FIELDING = 'fielding';
-export const ARM = 'arm';
-export const TRAIT = 'trait';
-export const TRAIT_2 = 'trait2';
-export const BATS = 'bats';
-export const THROWS = 'throws';
-export const AGE = 'age';
-export const GENDER = 'gender';
-export const ARSENAL = 'arsenal';
-export const VELOCITY = 'velocity';
-export const JUNK = 'junk';
-export const ACCURACY = 'accuracy';
+export const SKILLS = {
+  TEAM: 'team',
+  NAME: 'name',
+  POSITION: 'position',
+  POSITION_2: 'position2',
+  PITCHER_ROLE: 'pitcherRole',
+  POWER: 'power',
+  CONTACT: 'contact',
+  SPEED: 'speed',
+  FIELDING: 'fielding',
+  ARM: 'arm',
+  TRAIT: 'trait',
+  TRAIT_2: 'trait2',
+  BATS: 'bats',
+  THROWS: 'throws',
+  AGE: 'age',
+  GENDER: 'gender',
+  ARSENAL: 'arsenal',
+  VELOCITY: 'velocity',
+  JUNK: 'junk',
+  ACCURACY: 'accuracy',
+};
 
 const buildArsenal = (info) => {
   const pitches = pick(info, ['58', '59', '60', '61', '62', '63', '64', '65']);
@@ -48,26 +50,26 @@ export const createPlayer = (info) => {
   const position2 = ALL_POSITIONS[info[55]];
 
   const display = {
-    [TEAM]: info.teamName,
-    [NAME]: `${info.firstName} ${info.lastName}`,
-    [POSITION]: position,
-    [POSITION_2]: position2,
-    [PITCHER_ROLE]: PITCHER_ROLES[info.pitcherRole],
-    [POWER]: info.power,
-    [CONTACT]: info.contact,
-    [SPEED]: info.speed,
-    [FIELDING]: info.fielding,
-    [ARM]: info.arm,
-    [TRAIT]: info.trait,
-    [TRAIT_2]: info.subType,
-    [BATS]: bats,
-    [THROWS]: throws,
-    [AGE]: info.age,
-    [GENDER]: gender,
-    [ARSENAL]: arsenal,
-    [VELOCITY]: info.velocity,
-    [JUNK]: info.junk,
-    [ACCURACY]: info.accuracy,
+    [SKILLS.TEAM]: info.teamName,
+    [SKILLS.NAME]: `${info.firstName} ${info.lastName}`,
+    [SKILLS.POSITION]: position,
+    [SKILLS.POSITION_2]: position2,
+    [SKILLS.PITCHER_ROLE]: PITCHER_ROLES[info.pitcherRole],
+    [SKILLS.POWER]: info.power,
+    [SKILLS.CONTACT]: info.contact,
+    [SKILLS.SPEED]: info.speed,
+    [SKILLS.FIELDING]: info.fielding,
+    [SKILLS.ARM]: info.arm,
+    [SKILLS.TRAIT]: info.trait,
+    [SKILLS.TRAIT_2]: info.subType,
+    [SKILLS.BATS]: bats,
+    [SKILLS.THROWS]: throws,
+    [SKILLS.AGE]: info.age,
+    [SKILLS.GENDER]: gender,
+    [SKILLS.ARSENAL]: arsenal,
+    [SKILLS.VELOCITY]: info.velocity,
+    [SKILLS.JUNK]: info.junk,
+    [SKILLS.ACCURACY]: info.accuracy,
   };
 
   return {
