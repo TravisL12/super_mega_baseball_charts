@@ -1,31 +1,31 @@
-import React from 'react';
-import teamLogos from '../team_logos';
-import { TeamTableContainer } from '../styles';
-import { SKILLS } from '../buildPlayer';
+import React from "react";
+import teamLogos from "../team_logos";
+import { SKILLS } from "../buildPlayer";
+import usePlayerSort from "../usePlayerSort";
 
 // power, contact, speed, defense, rotation, bullpen
 // pow, con, spd, def, rot, pen
 
 const batting = [
-  SKILLS.POWER,
-  SKILLS.CONTACT,
-  SKILLS.SPEED,
-  SKILLS.FIELDING,
-  SKILLS.ARM,
+  SKILLS.power,
+  SKILLS.contact,
+  SKILLS.speed,
+  SKILLS.fielding,
+  SKILLS.arm,
 ];
 
-const pitching = [SKILLS.VELOCITY, SKILLS.JUNK, SKILLS.ACCURACY];
+const pitching = [SKILLS.velocity, SKILLS.junk, SKILLS.accuracy];
 
 const headers = [
-  SKILLS.TEAM,
-  SKILLS.POWER,
-  SKILLS.CONTACT,
-  SKILLS.SPEED,
-  SKILLS.FIELDING,
-  SKILLS.ARM,
-  SKILLS.VELOCITY,
-  SKILLS.JUNK,
-  SKILLS.ACCURACY,
+  SKILLS.team,
+  SKILLS.power,
+  SKILLS.contact,
+  SKILLS.speed,
+  SKILLS.fielding,
+  SKILLS.arm,
+  SKILLS.velocity,
+  SKILLS.junk,
+  SKILLS.accuracy,
 ];
 
 const buildRatings = (players, showPitchers = false) => {
@@ -43,7 +43,8 @@ const buildRatings = (players, showPitchers = false) => {
 };
 
 const TeamTable = ({ teams }) => {
-  const ratings = Object.keys(teams).map((name) => {
+  const { sortOrder, updateSort, sortTeamColumns } = usePlayerSort();
+  const teamRatings = Object.keys(teams).map((name) => {
     const positionRatings = buildRatings(
       teams[name].players.filter(({ isPitcher }) => !isPitcher)
     );
@@ -52,15 +53,15 @@ const TeamTable = ({ teams }) => {
       teams[name].players.filter(({ isPitcher }) => isPitcher),
       true
     );
-    const logo = teamLogos[name.replace(/\s/, '').toLowerCase()];
+    const logo = teamLogos[name.replace(/\s/, "").toLowerCase()];
 
     return {
-      team: name,
-      ratings: { ...positionRatings, ...pitchingRatings },
       logo,
+      team: name,
+      ...positionRatings,
+      ...pitchingRatings,
     };
   });
-  console.log(ratings);
 
   return (
     <table>
@@ -69,7 +70,7 @@ const TeamTable = ({ teams }) => {
           {headers.map((header) => (
             <th
               className={`header-col header-${header}`}
-              // onClick={() => updateSort(header)}
+              onClick={() => updateSort(header)}
               key={header}
             >
               {header}
@@ -78,63 +79,37 @@ const TeamTable = ({ teams }) => {
         </tr>
       </thead>
       <tbody>
-        {headers.map((header) => {
+        {sortTeamColumns(teamRatings, sortOrder).map((team) => {
           return (
-            <tr>
-              {ratings.map(({ ratings }) => {
-                return <td>{ratings[header].toFixed(0)}</td>;
+            <tr key={team.name}>
+              {headers.map((header) => {
+                if (header === SKILLS.team) {
+                  return (
+                    <td
+                      className={`player-col team-col team-${header}`}
+                      key={header}
+                    >
+                      <div className="team-logo">
+                        <img alt={team[header]} src={team.logo} />
+                        <p>{team[header]}</p>
+                      </div>
+                    </td>
+                  );
+                }
+                return (
+                  <td
+                    className={`player-col team-col team-${header}`}
+                    key={header}
+                  >
+                    {team[header].toFixed(0)}
+                  </td>
+                );
               })}
             </tr>
           );
         })}
       </tbody>
     </table>
-
-    // <TeamTableContainer>
-    //   {Object.values(teams).map(({ name }) => {
-    //     const positionRatings = buildRatings(
-    //       teams[name].players.filter(({ isPitcher }) => !isPitcher)
-    //     );
-
-    //     const pitchingRatings = buildRatings(
-    //       teams[name].players.filter(({ isPitcher }) => isPitcher),
-    //       true
-    //     );
-
-    //     return (
-    //       <div className="team" key={name}>
-    //         <div className="title" key={name}>
-    //           <img
-    //             alt={`${name} logo`}
-    //             src={teamLogos[name.replace(/\s/, '').toLowerCase()]}
-    //           />
-    //         </div>
-    //         <div className="skill-tables">
-    //           <div>
-    //             {positionRatings.map(({ skill, rating }) => {
-    //               return (
-    //                 <div className="skill" key={skill}>
-    //                   <span>{skill}</span>
-    //                   <span>{rating.toFixed(0)}</span>
-    //                 </div>
-    //               );
-    //             })}
-    //           </div>
-    //           <div>
-    //             {pitchingRatings.map(({ skill, rating }) => {
-    //               return (
-    //                 <div className="skill" key={skill}>
-    //                   <span>{skill}</span>
-    //                   <span>{rating.toFixed(0)}</span>
-    //                 </div>
-    //               );
-    //             })}
-    //           </div>
-    //         </div>
-    //       </div>
-    //     );
-    //   })}
-    // </TeamTableContainer>
   );
 };
 

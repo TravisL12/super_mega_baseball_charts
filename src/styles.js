@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const AppContainer = styled.div`
   background: #1e2a2f;
@@ -32,7 +32,7 @@ export const HeaderContainer = styled.div`
   padding: 0 20px;
   justify-content: space-between;
 
-  input[type='text'] {
+  input[type="text"] {
     width: 400px;
     height: 40px;
     font-size: 18px;
@@ -46,11 +46,11 @@ export const HeaderContainer = styled.div`
     height: 50px;
     min-width: 500px;
 
-    input[type='radio'] {
+    input[type="radio"] {
       display: none;
     }
 
-    input[type='radio'] + label {
+    input[type="radio"] + label {
       display: flex;
       align-items: center;
       min-width: 150px;
@@ -69,7 +69,7 @@ export const HeaderContainer = styled.div`
       padding: 4px 10px;
     }
 
-    input[type='radio']:checked + label {
+    input[type="radio"]:checked + label {
       background: #1e2a2f;
     }
   }
@@ -92,7 +92,7 @@ export const FilterListContainer = styled.div`
     margin-bottom: 2px;
   }
 
-  input[type='checkbox'] {
+  input[type="checkbox"] {
     display: none;
   }
 
@@ -108,7 +108,7 @@ export const FilterListContainer = styled.div`
     }
   }
 
-  input[type='checkbox']:checked + label {
+  input[type="checkbox"]:checked + label {
     background: #163356;
     box-shadow: inset 0 0 0px 1px white;
   }
@@ -139,8 +139,8 @@ export const FilterListContainer = styled.div`
   }
 `;
 
-const cellPaddingTb = '7px';
-const cellPaddingLr = '5px';
+const cellPaddingTb = "7px";
+const cellPaddingLr = "5px";
 export const DisplayedTableContainer = styled.div`
   background: #1e2a2f;
   padding-right: 20px;
@@ -224,7 +224,7 @@ export const DisplayedTableContainer = styled.div`
     }
 
     &:after {
-      content: '';
+      content: "";
       position: absolute;
       right: 0;
       width: 4px;
@@ -241,6 +241,59 @@ export const DisplayedTableContainer = styled.div`
     box-sizing: border-box;
     font-weight: 500;
     padding: ${cellPaddingTb} ${cellPaddingLr};
+
+    p {
+      margin: 0;
+    }
+
+    &.team-col {
+      text-align: center;
+      overflow: hidden;
+      height: 100px;
+
+      &.team-team {
+        position: relative;
+
+        .team-logo {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          margin: auto;
+
+          &:hover {
+            img {
+              opacity: 1;
+            }
+            p {
+              opacity: 0;
+            }
+          }
+
+          p {
+            font-size: 18px;
+            z-index: 1;
+            transition: 0.2s linear opacity;
+          }
+
+          img {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            height: 100%;
+            opacity: 0.3;
+            transition: 0.2s linear opacity;
+          }
+        }
+      }
+    }
 
     .pitch-type {
       display: inline-block;
