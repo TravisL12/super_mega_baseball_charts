@@ -16,66 +16,125 @@ const batting = [
 
 const pitching = [SKILLS.VELOCITY, SKILLS.JUNK, SKILLS.ACCURACY];
 
+const headers = [
+  SKILLS.TEAM,
+  SKILLS.POWER,
+  SKILLS.CONTACT,
+  SKILLS.SPEED,
+  SKILLS.FIELDING,
+  SKILLS.ARM,
+  SKILLS.VELOCITY,
+  SKILLS.JUNK,
+  SKILLS.ACCURACY,
+];
+
 const buildRatings = (players, showPitchers = false) => {
   const skills = showPitchers ? pitching : batting;
 
-  return skills.map((skill) => {
+  return skills.reduce((acc, skill) => {
     const rating =
       players.reduce((total, { display }) => {
         return total + +display[skill];
       }, 0) / players.length;
 
-    return { skill, rating };
-  });
+    acc[skill] = rating;
+    return acc;
+  }, {});
 };
 
 const TeamTable = ({ teams }) => {
+  const ratings = Object.keys(teams).map((name) => {
+    const positionRatings = buildRatings(
+      teams[name].players.filter(({ isPitcher }) => !isPitcher)
+    );
+
+    const pitchingRatings = buildRatings(
+      teams[name].players.filter(({ isPitcher }) => isPitcher),
+      true
+    );
+    const logo = teamLogos[name.replace(/\s/, '').toLowerCase()];
+
+    return {
+      team: name,
+      ratings: { ...positionRatings, ...pitchingRatings },
+      logo,
+    };
+  });
+  console.log(ratings);
+
   return (
-    <TeamTableContainer>
-      {Object.values(teams).map(({ name }) => {
-        const positionRatings = buildRatings(
-          teams[name].players.filter(({ isPitcher }) => !isPitcher)
-        );
+    <table>
+      <thead>
+        <tr>
+          {headers.map((header) => (
+            <th
+              className={`header-col header-${header}`}
+              // onClick={() => updateSort(header)}
+              key={header}
+            >
+              {header}
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {headers.map((header) => {
+          return (
+            <tr>
+              {ratings.map(({ ratings }) => {
+                return <td>{ratings[header].toFixed(0)}</td>;
+              })}
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
 
-        const pitchingRatings = buildRatings(
-          teams[name].players.filter(({ isPitcher }) => isPitcher),
-          true
-        );
+    // <TeamTableContainer>
+    //   {Object.values(teams).map(({ name }) => {
+    //     const positionRatings = buildRatings(
+    //       teams[name].players.filter(({ isPitcher }) => !isPitcher)
+    //     );
 
-        return (
-          <div className="team" key={name}>
-            <div className="title" key={name}>
-              <img
-                alt={`${name} logo`}
-                src={teamLogos[name.replace(/\s/, '').toLowerCase()]}
-              />
-            </div>
-            <div className="skill-tables">
-              <div>
-                {positionRatings.map(({ skill, rating }) => {
-                  return (
-                    <div className="skill" key={skill}>
-                      <span>{skill}</span>
-                      <span>{rating.toFixed(0)}</span>
-                    </div>
-                  );
-                })}
-              </div>
-              <div>
-                {pitchingRatings.map(({ skill, rating }) => {
-                  return (
-                    <div className="skill" key={skill}>
-                      <span>{skill}</span>
-                      <span>{rating.toFixed(0)}</span>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        );
-      })}
-    </TeamTableContainer>
+    //     const pitchingRatings = buildRatings(
+    //       teams[name].players.filter(({ isPitcher }) => isPitcher),
+    //       true
+    //     );
+
+    //     return (
+    //       <div className="team" key={name}>
+    //         <div className="title" key={name}>
+    //           <img
+    //             alt={`${name} logo`}
+    //             src={teamLogos[name.replace(/\s/, '').toLowerCase()]}
+    //           />
+    //         </div>
+    //         <div className="skill-tables">
+    //           <div>
+    //             {positionRatings.map(({ skill, rating }) => {
+    //               return (
+    //                 <div className="skill" key={skill}>
+    //                   <span>{skill}</span>
+    //                   <span>{rating.toFixed(0)}</span>
+    //                 </div>
+    //               );
+    //             })}
+    //           </div>
+    //           <div>
+    //             {pitchingRatings.map(({ skill, rating }) => {
+    //               return (
+    //                 <div className="skill" key={skill}>
+    //                   <span>{skill}</span>
+    //                   <span>{rating.toFixed(0)}</span>
+    //                 </div>
+    //               );
+    //             })}
+    //           </div>
+    //         </div>
+    //       </div>
+    //     );
+    //   })}
+    // </TeamTableContainer>
   );
 };
 
