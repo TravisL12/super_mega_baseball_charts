@@ -329,9 +329,30 @@ export const DisplayedTableContainer = styled.div`
 `;
 
 export const TeamTableContainer = styled.div`
-  font-size: 12px;
-
   .team {
     display: flex;
+    background: rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+  }
+
+  .title {
+    text-align: center;
+  }
+
+  .skill-tables {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+
+    & > div {
+      display: flex;
+      width: 35%;
+      justify-content: space-between;
+    }
+
+    .skill {
+      display: flex;
+      flex-direction: column;
+    }
   }
 `;

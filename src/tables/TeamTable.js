@@ -45,13 +45,32 @@ const TeamTable = ({ teams }) => {
         return (
           <div className="team" key={name}>
             <div className="title" key={name}>
+              <img
+                alt={`${name} logo`}
+                src={teamLogos[name.replace(/\s/, '').toLowerCase()]}
+              />
+            </div>
+            <div className="skill-tables">
               <div>
-                <img
-                  alt={`${name} logo`}
-                  src={teamLogos[name.replace(/\s/, '').toLowerCase()]}
-                />
+                {positionRatings.map(({ skill, rating }) => {
+                  return (
+                    <div className="skill" key={skill}>
+                      <span>{skill}</span>
+                      <span>{rating.toFixed(0)}</span>
+                    </div>
+                  );
+                })}
               </div>
-              <h1>{name}</h1>
+              <div>
+                {pitchingRatings.map(({ skill, rating }) => {
+                  return (
+                    <div className="skill" key={skill}>
+                      <span>{skill}</span>
+                      <span>{rating.toFixed(0)}</span>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         );
