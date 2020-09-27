@@ -5,14 +5,13 @@ import PlayerTable from './tables/PlayerTable';
 import PitcherTable from './tables/PitcherTable';
 import TeamTable from './tables/TeamTable';
 import PlayerTypeForm from './PlayerTypeForm';
-import { sortBy, uniqBy, values } from 'lodash';
+import { partition, sortBy, values } from 'lodash';
 import { buildTeams, compileOptions, createPlayer } from './buildPlayer';
 import {
   buildChecklist,
   getUniqTeams,
-  ALL_POSITIONS,
-  SECONDARY_POSITIONS,
-  PITCHER_ROLES,
+  initialFilters,
+  filterPlayers,
 } from './helper';
 import FilterList from './FilterList';
 import smbLogo from './smb_logo.png';
@@ -23,34 +22,6 @@ import {
   HeaderContainer,
   DisplayedTableContainer,
 } from './styles';
-
-const initialFilters = {
-  positions: buildChecklist(values(ALL_POSITIONS), true),
-  positions2: buildChecklist(values(SECONDARY_POSITIONS), true),
-  pitchers: buildChecklist(values(PITCHER_ROLES), true),
-  name: '',
-};
-
-const filterPlayers = (filters, players) => {
-  // Filter team names
-  players = players.filter((player) => filters.teams[player.display.team]);
-
-  // Filter positions
-  players = players.filter(({ display: { position, pitcherRole } }) => {
-    const isPitcher = filters.pitchers[pitcherRole];
-    const isPosition = filters.positions[position];
-    return isPitcher || isPosition;
-  });
-
-  // Filter name search
-  if (filters.name) {
-    players = players.filter((player) =>
-      player.display.name.toLowerCase().includes(filters.name.toLowerCase())
-    );
-  }
-
-  return uniqBy(players, 'display.name');
-};
 
 const loadPlayers = (cb) => {
   Papa.parse(smbCsvData, {
@@ -95,12 +66,9 @@ function App() {
     setSelectedOption(event.target.value);
   };
 
-  const pitchers = filterPlayers(filters, players).filter(
+  const [pitchers, positionPlayers] = partition(
+    filterPlayers(filters, players),
     ({ isPitcher }) => isPitcher
-  );
-
-  const positionPlayers = filterPlayers(filters, players).filter(
-    ({ isPitcher }) => !isPitcher
   );
 
   const getTable = () => {

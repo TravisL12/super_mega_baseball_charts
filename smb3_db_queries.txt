@@ -79,7 +79,7 @@ left join t_baseball_player_traits traits
     on localId.localID = traits.baseballPlayerLocalID
 left join t_baseball_player_options options
     on localId.localID = options.baseballPlayerLocalID
-join t_batting_orders battingOrder
+left join t_batting_orders battingOrder
     on vbpi.baseballPlayerGUID = battingOrder.baseballPlayerGUID
 order by vbpi.lastName;
 

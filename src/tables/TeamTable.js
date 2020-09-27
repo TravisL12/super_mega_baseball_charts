@@ -1,7 +1,8 @@
-import React from "react";
-import teamLogos from "../team_logos";
-import { SKILLS } from "../buildPlayer";
-import usePlayerSort from "../usePlayerSort";
+import React from 'react';
+import { mean, values } from 'lodash';
+import teamLogos from '../team_logos';
+import { SKILLS } from '../buildPlayer';
+import usePlayerSort from '../usePlayerSort';
 
 // power, contact, speed, defense, rotation, bullpen
 // pow, con, spd, def, rot, pen
@@ -18,13 +19,7 @@ import usePlayerSort from "../usePlayerSort";
 // buzzards
 // 2 4 4 5 2 3
 
-const batting = [
-  SKILLS.power,
-  SKILLS.contact,
-  SKILLS.speed,
-  SKILLS.fielding,
-  SKILLS.arm,
-];
+const defense = [SKILLS.fielding, SKILLS.arm];
 
 const pitching = [SKILLS.velocity, SKILLS.junk, SKILLS.accuracy];
 
@@ -33,23 +28,18 @@ const headers = [
   SKILLS.power,
   SKILLS.contact,
   SKILLS.speed,
-  SKILLS.fielding,
-  SKILLS.arm,
-  SKILLS.velocity,
-  SKILLS.junk,
-  SKILLS.accuracy,
+  'defense',
+  'rotation',
+  'bullpen',
 ];
 
-const buildRatings = (players, showPitchers = false) => {
-  const skills = showPitchers ? pitching : batting;
-
+const buildRatings = (players, skills) => {
   return skills.reduce((acc, skill) => {
-    const rating =
+    acc[skill] =
       players.reduce((total, { display }) => {
         return total + +display[skill];
       }, 0) / players.length;
 
-    acc[skill] = rating;
     return acc;
   }, {});
 };
@@ -57,21 +47,51 @@ const buildRatings = (players, showPitchers = false) => {
 const TeamTable = ({ teams }) => {
   const { sortOrder, updateSort, sortTeamColumns } = usePlayerSort();
   const teamRatings = Object.keys(teams).map((name) => {
-    const positionRatings = buildRatings(
-      teams[name].players.filter(({ isPitcher }) => !isPitcher)
+    const powerRatings = buildRatings(
+      teams[name].players.filter(({ isPitcher }) => !isPitcher),
+      [SKILLS.power]
     );
 
-    const pitchingRatings = buildRatings(
-      teams[name].players.filter(({ isPitcher }) => isPitcher),
-      true
+    const contactRatings = buildRatings(
+      teams[name].players.filter(({ isPitcher }) => !isPitcher),
+      [SKILLS.contact]
     );
-    const logo = teamLogos[name.replace(/\s/, "").toLowerCase()];
+
+    const speedRatings = buildRatings(
+      teams[name].players.filter(({ isPitcher }) => !isPitcher),
+      [SKILLS.speed]
+    );
+
+    const defenseRatings = buildRatings(
+      teams[name].players.filter(({ isPitcher }) => !isPitcher),
+      defense
+    );
+
+    const rotationRatings = buildRatings(
+      teams[name].players.filter(
+        (player) =>
+          player.isPitcher && player.display[SKILLS.pitcher_role] === 'Starting'
+      ),
+      pitching
+    );
+
+    const bullpenRatings = buildRatings(
+      teams[name].players.filter(
+        (player) =>
+          player.isPitcher && player.display[SKILLS.pitcher_role] !== 'Starting'
+      ),
+      pitching
+    );
 
     return {
-      logo,
+      logo: teamLogos[name.replace(/\s/, '').toLowerCase()],
       team: name,
-      ...positionRatings,
-      ...pitchingRatings,
+      power: values(powerRatings)[0],
+      contact: values(contactRatings)[0],
+      speed: values(speedRatings)[0],
+      defense: mean(values(defenseRatings)),
+      rotation: mean(values(rotationRatings)),
+      bullpen: mean(values(bullpenRatings)),
     };
   });
 
@@ -91,9 +111,9 @@ const TeamTable = ({ teams }) => {
         </tr>
       </thead>
       <tbody>
-        {sortTeamColumns(teamRatings, sortOrder).map((team) => {
+        {sortTeamColumns(teamRatings, sortOrder).map((team, idx) => {
           return (
-            <tr key={team.name}>
+            <tr key={`team.name-${idx}`}>
               {headers.map((header) => {
                 if (header === SKILLS.team) {
                   return (
