@@ -14,6 +14,27 @@ BASEBALL PLAYER NAMES/POSITION
 baseballPlayerGUID | firstName | lastName | primaryPosition | pitcherRole
 select * from v_baseball_player_info;
 
+BATTING LINEUPS
+select * from t_batting_orders limit 10;
+startingLineupID  battingOrder  baseballPlayerGUID
+
+
+
+
+select 
+    team.teamName,
+    vbpi.firstName,
+    vbpi.lastName,
+    battingOrder.battingOrder
+from v_baseball_player_info vbpi
+join t_baseball_players tbp
+    on vbpi.baseballPlayerGUID = tbp.GUID
+join t_teams team
+    on tbp.teamGUID = team.GUID
+join t_batting_orders battingOrder
+    on vbpi.baseballPlayerGUID = battingOrder.baseballPlayerGUID
+
+
 TEAM TYPES
 select * from t_team_types;
 teamType | typeName
@@ -45,6 +66,7 @@ select
     tbp.age,
     traits.trait,
     traits.subType,
+    battingOrder.battingOrder,
     options.*
 from v_baseball_player_info vbpi
 join t_baseball_players tbp
@@ -57,6 +79,8 @@ left join t_baseball_player_traits traits
     on localId.localID = traits.baseballPlayerLocalID
 left join t_baseball_player_options options
     on localId.localID = options.baseballPlayerLocalID
+join t_batting_orders battingOrder
+    on vbpi.baseballPlayerGUID = battingOrder.baseballPlayerGUID
 order by vbpi.lastName;
 
 DUPLICATES
