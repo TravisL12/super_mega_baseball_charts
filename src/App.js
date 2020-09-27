@@ -1,34 +1,34 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import Papa from 'papaparse';
-import smbCsvData from './smb_data.csv';
-import PlayerTable from './tables/PlayerTable';
-import PitcherTable from './tables/PitcherTable';
-import TeamTable from './tables/TeamTable';
-import PlayerTypeForm from './PlayerTypeForm';
-import { sortBy, uniqBy, values } from 'lodash';
-import { buildTeams, compileOptions, createPlayer } from './buildPlayer';
+import React, { useEffect, useState, useCallback } from "react";
+import Papa from "papaparse";
+import smbCsvData from "./smb_data.csv";
+import PlayerTable from "./tables/PlayerTable";
+import PitcherTable from "./tables/PitcherTable";
+import TeamTable from "./tables/TeamTable";
+import PlayerTypeForm from "./PlayerTypeForm";
+import { sortBy, uniqBy, values } from "lodash";
+import { buildTeams, compileOptions, createPlayer } from "./buildPlayer";
 import {
   buildChecklist,
   getUniqTeams,
   ALL_POSITIONS,
   SECONDARY_POSITIONS,
   PITCHER_ROLES,
-} from './helper';
-import FilterList from './FilterList';
-import smbLogo from './smb_logo.png';
+} from "./helper";
+import FilterList from "./FilterList";
+import smbLogo from "./smb_logo.png";
 
 import {
   FilterListContainer,
   AppContainer,
   HeaderContainer,
   DisplayedTableContainer,
-} from './styles';
+} from "./styles";
 
 const initialFilters = {
   positions: buildChecklist(values(ALL_POSITIONS), true),
   positions2: buildChecklist(values(SECONDARY_POSITIONS), true),
   pitchers: buildChecklist(values(PITCHER_ROLES), true),
-  name: '',
+  name: "",
 };
 
 const filterPlayers = (filters, players) => {
@@ -49,7 +49,7 @@ const filterPlayers = (filters, players) => {
     );
   }
 
-  return uniqBy(players, 'display.name');
+  return uniqBy(players, "display.name");
 };
 
 const loadPlayers = (cb) => {
@@ -64,7 +64,7 @@ function App() {
   const [players, setPlayers] = useState([]);
   const [teams, setTeams] = useState([]);
   const [filters, setFilters] = useState(initialFilters);
-  const [selectedOption, setSelectedOption] = useState('Positions');
+  const [selectedOption, setSelectedOption] = useState("Teams");
 
   useEffect(() => {
     loadPlayers(({ data }) => {
@@ -105,11 +105,11 @@ function App() {
 
   const getTable = () => {
     switch (selectedOption) {
-      case 'Pitchers':
+      case "Pitchers":
         return <PitcherTable players={pitchers} />;
-      case 'Positions':
+      case "Positions":
         return <PlayerTable players={positionPlayers} />;
-      case 'Teams':
+      case "Teams":
         return <TeamTable teams={teams} />;
       default:
     }

@@ -77,7 +77,7 @@ const PitcherTable = ({ players }) => {
             {headers.map((header) => {
               const ratingPercent =
                 !isNaN(display[header]) &&
-                !["age", "trait", "trait2"].includes(header)
+                ![SKILLS.age, SKILLS.trait, SKILLS.trait_2].includes(header)
                   ? `${display[header]}%`
                   : null;
 

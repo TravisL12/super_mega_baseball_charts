@@ -6,6 +6,18 @@ import usePlayerSort from "../usePlayerSort";
 // power, contact, speed, defense, rotation, bullpen
 // pow, con, spd, def, rot, pen
 
+// wildpigs
+// 3 1 5 1 4 4
+
+// bees
+// 2 3 4 4 4 2
+
+// blowfish
+// 3 6 4 3 4 2
+
+// buzzards
+// 2 4 4 5 2 3
+
 const batting = [
   SKILLS.power,
   SKILLS.contact,
@@ -101,7 +113,9 @@ const TeamTable = ({ teams }) => {
                     className={`player-col team-col team-${header}`}
                     key={header}
                   >
-                    {team[header].toFixed(0)}
+                    <span className="rating-value">
+                      {team[header].toFixed(0)}
+                    </span>
                   </td>
                 );
               })}

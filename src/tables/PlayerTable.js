@@ -73,7 +73,7 @@ const PlayerTable = ({ players }) => {
             {headers.map((header) => {
               const ratingPercent =
                 !isNaN(display[header]) &&
-                !["age", "trait", "trait2"].includes(header)
+                ![SKILLS.age, SKILLS.trait, SKILLS.trait_2].includes(header)
                   ? `${display[header]}%`
                   : null;
 
@@ -82,16 +82,6 @@ const PlayerTable = ({ players }) => {
               )
                 ? positionsAbbrev[display[header]]
                 : display[header];
-
-              if (header === SKILLS.arsenal) {
-                displayValue = display[header].map((pitch) => {
-                  return (
-                    <span key={pitch} className={`pitch-type pitch-${pitch}`}>
-                      {pitch}
-                    </span>
-                  );
-                });
-              }
 
               const logo =
                 header === SKILLS.team ? (
