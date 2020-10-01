@@ -104,11 +104,7 @@ function App() {
         />
       </HeaderContainer>
 
-      <Filters
-        filterNames={['positions', 'pitchers', 'teams']}
-        filters={filters}
-        setFilters={setFilters}
-      />
+      <Filters filters={filters} setFilters={setFilters} />
 
       <DisplayedTableContainer>{getTable()}</DisplayedTableContainer>
     </AppContainer>

@@ -110,31 +110,6 @@ export const FilterListContainer = styled.div`
     margin-bottom: 2px;
   }
 
-  input[type='checkbox'] {
-    display: none;
-  }
-
-  label {
-    display: block;
-    padding: 4px 10px;
-    background: ${disableGray};
-    cursor: pointer;
-    transition: 0.05s linear background;
-
-    &:hover {
-      background: ${highlightGray};
-    }
-  }
-
-  input[type='checkbox']:checked + label {
-    background: ${armColor};
-    box-shadow: inset 0 0 0px 1px white;
-  }
-
-  .filter-checkbox-container + .filter-checkbox-container {
-    margin-top: 2px;
-  }
-
   .filter-items {
     background: black;
     padding: 2px 4px;
@@ -154,6 +129,49 @@ export const FilterListContainer = styled.div`
         cursor: pointer;
       }
     }
+  }
+
+  .filter-items.small {
+    display: flex;
+    justify-content: space-between;
+
+    .small-list {
+      display: flex;
+    }
+
+    .filter-checkbox-container {
+      margin-top: 0;
+
+      label {
+        text-align: center;
+        width: 35px;
+      }
+    }
+  }
+
+  label {
+    display: block;
+    padding: 4px 10px;
+    background: ${disableGray};
+    cursor: pointer;
+    transition: 0.05s linear background;
+
+    &:hover {
+      background: ${highlightGray};
+    }
+  }
+
+  input[type='checkbox'] {
+    display: none;
+  }
+
+  input[type='checkbox']:checked + label {
+    background: ${armColor};
+    box-shadow: inset 0 0 0px 1px white;
+  }
+
+  .filter-checkbox-container + .filter-checkbox-container {
+    margin-top: 2px;
   }
 `;
 

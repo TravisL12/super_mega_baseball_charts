@@ -71,12 +71,18 @@ export const initialFilters = {
   positions: buildChecklist(values(ALL_POSITIONS), true),
   positions2: buildChecklist(values(SECONDARY_POSITIONS), true),
   pitchers: buildChecklist(values(PITCHER_ROLES), true),
+  gender: buildChecklist(['M', 'F'], true),
+  bats: buildChecklist(['S', 'L', 'R'], true),
+  throws: buildChecklist(['L', 'R'], true),
   name: '',
 };
 
 export const filterPlayers = (filters, players) => {
   // Filter team names
   players = players.filter((player) => filters.teams[player.display.team]);
+  players = players.filter((player) => filters.gender[player.display.gender]);
+  players = players.filter((player) => filters.bats[player.display.bats]);
+  players = players.filter((player) => filters.throws[player.display.throws]);
 
   // Filter positions
   players = players.filter(({ display: { position, pitcherRole } }) => {
