@@ -1,11 +1,16 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import Papa from 'papaparse';
+import { partition, sortBy, values } from 'lodash';
+
 import smbCsvData from './smb_data.csv';
+import smbLogo from './smb_logo.png';
+
 import PlayerTable from './tables/PlayerTable';
 import PitcherTable from './tables/PitcherTable';
 import TeamTable from './tables/TeamTable';
 import PlayerTypeForm from './PlayerTypeForm';
-import { partition, sortBy, values } from 'lodash';
+import Filters from './Filters';
+
 import { buildTeams, compileOptions, createPlayer } from './buildPlayer';
 import {
   buildChecklist,
@@ -13,11 +18,8 @@ import {
   initialFilters,
   filterPlayers,
 } from './helper';
-import FilterList from './FilterList';
-import smbLogo from './smb_logo.png';
 
 import {
-  FilterListContainer,
   AppContainer,
   HeaderContainer,
   DisplayedTableContainer,
@@ -35,7 +37,7 @@ function App() {
   const [players, setPlayers] = useState([]);
   const [teams, setTeams] = useState([]);
   const [filters, setFilters] = useState(initialFilters);
-  const [selectedOption, setSelectedOption] = useState('Teams');
+  const [selectedOption, setSelectedOption] = useState('Positions');
 
   useEffect(() => {
     loadPlayers(({ data }) => {
@@ -102,23 +104,11 @@ function App() {
         />
       </HeaderContainer>
 
-      <FilterListContainer>
-        <FilterList
-          filterAttr="positions"
-          filters={filters}
-          setFilters={setFilters}
-        />
-        <FilterList
-          filterAttr="pitchers"
-          filters={filters}
-          setFilters={setFilters}
-        />
-        <FilterList
-          filterAttr="teams"
-          filters={filters}
-          setFilters={setFilters}
-        />
-      </FilterListContainer>
+      <Filters
+        filterNames={['positions', 'pitchers', 'teams']}
+        filters={filters}
+        setFilters={setFilters}
+      />
 
       <DisplayedTableContainer>{getTable()}</DisplayedTableContainer>
     </AppContainer>

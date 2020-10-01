@@ -1,7 +1,25 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+
+const black = '#000000';
+const backgroundColor = '#1E2A2F';
+const disableGray = '#272727';
+const highlightGray = '#505050';
+const attrTipHighlight = 'rgba(255, 255, 255, 0.2)';
+
+const forkBallBg = '#1e4b4b';
+const fastBallBg = '#2b094f';
+
+const speedColor = '#1e5290';
+const armColor = '#1e3059';
+const contactColor = '#20536e';
+const fieldingColor = '#1a2464';
+const powerColor = '#5a7b89';
+const accuracyColor = '#773857';
+const velocityColor = '#713e86';
+const junkColor = '#803f7d';
 
 export const AppContainer = styled.div`
-  background: #1e2a2f;
+  background: ${backgroundColor};
   color: white;
   display: grid;
   grid-template-columns: 220px 1fr;
@@ -32,7 +50,7 @@ export const HeaderContainer = styled.div`
   padding: 0 20px;
   justify-content: space-between;
 
-  input[type="text"] {
+  input[type='text'] {
     width: 400px;
     height: 40px;
     font-size: 18px;
@@ -46,11 +64,11 @@ export const HeaderContainer = styled.div`
     height: 50px;
     min-width: 500px;
 
-    input[type="radio"] {
+    input[type='radio'] {
       display: none;
     }
 
-    input[type="radio"] + label {
+    input[type='radio'] + label {
       display: flex;
       align-items: center;
       min-width: 150px;
@@ -58,19 +76,19 @@ export const HeaderContainer = styled.div`
       justify-content: center;
       border-top-left-radius: 20px;
       border-top-right-radius: 20px;
-      background: rgb(0, 0, 0);
+      background: ${black};
       background: linear-gradient(
         0deg,
-        rgba(0, 0, 0, 1) 0%,
-        rgba(30, 42, 47, 1) 70%,
-        rgba(30, 42, 47, 1) 100%
+        ${black} 0%,
+        ${backgroundColor} 70%,
+        ${backgroundColor} 100%
       );
       cursor: pointer;
       padding: 4px 10px;
     }
 
-    input[type="radio"]:checked + label {
-      background: #1e2a2f;
+    input[type='radio']:checked + label {
+      background: ${backgroundColor};
     }
   }
 `;
@@ -82,7 +100,7 @@ export const FilterListContainer = styled.div`
   grid-row: 2;
   padding: 0 20px;
   margin-top: 20px;
-  background: #1e2a2f;
+  background: ${backgroundColor};
   overflow: auto;
   font-size: 14px;
 
@@ -92,24 +110,24 @@ export const FilterListContainer = styled.div`
     margin-bottom: 2px;
   }
 
-  input[type="checkbox"] {
+  input[type='checkbox'] {
     display: none;
   }
 
   label {
     display: block;
     padding: 4px 10px;
-    background: #272727;
+    background: ${disableGray};
     cursor: pointer;
     transition: 0.05s linear background;
 
     &:hover {
-      background: #505050;
+      background: ${highlightGray};
     }
   }
 
-  input[type="checkbox"]:checked + label {
-    background: #163356;
+  input[type='checkbox']:checked + label {
+    background: ${armColor};
     box-shadow: inset 0 0 0px 1px white;
   }
 
@@ -139,10 +157,10 @@ export const FilterListContainer = styled.div`
   }
 `;
 
-const cellPaddingTb = "7px";
-const cellPaddingLr = "5px";
+const cellPaddingTb = '7px';
+const cellPaddingLr = '5px';
 export const DisplayedTableContainer = styled.div`
-  background: #1e2a2f;
+  background: ${backgroundColor};
   padding-right: 20px;
   margin-top: 20px;
   grid-column: 2 / 3;
@@ -163,7 +181,7 @@ export const DisplayedTableContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #272727;
+    background: ${disableGray};
     box-shadow: inset 0 0 0px 2px black;
     width: 100%;
     height: 200px;
@@ -190,7 +208,12 @@ export const DisplayedTableContainer = styled.div`
   }
 
   tr:nth-child(even) .player-col {
-    background: #272727;
+    background: ${disableGray};
+  }
+
+  tr:hover .player-col {
+    cursor: pointer;
+    background: ${attrTipHighlight};
   }
 
   .header-col:first-child,
@@ -217,19 +240,19 @@ export const DisplayedTableContainer = styled.div`
     top: ${cellPaddingTb};
     height: calc(100% - (2 * ${cellPaddingTb}));
     width: calc(100% - (2 * ${cellPaddingLr}));
-    background: #5a7b89;
+    background: ${powerColor};
 
     & + .rating-value {
       text-align: center;
     }
 
     &:after {
-      content: "";
+      content: '';
       position: absolute;
       right: 0;
       width: 4px;
       height: 100%;
-      background: rgba(255, 255, 255, 0.2);
+      background: ${attrTipHighlight};
     }
   }
 
@@ -307,19 +330,19 @@ export const DisplayedTableContainer = styled.div`
       &.pitch-4F,
       &.pitch-2F,
       &.pitch-CF {
-        background: #2b094f;
+        background: ${fastBallBg};
       }
       &.pitch-SB,
       &.pitch-CW,
       &.pitch-FK {
-        background: #1e4b4b;
-        border-color: #1e4b4b;
+        background: ${forkBallBg};
+        border-color: ${forkBallBg};
       }
 
       &.pitch-CB,
       &.pitch-SL {
-        background: #092f8a;
-        border-color: #092f8a;
+        background: ${speedColor};
+        border-color: ${speedColor};
       }
     }
 
@@ -355,39 +378,33 @@ export const DisplayedTableContainer = styled.div`
     }
 
     &.player-speed .rating-color {
-      background: #1e5290;
+      background: ${speedColor};
     }
     &.player-arm .rating-color {
-      background: #1e3059;
+      background: ${armColor};
     }
     &.player-contact .rating-color {
-      background: #20536e;
+      background: ${contactColor};
     }
     &.player-fielding .rating-color {
-      background: #1a2464;
+      background: ${fieldingColor};
     }
     &.player-power .rating-color {
-      background: #5a7b89;
+      background: ${powerColor};
     }
     &.player-accuracy .rating-color {
-      background: #773857;
+      background: ${accuracyColor};
     }
     &.player-velocity .rating-color {
-      background: #713e86;
+      background: ${velocityColor};
     }
     &.player-junk .rating-color {
-      background: #803f7d;
+      background: ${junkColor};
     }
   }
 `;
 
 export const TeamTableContainer = styled.div`
-  .team {
-    display: flex;
-    background: rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px;
-  }
-
   .title {
     text-align: center;
   }
