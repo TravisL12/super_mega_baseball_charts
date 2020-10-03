@@ -18,7 +18,9 @@ BATTING LINEUPS
 select * from t_batting_orders limit 10;
 startingLineupID  battingOrder  baseballPlayerGUID
 
+// BATTING
 select 
+    localId id,
     team.teamName,
     vbpi.firstName,
     vbpi.lastName,
@@ -26,14 +28,33 @@ select
 from v_baseball_player_info vbpi
 join t_baseball_players tbp
     on vbpi.baseballPlayerGUID = tbp.GUID
+join t_baseball_player_local_ids localId
+    on localId.GUID = tbp.GUID
 join t_teams team
     on tbp.teamGUID = team.GUID
 join t_batting_orders battingOrder
     on vbpi.baseballPlayerGUID = battingOrder.baseballPlayerGUID
 join t_starting_lineups lineup
     on battingOrder.startingLineupID = lineup.startingLineupID
-// where lineup.usesDesignatedHitter = 1
 order by team.teamName, battingOrder.battingOrder;
+
+// pitching rotations
+select
+    localId id,
+    team.teamName,
+    vbpi.firstName,
+    vbpi.lastName,
+    pitchingRotation.pitchingRotation
+from v_baseball_player_info vbpi
+join t_baseball_players tbp
+    on vbpi.baseballPlayerGUID = tbp.GUID
+join t_baseball_player_local_ids localId
+    on localId.GUID = tbp.GUID
+join t_teams team
+    on tbp.teamGUID = team.GUID
+join t_pitching_rotations pitchingRotation
+    on vbpi.baseballPlayerGUID = pitchingRotation.pitcherGUID
+order by team.teamName, pitchingRotation.pitchingRotation;
 
 
 TEAM TYPES
@@ -51,6 +72,7 @@ GET PLAYERS AND ABILITIES AND TEAMS
 - Some duplicate players show up with different traits. Not sure why
 
 select 
+    localId.localID id,
     team.teamName,
     vbpi.firstName,
     vbpi.lastName,
