@@ -36,6 +36,7 @@ join t_batting_orders battingOrder
     on vbpi.baseballPlayerGUID = battingOrder.baseballPlayerGUID
 join t_starting_lineups lineup
     on battingOrder.startingLineupID = lineup.startingLineupID
+where lineup.usesDesignatedHitter = 0
 order by team.teamName, battingOrder.battingOrder;
 
 // pitching rotations
