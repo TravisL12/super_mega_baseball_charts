@@ -36,8 +36,8 @@ const headers = [
 const buildRatings = (players, skills) => {
   return skills.reduce((acc, skill) => {
     acc[skill] =
-      players.reduce((total, { display }) => {
-        return total + +display[skill];
+      players.reduce((total, player) => {
+        return total + +player[skill];
       }, 0) / players.length;
 
     return acc;
@@ -45,7 +45,7 @@ const buildRatings = (players, skills) => {
 };
 
 const TeamTable = ({ teams }) => {
-  const { sortOrder, updateSort, sortTeamColumns } = usePlayerSort();
+  const { sortOrder, updateSort, sortColumns } = usePlayerSort();
   const teamRatings = Object.keys(teams).map((name) => {
     const powerRatings = buildRatings(
       teams[name].players.filter(({ isPitcher }) => !isPitcher),
@@ -70,7 +70,7 @@ const TeamTable = ({ teams }) => {
     const rotationRatings = buildRatings(
       teams[name].players.filter(
         (player) =>
-          player.isPitcher && player.display[SKILLS.pitcher_role] === 'Starting'
+          player.isPitcher && player[SKILLS.pitcher_role] === 'Starting'
       ),
       pitching
     );
@@ -78,7 +78,7 @@ const TeamTable = ({ teams }) => {
     const bullpenRatings = buildRatings(
       teams[name].players.filter(
         (player) =>
-          player.isPitcher && player.display[SKILLS.pitcher_role] !== 'Starting'
+          player.isPitcher && player[SKILLS.pitcher_role] !== 'Starting'
       ),
       pitching
     );
@@ -111,7 +111,7 @@ const TeamTable = ({ teams }) => {
         </tr>
       </thead>
       <tbody>
-        {sortTeamColumns(teamRatings, sortOrder).map((team, idx) => {
+        {sortColumns(teamRatings, sortOrder).map((team, idx) => {
           return (
             <tr key={`team.name-${idx}`}>
               {headers.map((header) => {

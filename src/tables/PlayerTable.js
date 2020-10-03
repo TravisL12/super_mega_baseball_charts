@@ -1,25 +1,25 @@
-import React from "react";
-import teamLogos from "../team_logos";
-import { positionsAbbrev } from "../helper";
-import { SKILLS } from "../buildPlayer";
-import usePlayerSort from "../usePlayerSort";
+import React from 'react';
+import teamLogos from '../team_logos';
+import { positionsAbbrev } from '../helper';
+import { SKILLS } from '../buildPlayer';
+import usePlayerSort from '../usePlayerSort';
 
 const columnNameMap = {
-  [SKILLS.team]: "team",
-  [SKILLS.name]: "name",
-  [SKILLS.position]: "P. Pos",
-  [SKILLS.position_2]: "S. Pos",
-  [SKILLS.power]: "pow",
-  [SKILLS.contact]: "con",
-  [SKILLS.speed]: "spd",
-  [SKILLS.fielding]: "fld",
-  [SKILLS.arm]: "arm",
-  [SKILLS.trait]: "trait 1",
-  [SKILLS.trait_2]: "trait 2",
-  [SKILLS.bats]: "bat",
-  [SKILLS.throws]: "thr",
-  [SKILLS.age]: "age",
-  [SKILLS.gender]: "gen",
+  [SKILLS.team]: 'team',
+  [SKILLS.name]: 'name',
+  [SKILLS.position]: 'P. Pos',
+  [SKILLS.position_2]: 'S. Pos',
+  [SKILLS.power]: 'pow',
+  [SKILLS.contact]: 'con',
+  [SKILLS.speed]: 'spd',
+  [SKILLS.fielding]: 'fld',
+  [SKILLS.arm]: 'arm',
+  [SKILLS.trait]: 'trait 1',
+  [SKILLS.trait_2]: 'trait 2',
+  [SKILLS.bats]: 'bat',
+  [SKILLS.throws]: 'thr',
+  [SKILLS.age]: 'age',
+  [SKILLS.gender]: 'gen',
 };
 
 const headers = [
@@ -68,27 +68,27 @@ const PlayerTable = ({ players }) => {
         </tr>
       </thead>
       <tbody>
-        {sortColumns(players, sortOrder).map(({ display }) => (
-          <tr key={display.name}>
+        {sortColumns(players, sortOrder).map((player) => (
+          <tr key={player.name}>
             {headers.map((header) => {
               const ratingPercent =
-                !isNaN(display[header]) &&
+                !isNaN(player[header]) &&
                 ![SKILLS.age, SKILLS.trait, SKILLS.trait_2].includes(header)
-                  ? `${display[header]}%`
+                  ? `${player[header]}%`
                   : null;
 
               let displayValue = [SKILLS.position, SKILLS.position_2].includes(
                 header
               )
-                ? positionsAbbrev[display[header]]
-                : display[header];
+                ? positionsAbbrev[player[header]]
+                : player[header];
 
               const logo =
                 header === SKILLS.team ? (
                   <img
-                    alt={`${display[header]} logo`}
+                    alt={`${player[header]} logo`}
                     src={
-                      teamLogos[display[header].replace(/\s/, "").toLowerCase()]
+                      teamLogos[player[header].replace(/\s/, '').toLowerCase()]
                     }
                   />
                 ) : null;

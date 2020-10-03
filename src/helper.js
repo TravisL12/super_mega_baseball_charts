@@ -57,7 +57,7 @@ export const positionsAbbrev = {
 };
 
 export const getUniqTeams = (players) => {
-  return uniqBy(players, 'display.team').map(({ display }) => display.team);
+  return uniqBy(players, 'team').map(({ team }) => team);
 };
 
 export const buildChecklist = (data, defaultVal = false) => {
@@ -79,13 +79,13 @@ export const initialFilters = {
 
 export const filterPlayers = (filters, players) => {
   // Filter team names
-  players = players.filter((player) => filters.teams[player.display.team]);
-  players = players.filter((player) => filters.gender[player.display.gender]);
-  players = players.filter((player) => filters.bats[player.display.bats]);
-  players = players.filter((player) => filters.throws[player.display.throws]);
+  players = players.filter((player) => filters.teams[player.team]);
+  players = players.filter((player) => filters.gender[player.gender]);
+  players = players.filter((player) => filters.bats[player.bats]);
+  players = players.filter((player) => filters.throws[player.throws]);
 
   // Filter positions
-  players = players.filter(({ display: { position, pitcherRole } }) => {
+  players = players.filter(({ position, pitcherRole }) => {
     const isPitcher = filters.pitchers[pitcherRole];
     const isPosition = filters.positions[position];
     return isPitcher || isPosition;
@@ -94,9 +94,9 @@ export const filterPlayers = (filters, players) => {
   // Filter name search
   if (filters.name) {
     players = players.filter((player) =>
-      player.display.name.toLowerCase().includes(filters.name.toLowerCase())
+      player.name.toLowerCase().includes(filters.name.toLowerCase())
     );
   }
 
-  return uniqBy(players, 'display.name');
+  return uniqBy(players, 'name');
 };

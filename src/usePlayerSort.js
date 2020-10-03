@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 const sortColumns = (players, sortAttr) => {
   if (!sortAttr.header) {
@@ -6,38 +6,17 @@ const sortColumns = (players, sortAttr) => {
   }
 
   return players.sort((a, b) => {
-    const aDisplay = isNaN(a.display[sortAttr.header])
-      ? a.display[sortAttr.header]
-      : +a.display[sortAttr.header];
-    const bDisplay = isNaN(b.display[sortAttr.header])
-      ? b.display[sortAttr.header]
-      : +b.display[sortAttr.header];
-
-    if (sortAttr.direction === "asc") {
-      return aDisplay > bDisplay ? 1 : -1;
-    } else {
-      return aDisplay < bDisplay ? 1 : -1;
-    }
-  });
-};
-
-const sortTeamColumns = (teams, sortAttr) => {
-  if (!sortAttr.header) {
-    return teams;
-  }
-
-  return teams.sort((a, b) => {
-    const aDisplay = isNaN(a[sortAttr.header])
+    const aValue = isNaN(a[sortAttr.header])
       ? a[sortAttr.header]
       : +a[sortAttr.header];
-    const bDisplay = isNaN(b[sortAttr.header])
+    const bValue = isNaN(b[sortAttr.header])
       ? b[sortAttr.header]
       : +b[sortAttr.header];
 
-    if (sortAttr.direction === "asc") {
-      return aDisplay > bDisplay ? 1 : -1;
+    if (sortAttr.direction === 'asc') {
+      return aValue > bValue ? 1 : -1;
     } else {
-      return aDisplay < bDisplay ? 1 : -1;
+      return aValue < bValue ? 1 : -1;
     }
   });
 };
@@ -49,16 +28,16 @@ const usePlayerSort = () => {
     setSortOrder((prevHeader) => {
       let direction;
       if (prevHeader.header === header) {
-        direction = prevHeader.direction === "asc" ? "desc" : "asc";
+        direction = prevHeader.direction === 'asc' ? 'desc' : 'asc';
       } else {
-        direction = prevHeader.direction === "asc" ? "asc" : "desc";
+        direction = prevHeader.direction === 'asc' ? 'asc' : 'desc';
       }
 
       return { header, direction };
     });
   };
 
-  return { sortOrder, updateSort, sortColumns, sortTeamColumns };
+  return { sortOrder, updateSort, sortColumns };
 };
 
 export default usePlayerSort;

@@ -18,9 +18,6 @@ BATTING LINEUPS
 select * from t_batting_orders limit 10;
 startingLineupID  battingOrder  baseballPlayerGUID
 
-
-
-
 select 
     team.teamName,
     vbpi.firstName,
@@ -33,6 +30,10 @@ join t_teams team
     on tbp.teamGUID = team.GUID
 join t_batting_orders battingOrder
     on vbpi.baseballPlayerGUID = battingOrder.baseballPlayerGUID
+join t_starting_lineups lineup
+    on battingOrder.startingLineupID = lineup.startingLineupID
+// where lineup.usesDesignatedHitter = 1
+order by team.teamName, battingOrder.battingOrder;
 
 
 TEAM TYPES

@@ -49,8 +49,9 @@ export const createPlayer = (info) => {
   const position = ALL_POSITIONS[info[54]];
   const position2 = ALL_POSITIONS[info[55]];
   const battingOrder = info.battingOrder;
+  const jersey = info[20];
 
-  const display = {
+  return {
     [SKILLS.team]: info.teamName,
     [SKILLS.name]: `${info.firstName} ${info.lastName}`,
     [SKILLS.position]: position,
@@ -72,11 +73,9 @@ export const createPlayer = (info) => {
     [SKILLS.junk]: info.junk,
     [SKILLS.accuracy]: info.accuracy,
     battingOrder,
-  };
-
-  return {
+    jersey,
+    id: +info.id,
     isPitcher,
-    display,
     info,
   };
 };
@@ -105,7 +104,7 @@ export const compileOptions = (info) => {
 
 export const buildTeams = (players) => {
   return players.reduce((teams, player) => {
-    const { team } = player.display;
+    const { team } = player;
     teams[team] = teams[team] || { name: team, players: [] };
     teams[team].players.push(player);
     return teams;
