@@ -175,9 +175,95 @@ export const FilterListContainer = styled.div`
   }
 `;
 
+export const PlayerCardContainer = styled.div`
+  position: absolute;
+  text-transform: uppercase;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  background: ${black};
+
+  .player-skills {
+    width: 250px;
+    padding: 0 10px 10px;
+
+    .bat-throw-pos {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 10px;
+    }
+
+    .skills {
+      display: flex;
+      flex-direction: column;
+
+      .player-skill {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+
+        & > span {
+          flex: 1;
+        }
+      }
+    }
+  }
+`;
+
+export const SkillRating = styled.span`
+  position: relative;
+  display: inline-block;
+  height: 100%;
+  width: ${(props) => props.width}%;
+  background: ${contactColor};
+
+  &:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    width: 4px;
+    height: 100%;
+    background: white;
+  }
+`;
+
+function getPitchType(pitch) {
+  switch (pitch) {
+    case '4F':
+    case '2F':
+    case 'CF':
+      return fastBallBg;
+    case 'SB':
+    case 'CW':
+    case 'FK':
+      return forkBallBg;
+    case 'CB':
+    case 'SL':
+      return speedColor;
+    default:
+      return 'orange';
+  }
+}
+
+export const PitchTypeContainer = styled.span`
+  display: inline-block;
+  font-weight: bold;
+  font-size: 12px;
+  border: 1px solid;
+  padding: 0px 2px;
+  border-radius: 5px;
+  background: ${(props) => getPitchType(props.pitchType)};
+  border-color: ${(props) =>
+    ['4F', '2F', 'CF'].includes(props.pitchType)
+      ? 'orange'
+      : getPitchType(props.pitchType)};
+`;
+
 const cellPaddingTb = '7px';
 const cellPaddingLr = '5px';
 export const DisplayedTableContainer = styled.div`
+  position: relative;
   background: ${backgroundColor};
   padding-right: 20px;
   margin-top: 20px;
@@ -231,7 +317,7 @@ export const DisplayedTableContainer = styled.div`
 
   tr:hover .player-col {
     cursor: pointer;
-    background: ${attrTipHighlight};
+    background: ${armColor};
   }
 
   .header-col:first-child,
@@ -333,34 +419,6 @@ export const DisplayedTableContainer = styled.div`
             transition: 0.2s linear opacity;
           }
         }
-      }
-    }
-
-    .pitch-type {
-      display: inline-block;
-      font-weight: bold;
-      font-size: 12px;
-      border: 1px solid;
-      border-color: orange;
-      padding: 0px 2px;
-      border-radius: 5px;
-
-      &.pitch-4F,
-      &.pitch-2F,
-      &.pitch-CF {
-        background: ${fastBallBg};
-      }
-      &.pitch-SB,
-      &.pitch-CW,
-      &.pitch-FK {
-        background: ${forkBallBg};
-        border-color: ${forkBallBg};
-      }
-
-      &.pitch-CB,
-      &.pitch-SL {
-        background: ${speedColor};
-        border-color: ${speedColor};
       }
     }
 

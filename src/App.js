@@ -5,6 +5,7 @@ import { partition, sortBy, values } from 'lodash';
 import smbCsvData from './smb_data.csv';
 import smbLogo from './smb_logo.png';
 
+import PlayerCard from './PlayerCard';
 import PlayerTable from './tables/PlayerTable';
 import PitcherTable from './tables/PitcherTable';
 import TeamTable from './tables/TeamTable';
@@ -38,6 +39,7 @@ function App() {
   const [teams, setTeams] = useState([]);
   const [filters, setFilters] = useState(initialFilters);
   const [selectedOption, setSelectedOption] = useState('Positions');
+  const [modalPlayer, setModalPlayer] = useState(null);
 
   useEffect(() => {
     loadPlayers(({ data }) => {
@@ -76,9 +78,16 @@ function App() {
   const getTable = () => {
     switch (selectedOption) {
       case 'Pitchers':
-        return <PitcherTable players={pitchers} />;
+        return (
+          <PitcherTable setModalPlayer={setModalPlayer} players={pitchers} />
+        );
       case 'Positions':
-        return <PlayerTable players={positionPlayers} />;
+        return (
+          <PlayerTable
+            setModalPlayer={setModalPlayer}
+            players={positionPlayers}
+          />
+        );
       case 'Teams':
         return <TeamTable teams={teams} />;
       default:
@@ -106,7 +115,14 @@ function App() {
 
       <Filters filters={filters} setFilters={setFilters} />
 
-      <DisplayedTableContainer>{getTable()}</DisplayedTableContainer>
+      <DisplayedTableContainer>
+        <PlayerCard
+          player={modalPlayer}
+          isOpen={!!modalPlayer}
+          close={() => setModalPlayer(null)}
+        />
+        {getTable()}
+      </DisplayedTableContainer>
     </AppContainer>
   );
 }

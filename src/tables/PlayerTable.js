@@ -1,5 +1,4 @@
 import React from 'react';
-import teamLogos from '../team_logos';
 import { positionsAbbrev } from '../helper';
 import { SKILLS } from '../buildPlayer';
 import usePlayerSort from '../usePlayerSort';
@@ -40,7 +39,7 @@ const headers = [
   SKILLS.gender,
 ];
 
-const PlayerTable = ({ players }) => {
+const PlayerTable = ({ players, setModalPlayer }) => {
   const { sortOrder, updateSort, sortColumns } = usePlayerSort();
 
   if (!players.length)
@@ -69,7 +68,7 @@ const PlayerTable = ({ players }) => {
       </thead>
       <tbody>
         {sortColumns(players, sortOrder).map((player) => (
-          <tr key={player.name}>
+          <tr key={player.name} onClick={() => setModalPlayer(player)}>
             {headers.map((header) => {
               const ratingPercent =
                 !isNaN(player[header]) &&
@@ -87,9 +86,7 @@ const PlayerTable = ({ players }) => {
                 header === SKILLS.team ? (
                   <img
                     alt={`${player[header]} logo`}
-                    src={
-                      teamLogos[player[header].replace(/\s/, '').toLowerCase()]
-                    }
+                    src={`${process.env.PUBLIC_URL}/team_logos/${player[header]}.png`}
                   />
                 ) : null;
 

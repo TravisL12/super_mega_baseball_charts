@@ -1,6 +1,5 @@
 import React from 'react';
 import { mean, values } from 'lodash';
-import teamLogos from '../team_logos';
 import { SKILLS } from '../buildPlayer';
 import usePlayerSort from '../usePlayerSort';
 
@@ -84,7 +83,7 @@ const TeamTable = ({ teams }) => {
     );
 
     return {
-      logo: teamLogos[name.replace(/\s/, '').toLowerCase()],
+      logo: `${process.env.PUBLIC_URL}/team_logos/${name}.png`,
       team: name,
       power: values(powerRatings)[0],
       contact: values(contactRatings)[0],

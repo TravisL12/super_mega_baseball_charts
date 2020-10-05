@@ -1,4 +1,4 @@
-import { keys, pick, reduce } from 'lodash';
+import { keys, pick, reduce, snakeCase } from 'lodash';
 import { ALL_POSITIONS, PITCHER_ROLES } from './helper';
 import { options } from './playerOptions';
 
@@ -77,6 +77,9 @@ export const createPlayer = (info) => {
     id: +info.id,
     isPitcher,
     info,
+    image: `${snakeCase(info.teamName)}-${info.firstName}_${snakeCase(
+      info.lastName
+    )}.png`.toLowerCase(),
   };
 };
 

@@ -3,6 +3,7 @@ import teamLogos from '../team_logos';
 import { positionsAbbrev } from '../helper';
 import usePlayerSort from '../usePlayerSort';
 import { SKILLS } from '../buildPlayer';
+import { PitchTypeContainer } from '../styles';
 
 const columnNameMap = {
   [SKILLS.team]: 'team',
@@ -44,7 +45,7 @@ const headers = [
   SKILLS.gender,
 ];
 
-const PitcherTable = ({ players }) => {
+const PitcherTable = ({ players, setModalPlayer }) => {
   const { sortOrder, updateSort, sortColumns } = usePlayerSort();
 
   if (!players.length)
@@ -73,7 +74,7 @@ const PitcherTable = ({ players }) => {
       </thead>
       <tbody>
         {sortColumns(players, sortOrder).map((player) => (
-          <tr key={player.name}>
+          <tr key={player.name} onClick={() => setModalPlayer(player)}>
             {headers.map((header) => {
               const ratingPercent =
                 !isNaN(player[header]) &&
@@ -88,9 +89,9 @@ const PitcherTable = ({ players }) => {
               if (header === SKILLS.arsenal) {
                 displayValue = player[header].map((pitch) => {
                   return (
-                    <span key={pitch} className={`pitch-type pitch-${pitch}`}>
+                    <PitchTypeContainer key={pitch} pitchType={pitch}>
                       {pitch}
-                    </span>
+                    </PitchTypeContainer>
                   );
                 });
               }
