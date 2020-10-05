@@ -18,7 +18,12 @@ const PlayerCard = ({ player, close }) => {
     !!player && (
       <PlayerCardContainer className="player-modal" onClick={close}>
         <div className="player-image">
-          <img src={`${process.env.PUBLIC_URL}/player_pics/${player.image}`} />
+          <img
+            alt={`${player.name} in all ${
+              player.gender === 'M' ? 'his' : 'her'
+            } glory`}
+            src={`${process.env.PUBLIC_URL}/player_pics/${player.image}`}
+          />
         </div>
         <div className="player-skills">
           <div className="bat-throw-pos">
