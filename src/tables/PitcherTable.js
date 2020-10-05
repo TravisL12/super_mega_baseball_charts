@@ -1,5 +1,4 @@
 import React from 'react';
-import teamLogos from '../team_logos';
 import { positionsAbbrev } from '../helper';
 import usePlayerSort from '../usePlayerSort';
 import { SKILLS } from '../buildPlayer';
@@ -100,9 +99,7 @@ const PitcherTable = ({ players, setModalPlayer }) => {
                 header === SKILLS.team ? (
                   <img
                     alt={`${player[header]} logo`}
-                    src={
-                      teamLogos[player[header].replace(/\s/, '').toLowerCase()]
-                    }
+                    src={`${process.env.PUBLIC_URL}/team_logos/${player[header]}.png`}
                   />
                 ) : null;
 
