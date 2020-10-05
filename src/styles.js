@@ -176,10 +176,10 @@ export const FilterListContainer = styled.div`
 `;
 
 export const PlayerCardContainer = styled.div`
-  position: absolute;
+  position: fixed;
   text-transform: uppercase;
-  top: 0;
-  left: 0;
+  top: 100px;
+  right: 20px;
   z-index: 2;
   display: flex;
   background: ${black};
