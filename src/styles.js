@@ -188,6 +188,12 @@ export const PlayerCardContainer = styled.div`
     width: 250px;
     padding: 0 10px 10px;
 
+    .close-btn {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+    }
+
     .bat-throw-pos {
       display: flex;
       justify-content: space-around;

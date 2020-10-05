@@ -49,6 +49,9 @@ const PlayerCard = ({ player, close }) => {
               </>
             )}
           </div>
+          <button className="close-btn" onClick={close}>
+            Close
+          </button>
         </div>
       </PlayerCardContainer>
     )
