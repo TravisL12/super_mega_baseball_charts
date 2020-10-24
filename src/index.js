@@ -6,8 +6,9 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-const basename =
-  process.env.NODE_ENV === 'production' ? process.env.PUBLIC_URL : null;
+const basename = !!process.env.REACT_APP_DEPLOY_DIRECTORY
+  ? process.env.REACT_APP_DEPLOY_DIRECTORY
+  : null;
 
 ReactDOM.render(
   <React.StrictMode>
