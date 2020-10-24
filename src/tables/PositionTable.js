@@ -5,15 +5,13 @@ import Table from './Table';
 const columnNameMap = {
   [SKILLS.team]: 'team',
   [SKILLS.name]: 'name',
-  [SKILLS.pitcher_role]: 'role',
+  [SKILLS.position]: 'P. Pos',
+  [SKILLS.position_2]: 'S. Pos',
   [SKILLS.power]: 'pow',
   [SKILLS.contact]: 'con',
   [SKILLS.speed]: 'spd',
   [SKILLS.fielding]: 'fld',
-  [SKILLS.arsenal]: 'arsenal',
-  [SKILLS.velocity]: 'vel',
-  [SKILLS.junk]: 'jnk',
-  [SKILLS.accuracy]: 'acc',
+  [SKILLS.arm]: 'arm',
   [SKILLS.trait]: 'trait 1',
   [SKILLS.trait_2]: 'trait 2',
   [SKILLS.bats]: 'bat',
@@ -25,15 +23,13 @@ const columnNameMap = {
 const headers = [
   SKILLS.team,
   SKILLS.name,
-  SKILLS.pitcher_role,
-  SKILLS.arsenal,
+  SKILLS.position,
+  SKILLS.position_2,
   SKILLS.power,
   SKILLS.contact,
   SKILLS.speed,
   SKILLS.fielding,
-  SKILLS.velocity,
-  SKILLS.junk,
-  SKILLS.accuracy,
+  SKILLS.arm,
   SKILLS.trait,
   SKILLS.trait_2,
   SKILLS.bats,
@@ -42,12 +38,12 @@ const headers = [
   SKILLS.gender,
 ];
 
-const PitcherTable = ({ players, setModalPlayer }) => {
+const PositionTable = ({ players, setModalPlayer }) => {
   if (!players.length)
     return (
       <div className="no-players">
-        <p>No Pitchers found.</p>
-        <p>Check the Positions button at the top,</p>
+        <p>No Position players found.</p>
+        <p>Check the Pitchers button at the top,</p>
         <p>or adjust the search filters.</p>
       </div>
     );
@@ -62,4 +58,4 @@ const PitcherTable = ({ players, setModalPlayer }) => {
   );
 };
 
-export default PitcherTable;
+export default PositionTable;

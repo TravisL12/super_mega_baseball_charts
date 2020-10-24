@@ -4,7 +4,7 @@ import { partition, sortBy, values } from 'lodash';
 import { Switch, Route } from 'react-router-dom';
 
 import PlayerCard from './PlayerCard';
-import PlayerTable from './tables/PlayerTable';
+import PositionTable from './tables/PositionTable';
 import PitcherTable from './tables/PitcherTable';
 import TeamTable from './tables/TeamTable';
 import Header from './Header';
@@ -101,7 +101,7 @@ function App() {
             <TeamTable teams={teams} />
           </Route>
           <Route path="/">
-            <PlayerTable
+            <PositionTable
               setModalPlayer={setPlayerModal}
               players={positionPlayers}
             />
