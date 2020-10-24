@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import Papa from 'papaparse';
 import { partition, sortBy, values } from 'lodash';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, useHistory, useLocation } from 'react-router-dom';
 
 import smbCsvData from './smb_data.csv';
 import smbLogo from './smb_logo.png';
@@ -31,12 +31,31 @@ const loadPlayers = (cb) => {
   });
 };
 
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
 function App() {
   const [players, setPlayers] = useState([]);
   const [teams, setTeams] = useState([]);
   const [filters, setFilters] = useState(initialFilters);
-  const [selectedOption, setSelectedOption] = useState('Positions');
   const [modalPlayer, setModalPlayer] = useState(null);
+  const query = useQuery();
+  const history = useHistory();
+
+  const setPlayerModal = (player) => {
+    history.push({ search: `?player=${player.name}` });
+    setModalPlayer(player);
+  };
+
+  const closePlayerModal = () => {
+    history.push({ search: '' });
+    setModalPlayer(null);
+  };
+
+  useEffect(() => {
+    query.get('player');
+  }, [modalPlayer]);
 
   useEffect(() => {
     loadPlayers(({ data }) => {
@@ -63,10 +82,6 @@ function App() {
     });
   }, []);
 
-  const handlePlayerTableChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
-
   const [pitchers, positionPlayers] = partition(
     filterPlayers(filters, players),
     ({ isPitcher }) => isPitcher
@@ -89,18 +104,18 @@ function App() {
         <PlayerCard
           player={modalPlayer}
           isOpen={!!modalPlayer}
-          close={() => setModalPlayer(null)}
+          close={closePlayerModal}
         />
         <Switch>
           <Route path="/pitchers">
-            <PitcherTable setModalPlayer={setModalPlayer} players={pitchers} />
+            <PitcherTable setModalPlayer={setPlayerModal} players={pitchers} />
           </Route>
           <Route path="/teams">
             <TeamTable teams={teams} />
           </Route>
           <Route path="/">
             <PlayerTable
-              setModalPlayer={setModalPlayer}
+              setModalPlayer={setPlayerModal}
               players={positionPlayers}
             />
           </Route>
