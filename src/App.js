@@ -95,7 +95,11 @@ function App() {
         />
         <Switch>
           <Route path="/pitchers">
-            <PitcherTable setModalPlayer={setPlayerModal} players={pitchers} />
+            <PitcherTable
+              setModalPlayer={setPlayerModal}
+              modalPlayer={modalPlayer}
+              players={pitchers}
+            />
           </Route>
           <Route path="/teams">
             <TeamTable teams={teams} />
@@ -103,6 +107,7 @@ function App() {
           <Route path="/">
             <PositionTable
               setModalPlayer={setPlayerModal}
+              modalPlayer={modalPlayer}
               players={positionPlayers}
             />
           </Route>

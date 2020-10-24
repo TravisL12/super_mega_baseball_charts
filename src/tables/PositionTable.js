@@ -38,7 +38,7 @@ const headers = [
   SKILLS.gender,
 ];
 
-const PositionTable = ({ players, setModalPlayer }) => {
+const PositionTable = ({ players, setModalPlayer, modalPlayer }) => {
   if (!players.length)
     return (
       <div className="no-players">
@@ -54,6 +54,7 @@ const PositionTable = ({ players, setModalPlayer }) => {
       players={players}
       columnNameMap={columnNameMap}
       setModalPlayer={setModalPlayer}
+      modalPlayer={modalPlayer}
     />
   );
 };

@@ -7,7 +7,7 @@ import {
   getTeamLogo,
 } from './tableUtilities';
 
-const TableColumn = ({ player, header }) => {
+const TableColumn = ({ player, header, isSelected }) => {
   const logo = getTeamLogo(player, header);
   const ratingPercent = getRatingPercent(player, header);
   let displayValue = getDisplayValue(player, header);
@@ -23,7 +23,12 @@ const TableColumn = ({ player, header }) => {
   }
 
   return (
-    <td className={`player-col player-${header}`} key={header}>
+    <td
+      className={`player-col player-${header} ${
+        isSelected ? 'selectedPlayer' : ''
+      }`}
+      key={header}
+    >
       {ratingPercent && (
         <span className="rating-color" style={{ width: ratingPercent }}></span>
       )}

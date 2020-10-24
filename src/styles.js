@@ -316,15 +316,6 @@ export const DisplayedTableContainer = styled.div`
     min-width: 160px;
   }
 
-  tr:nth-child(even) .player-col {
-    background: ${disableGray};
-  }
-
-  tr:hover .player-col {
-    cursor: pointer;
-    background: ${armColor};
-  }
-
   .header-col:first-child,
   .player-col:first-child {
     padding-left: 15px;
@@ -365,6 +356,15 @@ export const DisplayedTableContainer = styled.div`
     }
   }
 
+  tr:nth-child(even) .player-col {
+    background: ${disableGray};
+  }
+
+  tr:hover .player-col {
+    cursor: pointer;
+    background: ${armColor};
+  }
+
   .player-col {
     position: relative;
     height: 40px;
@@ -373,6 +373,10 @@ export const DisplayedTableContainer = styled.div`
     box-sizing: border-box;
     font-weight: 500;
     padding: ${cellPaddingTb} ${cellPaddingLr};
+
+    &.selectedPlayer {
+      background: ${powerColor} !important;
+    }
 
     p {
       margin: 0;

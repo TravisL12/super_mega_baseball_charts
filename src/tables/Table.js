@@ -2,7 +2,13 @@ import React from 'react';
 import usePlayerSort from '../hooks/usePlayerSort';
 import TableColumn from './TableColumn';
 
-const Table = ({ players, headers, columnNameMap, setModalPlayer }) => {
+const Table = ({
+  players,
+  headers,
+  columnNameMap,
+  setModalPlayer,
+  modalPlayer,
+}) => {
   const { sortOrder, updateSort, sortColumns } = usePlayerSort();
 
   return (
@@ -25,7 +31,12 @@ const Table = ({ players, headers, columnNameMap, setModalPlayer }) => {
           <tr key={player.name} onClick={() => setModalPlayer(player)}>
             {headers.map((header) => {
               return (
-                <TableColumn key={header} player={player} header={header} />
+                <TableColumn
+                  key={header}
+                  isSelected={player.name === modalPlayer?.name}
+                  player={player}
+                  header={header}
+                />
               );
             })}
           </tr>

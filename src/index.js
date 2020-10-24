@@ -7,7 +7,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 const basename =
-  !process.env.NODE_ENV === 'production' ? process.env.PUBLIC_URL : null;
+  process.env.NODE_ENV === 'production' ? process.env.PUBLIC_URL : null;
 
 ReactDOM.render(
   <React.StrictMode>
