@@ -1,7 +1,7 @@
 import React from 'react';
-import { positionsAbbrev } from '../helper';
-import usePlayerSort from '../usePlayerSort';
-import { SKILLS } from '../buildPlayer';
+import { positionsAbbrev } from '../utilities/helper';
+import usePlayerSort from '../hooks/usePlayerSort';
+import { SKILLS } from '../utilities/buildPlayer';
 import { PitchTypeContainer } from '../styles';
 
 const columnNameMap = {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { mean, values } from 'lodash';
-import { SKILLS } from '../buildPlayer';
-import usePlayerSort from '../usePlayerSort';
+import { SKILLS } from '../utilities/buildPlayer';
+import usePlayerSort from '../hooks/usePlayerSort';
 
 // power, contact, speed, defense, rotation, bullpen
 // pow, con, spd, def, rot, pen

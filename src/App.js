@@ -1,10 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import Papa from 'papaparse';
 import { partition, sortBy, values } from 'lodash';
-import { Switch, Route, useHistory, useLocation } from 'react-router-dom';
-
-import smbCsvData from './smb_data.csv';
-import smbLogo from './smb_logo.png';
+import { Switch, Route } from 'react-router-dom';
 
 import PlayerCard from './PlayerCard';
 import PlayerTable from './tables/PlayerTable';
@@ -13,49 +10,36 @@ import TeamTable from './tables/TeamTable';
 import Header from './Header';
 import Filters from './Filters';
 
-import { buildTeams, compileOptions, createPlayer } from './buildPlayer';
+import {
+  buildTeams,
+  compileOptions,
+  createPlayer,
+} from './utilities/buildPlayer';
 import {
   buildChecklist,
   getUniqTeams,
   initialFilters,
   filterPlayers,
-} from './helper';
+} from './utilities/helper';
 
 import { AppContainer, DisplayedTableContainer } from './styles';
+import usePlayerModal from './hooks/usePlayerModal';
 
 const loadPlayers = (cb) => {
-  Papa.parse(smbCsvData, {
+  Papa.parse(`${process.env.PUBLIC_URL}/smb_data.csv`, {
     download: true,
     header: true,
     complete: cb,
   });
 };
 
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
-
 function App() {
   const [players, setPlayers] = useState([]);
   const [teams, setTeams] = useState([]);
   const [filters, setFilters] = useState(initialFilters);
-  const [modalPlayer, setModalPlayer] = useState(null);
-  const query = useQuery();
-  const history = useHistory();
-
-  const setPlayerModal = (player) => {
-    history.push({ search: `?player=${player.name}` });
-    setModalPlayer(player);
-  };
-
-  const closePlayerModal = () => {
-    history.push({ search: '' });
-    setModalPlayer(null);
-  };
-
-  useEffect(() => {
-    query.get('player');
-  }, [modalPlayer]);
+  const { setPlayerModal, closePlayerModal, modalPlayer } = usePlayerModal(
+    players
+  );
 
   useEffect(() => {
     loadPlayers(({ data }) => {
@@ -90,7 +74,10 @@ function App() {
   return (
     <AppContainer>
       <div className="title-logo">
-        <img alt="Super Mega Baseball Logo" src={smbLogo} />
+        <img
+          alt="Super Mega Baseball Logo"
+          src={`${process.env.PUBLIC_URL}/smb_logo.png`}
+        />
       </div>
 
       <Header

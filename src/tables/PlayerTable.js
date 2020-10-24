@@ -1,7 +1,7 @@
 import React from 'react';
-import { positionsAbbrev } from '../helper';
-import { SKILLS } from '../buildPlayer';
-import usePlayerSort from '../usePlayerSort';
+import { positionsAbbrev } from '../utilities/helper';
+import { SKILLS } from '../utilities/buildPlayer';
+import usePlayerSort from '../hooks/usePlayerSort';
 
 const columnNameMap = {
   [SKILLS.team]: 'team',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { positionsAbbrev } from './helper';
+import { positionsAbbrev } from './utilities/helper';
 import { PitchTypeContainer, PlayerCardContainer, SkillRating } from './styles';
 
 const PlayerSkill = ({ skill, rating }) => {
