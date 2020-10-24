@@ -57,21 +57,19 @@ export const HeaderContainer = styled.div`
     padding: 8px 10px;
   }
 
-  .player-type-form {
+  .player-type-nav {
     display: flex;
     justify-content: space-between;
     align-self: flex-end;
     height: 50px;
     min-width: 500px;
 
-    input[type='radio'] {
-      display: none;
-    }
-
-    input[type='radio'] + label {
+    .player-type {
       display: flex;
       align-items: center;
       min-width: 150px;
+      color: white;
+      text-decoration: none;
       height: 100%;
       justify-content: center;
       border-top-left-radius: 20px;
@@ -85,10 +83,11 @@ export const HeaderContainer = styled.div`
       );
       cursor: pointer;
       padding: 4px 10px;
-    }
 
-    input[type='radio']:checked + label {
-      background: ${backgroundColor};
+      &.active {
+        background: ${backgroundColor};
+        font-weight: 800;
+      }
     }
   }
 `;

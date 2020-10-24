@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import Papa from 'papaparse';
 import { partition, sortBy, values } from 'lodash';
+import { Switch, Route } from 'react-router-dom';
 
 import smbCsvData from './smb_data.csv';
 import smbLogo from './smb_logo.png';
@@ -9,7 +10,7 @@ import PlayerCard from './PlayerCard';
 import PlayerTable from './tables/PlayerTable';
 import PitcherTable from './tables/PitcherTable';
 import TeamTable from './tables/TeamTable';
-import PlayerTypeForm from './PlayerTypeForm';
+import Header from './Header';
 import Filters from './Filters';
 
 import { buildTeams, compileOptions, createPlayer } from './buildPlayer';
@@ -20,11 +21,7 @@ import {
   filterPlayers,
 } from './helper';
 
-import {
-  AppContainer,
-  HeaderContainer,
-  DisplayedTableContainer,
-} from './styles';
+import { AppContainer, DisplayedTableContainer } from './styles';
 
 const loadPlayers = (cb) => {
   Papa.parse(smbCsvData, {
@@ -75,43 +72,16 @@ function App() {
     ({ isPitcher }) => isPitcher
   );
 
-  const getTable = () => {
-    switch (selectedOption) {
-      case 'Pitchers':
-        return (
-          <PitcherTable setModalPlayer={setModalPlayer} players={pitchers} />
-        );
-      case 'Positions':
-        return (
-          <PlayerTable
-            setModalPlayer={setModalPlayer}
-            players={positionPlayers}
-          />
-        );
-      case 'Teams':
-        return <TeamTable teams={teams} />;
-      default:
-    }
-  };
-
   return (
     <AppContainer>
       <div className="title-logo">
         <img alt="Super Mega Baseball Logo" src={smbLogo} />
       </div>
 
-      <HeaderContainer>
-        <PlayerTypeForm
-          playerCounts={{ pitchers, positionPlayers }}
-          selectedOption={selectedOption}
-          onChange={handlePlayerTableChange}
-        />
-        <input
-          type="text"
-          placeholder="Search Players by name"
-          onChange={searchNames}
-        />
-      </HeaderContainer>
+      <Header
+        playerCounts={{ pitchers, positionPlayers }}
+        searchNames={searchNames}
+      />
 
       <Filters filters={filters} setFilters={setFilters} />
 
@@ -121,7 +91,20 @@ function App() {
           isOpen={!!modalPlayer}
           close={() => setModalPlayer(null)}
         />
-        {getTable()}
+        <Switch>
+          <Route path="/pitchers">
+            <PitcherTable setModalPlayer={setModalPlayer} players={pitchers} />
+          </Route>
+          <Route path="/teams">
+            <TeamTable teams={teams} />
+          </Route>
+          <Route path="/">
+            <PlayerTable
+              setModalPlayer={setModalPlayer}
+              players={positionPlayers}
+            />
+          </Route>
+        </Switch>
       </DisplayedTableContainer>
     </AppContainer>
   );
