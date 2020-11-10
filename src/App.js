@@ -66,6 +66,12 @@ function App() {
     });
   }, []);
 
+  const clearSearch = useCallback(() => {
+    setFilters((prevFilters) => {
+      return { ...prevFilters, name: '' };
+    });
+  }, [setFilters]);
+
   const [pitchers, positionPlayers] = partition(
     filterPlayers(filters, players),
     ({ isPitcher }) => isPitcher
@@ -83,6 +89,8 @@ function App() {
       <Header
         playerCounts={{ pitchers, positionPlayers }}
         searchNames={searchNames}
+        clearSearch={clearSearch}
+        filters={filters}
       />
 
       <Filters filters={filters} setFilters={setFilters} />

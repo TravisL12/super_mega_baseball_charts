@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { HeaderContainer } from './styles';
 
-const Header = ({ playerCounts, searchNames }) => {
+const Header = ({ playerCounts, searchNames, clearSearch, filters }) => {
   return (
     <HeaderContainer>
       <div className="player-type-nav">
@@ -22,11 +22,15 @@ const Header = ({ playerCounts, searchNames }) => {
           Teams
         </NavLink>
       </div>
-      <input
-        type="text"
-        placeholder="Search Players by name"
-        onChange={searchNames}
-      />
+      <div className="search-input">
+        <input
+          type="text"
+          placeholder="Search Players by name"
+          value={filters.name}
+          onChange={searchNames}
+        />
+        {filters.name && <button onClick={clearSearch}>X</button>}
+      </div>
     </HeaderContainer>
   );
 };

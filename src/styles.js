@@ -50,11 +50,26 @@ export const HeaderContainer = styled.div`
   padding: 0 20px;
   justify-content: space-between;
 
-  input[type='text'] {
+  .search-input {
+    position: relative;
     width: 400px;
     height: 40px;
     font-size: 18px;
-    padding: 8px 10px;
+
+    input[type='text'] {
+      width: 100%;
+      height: 100%;
+      font-size: inherit;
+      padding: 8px 10px;
+    }
+
+    button {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      height: 100%;
+    }
   }
 
   .player-type-nav {
