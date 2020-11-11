@@ -9,10 +9,12 @@ export const PlayerCardContainer = styled.div`
   z-index: 2;
   display: flex;
   background: ${black};
+  padding: 10px;
+  box-shadow: inset 0 0 0px 2px white;
 
   .player-skills {
     width: 250px;
-    padding: 0 10px 10px;
+    padding-left: 10px;
 
     .close-btn {
       position: absolute;
