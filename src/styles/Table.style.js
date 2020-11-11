@@ -146,6 +146,10 @@ export const DisplayedTableContainer = styled.div`
     padding: ${cellPaddingTb} ${cellPaddingLr};
     white-space: nowrap;
 
+    &.selectedPlayer {
+      background: ${powerColor} !important;
+    }
+
     p {
       margin: 0;
     }
