@@ -1,50 +1,17 @@
 import React from 'react';
 import { keys, startCase } from 'lodash';
+import { positionsAbbrev } from './utilities/helper';
+import FilterAllNoneControls from './FilterAllNoneControls';
 
 const FilterList = ({ filters, setFilters, filterAttr, small = false }) => {
   return (
     <div className={`filter-items ${small ? 'small' : ''}`}>
       <div className="title">{startCase(filterAttr)}</div>
-      {!small && (
-        <div className="all-none-filters">
-          <div
-            className="toggle-all-items"
-            onClick={() =>
-              setFilters((prevFilters) => {
-                const values = keys(prevFilters[filterAttr]).reduce(
-                  (acc, value) => {
-                    acc[value] = true;
-                    return acc;
-                  },
-                  {}
-                );
-
-                return { ...prevFilters, [filterAttr]: values };
-              })
-            }
-          >
-            All
-          </div>
-          <div
-            className="toggle-all-items"
-            onClick={() =>
-              setFilters((prevFilters) => {
-                const values = keys(prevFilters[filterAttr]).reduce(
-                  (acc, value) => {
-                    acc[value] = false;
-                    return acc;
-                  },
-                  {}
-                );
-
-                return { ...prevFilters, [filterAttr]: values };
-              })
-            }
-          >
-            None
-          </div>
-        </div>
-      )}
+      <FilterAllNoneControls
+        small={small}
+        setFilters={setFilters}
+        filterAttr={filterAttr}
+      />
       <div className={`${small ? 'small-list' : ''}`}>
         {keys(filters[filterAttr]).map((value) => (
           <div
@@ -63,7 +30,9 @@ const FilterList = ({ filters, setFilters, filterAttr, small = false }) => {
                 })
               }
             />
-            <label htmlFor={`${filterAttr}-${value}`}>{value}</label>
+            <label htmlFor={`${filterAttr}-${value}`}>
+              {positionsAbbrev[value] ?? value}
+            </label>
           </div>
         ))}
       </div>

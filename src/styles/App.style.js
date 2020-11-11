@@ -6,7 +6,7 @@ export const AppContainer = styled.div`
   color: white;
   display: grid;
   grid-template-columns: 220px 1fr;
-  grid-template-rows: 80px 1fr;
+  grid-template-rows: 80px 200px 1fr;
   grid-row-gap: 20px;
   height: 100vh;
   box-sizing: border-box;

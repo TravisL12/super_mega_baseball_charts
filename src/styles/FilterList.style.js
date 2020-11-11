@@ -6,10 +6,14 @@ import {
   backgroundColor,
 } from './colors';
 
-export const FilterListContainer = styled.div`
+export const FilterColumn = styled.div`
   display: flex;
   flex-direction: column;
-  grid-column: 1 / 2;
+`;
+
+export const FilterListContainer = styled.div`
+  display: flex;
+  grid-column: 1 / 3;
   grid-row: 2;
   padding: 0 20px;
   background: ${backgroundColor};
@@ -29,6 +33,7 @@ export const FilterListContainer = styled.div`
     .title {
       font-size: 18px;
       text-align: center;
+      min-width: 100px;
     }
 
     .all-none-filters {
@@ -56,7 +61,7 @@ export const FilterListContainer = styled.div`
 
       label {
         text-align: center;
-        width: 35px;
+        min-width: 35px;
       }
     }
   }

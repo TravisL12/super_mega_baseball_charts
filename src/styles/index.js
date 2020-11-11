@@ -3,7 +3,7 @@ import { forkBallBg, fastBallBg, speedColor, contactColor } from './colors';
 
 export { AppContainer } from './App.style';
 export { HeaderContainer } from './Header.style';
-export { FilterListContainer } from './FilterList.style';
+export { FilterListContainer, FilterColumn } from './FilterList.style';
 export { PlayerCardContainer } from './PlayerCard.style';
 export { DisplayedTableContainer, TeamTableContainer } from './Table.style';
 
