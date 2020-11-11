@@ -37,12 +37,11 @@ export const FilterListContainer = styled.div`
 
     .all-none-filters {
       display: flex;
-      justify-content: space-around;
-      margin-bottom: 5px;
 
       .toggle-all-items {
         text-decoration: underline;
         cursor: pointer;
+        margin-right: 10px;
       }
     }
 
@@ -93,12 +92,12 @@ export const FilterListContainer = styled.div`
   .team-filter-grid {
     display: grid;
     grid-gap: 10px;
-    grid-template-columns: repeat(10, 60px);
-    grid-template-rows: 60px 60px;
+    grid-template-columns: repeat(10, 70px);
+    grid-template-rows: 70px 70px;
 
     .team-checkbox-container {
       label {
-        padding: 0;
+        padding: 2px;
         width: 100%;
         height: 100%;
 
