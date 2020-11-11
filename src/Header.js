@@ -18,6 +18,10 @@ const Header = ({ playerCounts, searchNames, clearSearch, filters }) => {
           Pitchers ({playerCounts.pitchers.length})
         </NavLink>
 
+        <NavLink className="player-type" activeClassName="active" to="/compare">
+          Compare
+        </NavLink>
+
         <NavLink className="player-type" activeClassName="active" to="/teams">
           Teams
         </NavLink>

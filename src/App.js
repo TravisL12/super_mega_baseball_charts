@@ -4,6 +4,7 @@ import { partition, sortBy, values } from 'lodash';
 import { Switch, Route } from 'react-router-dom';
 
 import PlayerCard from './PlayerCard';
+import ComparePlayers from './ComparePlayers';
 import PositionTable from './tables/PositionTable';
 import PitcherTable from './tables/PitcherTable';
 import TeamTable from './tables/TeamTable';
@@ -111,6 +112,9 @@ function App() {
           </Route>
           <Route path="/teams">
             <TeamTable teams={teams} />
+          </Route>
+          <Route path="/compare">
+            <ComparePlayers players={players} />
           </Route>
           <Route path="/">
             <PositionTable

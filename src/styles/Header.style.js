@@ -58,6 +58,7 @@ export const HeaderContainer = styled.div`
       );
       cursor: pointer;
       padding: 4px 10px;
+      margin-right: 10px;
 
       &.active {
         background: ${backgroundColor};
