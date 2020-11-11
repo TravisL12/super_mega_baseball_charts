@@ -1,5 +1,8 @@
 import { useState } from 'react';
 
+const ASC = 'asc';
+const DESC = 'desc';
+
 const sortColumns = (players, sortAttr) => {
   if (!sortAttr.header) {
     return players;
@@ -13,7 +16,7 @@ const sortColumns = (players, sortAttr) => {
       ? b[sortAttr.header]
       : +b[sortAttr.header];
 
-    if (sortAttr.direction === 'asc') {
+    if (sortAttr.direction === ASC) {
       return aValue > bValue ? 1 : -1;
     } else {
       return aValue < bValue ? 1 : -1;
@@ -22,15 +25,18 @@ const sortColumns = (players, sortAttr) => {
 };
 
 const usePlayerSort = () => {
-  const [sortOrder, setSortOrder] = useState({});
+  const [sortOrder, setSortOrder] = useState({
+    header: 'team',
+    direction: ASC,
+  });
 
   const updateSort = (header) => {
     setSortOrder((prevHeader) => {
       let direction;
       if (prevHeader.header === header) {
-        direction = prevHeader.direction === 'asc' ? 'desc' : 'asc';
+        direction = prevHeader.direction === ASC ? DESC : ASC;
       } else {
-        direction = prevHeader.direction === 'asc' ? 'asc' : 'desc';
+        direction = prevHeader.direction === ASC ? ASC : DESC;
       }
 
       return { header, direction };

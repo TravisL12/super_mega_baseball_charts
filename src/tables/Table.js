@@ -5,6 +5,14 @@ import TableColumn from './TableColumn';
 const Table = ({ players, headers, columnNameMap, setModalPlayer }) => {
   const { sortOrder, updateSort, sortColumns } = usePlayerSort();
 
+  if (!players.length)
+    return (
+      <div className="no-players">
+        <p>No players found.</p>
+        <p>Adjust the search filters.</p>
+      </div>
+    );
+
   return (
     <table>
       <thead>

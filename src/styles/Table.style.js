@@ -79,6 +79,7 @@ export const DisplayedTableContainer = styled.div`
     top: 0;
     padding: ${cellPaddingTb} ${cellPaddingLr};
     z-index: 1;
+    white-space: nowrap;
   }
 
   .header-name {
@@ -143,6 +144,7 @@ export const DisplayedTableContainer = styled.div`
     box-sizing: border-box;
     font-weight: 500;
     padding: ${cellPaddingTb} ${cellPaddingLr};
+    white-space: nowrap;
 
     p {
       margin: 0;

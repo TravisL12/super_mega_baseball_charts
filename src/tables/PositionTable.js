@@ -38,24 +38,13 @@ const headers = [
   SKILLS.gender,
 ];
 
-const PositionTable = ({ players, setModalPlayer }) => {
-  if (!players.length)
-    return (
-      <div className="no-players">
-        <p>No Position players found.</p>
-        <p>Check the Pitchers button at the top,</p>
-        <p>or adjust the search filters.</p>
-      </div>
-    );
-
-  return (
-    <Table
-      headers={headers}
-      players={players}
-      columnNameMap={columnNameMap}
-      setModalPlayer={setModalPlayer}
-    />
-  );
-};
+const PositionTable = ({ players, setModalPlayer }) => (
+  <Table
+    headers={headers}
+    players={players}
+    columnNameMap={columnNameMap}
+    setModalPlayer={setModalPlayer}
+  />
+);
 
 export default PositionTable;

@@ -42,24 +42,13 @@ const headers = [
   SKILLS.gender,
 ];
 
-const PitcherTable = ({ players, setModalPlayer }) => {
-  if (!players.length)
-    return (
-      <div className="no-players">
-        <p>No Pitchers found.</p>
-        <p>Check the Positions button at the top,</p>
-        <p>or adjust the search filters.</p>
-      </div>
-    );
-
-  return (
-    <Table
-      headers={headers}
-      players={players}
-      columnNameMap={columnNameMap}
-      setModalPlayer={setModalPlayer}
-    />
-  );
-};
+const PitcherTable = ({ players, setModalPlayer }) => (
+  <Table
+    headers={headers}
+    players={players}
+    columnNameMap={columnNameMap}
+    setModalPlayer={setModalPlayer}
+  />
+);
 
 export default PitcherTable;
