@@ -18,6 +18,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "build-web": "REACT_APP_DEPLOY_DIRECTORY=super_mega_baseball yarn build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

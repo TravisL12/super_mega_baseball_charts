@@ -1,5 +1,5 @@
 import React from 'react';
-import { keys, startCase } from 'lodash';
+import { keys } from 'lodash';
 import FilterAllNoneControls from './FilterAllNoneControls';
 
 const TeamFilterList = ({ filters, setFilters, filterAttr }) => {
