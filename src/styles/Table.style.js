@@ -42,8 +42,8 @@ export const DisplayedTableContainer = styled.div`
   position: relative;
   background: ${backgroundColor};
   padding-right: 20px;
-  grid-column: 2 / 3;
-  grid-row: 2;
+  grid-column: 1 / 3;
+  grid-row: 3;
   overflow: auto;
 
   table {
@@ -145,6 +145,10 @@ export const DisplayedTableContainer = styled.div`
     font-weight: 500;
     padding: ${cellPaddingTb} ${cellPaddingLr};
     white-space: nowrap;
+
+    &.selectedPlayer {
+      background: ${powerColor} !important;
+    }
 
     p {
       margin: 0;

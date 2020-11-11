@@ -42,12 +42,13 @@ const headers = [
   SKILLS.gender,
 ];
 
-const PitcherTable = ({ players, setModalPlayer }) => (
+const PitcherTable = ({ players, setModalPlayer, modalPlayer }) => (
   <Table
     headers={headers}
     players={players}
     columnNameMap={columnNameMap}
     setModalPlayer={setModalPlayer}
+    modalPlayer={modalPlayer}
   />
 );
 

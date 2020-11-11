@@ -97,3 +97,5 @@ The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+BE CAREFUL NOT TO RE-UPLOAD THE PLAYER IMAGES OVER AND OVER AGAIN!!!!!!!!!!!!!!!!!!!!!

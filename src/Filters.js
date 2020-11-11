@@ -1,43 +1,49 @@
 import React from 'react';
 import FilterList from './FilterList';
-import { FilterListContainer } from './styles';
+import TeamFilterList from './TeamFilterList';
+import { FilterListContainer, FilterColumn } from './styles';
 
 const Filters = ({ filters, setFilters }) => {
   return (
     <FilterListContainer>
-      <FilterList
-        filterAttr="bats"
-        filters={filters}
-        small={true}
-        setFilters={setFilters}
-      />
-      <FilterList
-        filterAttr="throws"
-        filters={filters}
-        small={true}
-        setFilters={setFilters}
-      />
-      <FilterList
-        filterAttr="gender"
-        filters={filters}
-        small={true}
-        setFilters={setFilters}
-      />
-      <FilterList
-        filterAttr="positions"
-        filters={filters}
-        setFilters={setFilters}
-      />
-      <FilterList
-        filterAttr="pitchers"
-        filters={filters}
-        setFilters={setFilters}
-      />
-      <FilterList
+      <TeamFilterList
         filterAttr="teams"
         filters={filters}
         setFilters={setFilters}
       />
+
+      <FilterColumn>
+        <FilterList
+          filterAttr="positions"
+          filters={filters}
+          small={true}
+          setFilters={setFilters}
+        />
+        <FilterList
+          filterAttr="pitchers"
+          filters={filters}
+          small={true}
+          setFilters={setFilters}
+        />
+        <FilterList
+          filterAttr="bats"
+          filters={filters}
+          small={true}
+          setFilters={setFilters}
+        />
+        <FilterList
+          filterAttr="throws"
+          filters={filters}
+          small={true}
+          setFilters={setFilters}
+        />
+        <FilterList
+          filterAttr="gender"
+          filters={filters}
+          small={true}
+          setFilters={setFilters}
+        />
+      </FilterColumn>
     </FilterListContainer>
   );
 };

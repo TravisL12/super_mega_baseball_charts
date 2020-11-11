@@ -38,12 +38,13 @@ const headers = [
   SKILLS.gender,
 ];
 
-const PositionTable = ({ players, setModalPlayer }) => (
+const PositionTable = ({ players, setModalPlayer, modalPlayer }) => (
   <Table
     headers={headers}
     players={players}
     columnNameMap={columnNameMap}
     setModalPlayer={setModalPlayer}
+    modalPlayer={modalPlayer}
   />
 );
 

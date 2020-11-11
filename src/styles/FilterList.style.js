@@ -6,10 +6,15 @@ import {
   backgroundColor,
 } from './colors';
 
-export const FilterListContainer = styled.div`
+export const FilterColumn = styled.div`
   display: flex;
   flex-direction: column;
-  grid-column: 1 / 2;
+`;
+
+export const FilterListContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  grid-column: 1 / 3;
   grid-row: 2;
   padding: 0 20px;
   background: ${backgroundColor};
@@ -23,23 +28,25 @@ export const FilterListContainer = styled.div`
   }
 
   .filter-items {
-    background: black;
     padding: 2px 4px;
 
     .title {
       font-size: 18px;
-      text-align: center;
+      min-width: 100px;
     }
 
     .all-none-filters {
       display: flex;
-      justify-content: space-around;
-      margin-bottom: 5px;
 
       .toggle-all-items {
         text-decoration: underline;
         cursor: pointer;
+        margin-right: 10px;
       }
+    }
+
+    .filter-checkbox-container + .filter-checkbox-container {
+      margin-top: 2px;
     }
   }
 
@@ -56,7 +63,7 @@ export const FilterListContainer = styled.div`
 
       label {
         text-align: center;
-        width: 35px;
+        min-width: 35px;
       }
     }
   }
@@ -82,7 +89,30 @@ export const FilterListContainer = styled.div`
     box-shadow: inset 0 0 0px 1px white;
   }
 
-  .filter-checkbox-container + .filter-checkbox-container {
-    margin-top: 2px;
+  .team-filter-grid {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(10, 70px);
+    grid-template-rows: 70px 70px;
+
+    .team-checkbox-container {
+      label {
+        padding: 2px;
+        width: 100%;
+        height: 100%;
+
+        img {
+          max-width: 100%;
+          max-height: 100%;
+          filter: grayscale(0.9);
+        }
+      }
+
+      input[type='checkbox']:checked + label {
+        img {
+          filter: grayscale(0);
+        }
+      }
+    }
   }
 `;

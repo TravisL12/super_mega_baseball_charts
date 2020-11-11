@@ -1,21 +1,14 @@
 import React from 'react';
 import { keys, startCase } from 'lodash';
-import { positionsAbbrev } from './utilities/helper';
 import FilterAllNoneControls from './FilterAllNoneControls';
 
-const FilterList = ({ filters, setFilters, filterAttr, small = false }) => {
+const TeamFilterList = ({ filters, setFilters, filterAttr }) => {
   return (
-    <div className={`filter-items ${small ? 'small' : ''}`}>
-      <div className="title">{startCase(filterAttr)}</div>
-      <FilterAllNoneControls
-        small={small}
-        setFilters={setFilters}
-        filterAttr={filterAttr}
-      />
-      <div className={`${small ? 'small-list' : ''}`}>
+    <div className={`filter-items`}>
+      <div className="team-filter-grid">
         {keys(filters[filterAttr]).map((value) => (
           <div
-            className="filter-checkbox-container"
+            className="team-checkbox-container"
             key={`${filterAttr}-${value}`}
           >
             <input
@@ -31,13 +24,17 @@ const FilterList = ({ filters, setFilters, filterAttr, small = false }) => {
               }
             />
             <label htmlFor={`${filterAttr}-${value}`}>
-              {positionsAbbrev[value] ?? value}
+              <img
+                alt={`${value} logo`}
+                src={`${process.env.PUBLIC_URL}/team_logos/${value}.png`}
+              />
             </label>
           </div>
         ))}
       </div>
+      <FilterAllNoneControls setFilters={setFilters} filterAttr={filterAttr} />
     </div>
   );
 };
 
-export default FilterList;
+export default TeamFilterList;
