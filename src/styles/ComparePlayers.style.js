@@ -3,11 +3,13 @@ import { black, backgroundColor } from './colors';
 
 export const ComparePlayersContainer = styled.div`
   display: flex;
-  overflow: hidden;
+  justify-content: space-around;
+  height: 100%;
 `;
 
 export const CompareTableContainer = styled.div`
-  max-width: 400px;
+  width: 400px;
   height: 100%;
+  padding: 0 10px;
   overflow: scroll;
 `;

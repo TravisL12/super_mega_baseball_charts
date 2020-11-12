@@ -7,9 +7,10 @@ import { SKILLS } from './utilities/buildPlayer';
 const columnNameMap = {
   [SKILLS.team]: 'team',
   [SKILLS.name]: 'name',
+  [SKILLS.position]: 'pos.',
 };
 
-const headers = [SKILLS.team, SKILLS.name];
+const headers = [SKILLS.team, SKILLS.name, SKILLS.position];
 
 const ComparePlayerList = (props) => {
   const [search, setSearch] = useState('');
