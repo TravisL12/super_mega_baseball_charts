@@ -23,6 +23,7 @@ const Table = ({
     <table>
       <thead>
         <tr>
+          <th className={`header-col`}>{/* Checkbox */}</th>
           {headers.map((header) => (
             <th
               className={`header-col header-${header}`}
@@ -32,23 +33,43 @@ const Table = ({
               {columnNameMap[header]}
             </th>
           ))}
+          <th className={`header-col`}>{/* Player Card */}</th>
         </tr>
       </thead>
       <tbody>
-        {sortColumns(players, sortOrder).map((player) => (
-          <tr key={player.name} onClick={() => setModalPlayer(player)}>
-            {headers.map((header) => {
-              return (
-                <TableColumn
-                  key={header}
-                  isSelected={player.name === modalPlayer?.name}
-                  player={player}
-                  header={header}
-                />
-              );
-            })}
-          </tr>
-        ))}
+        {sortColumns(players, sortOrder).map((player) => {
+          const isSelected = player.name === modalPlayer?.name;
+          return (
+            <tr key={player.name}>
+              <td
+                className={`player-col  ${isSelected ? 'selectedPlayer' : ''}`}
+              >
+                <span className="rating-value">
+                  <input type="checkbox" />
+                </span>
+              </td>
+              {headers.map((header) => {
+                return (
+                  <TableColumn
+                    key={header}
+                    isSelected={isSelected}
+                    player={player}
+                    header={header}
+                  />
+                );
+              })}
+              <td
+                className={`player-col  ${isSelected ? 'selectedPlayer' : ''}`}
+              >
+                <span className="rating-value">
+                  <button onClick={() => setModalPlayer(player)}>
+                    Show Card
+                  </button>
+                </span>
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );

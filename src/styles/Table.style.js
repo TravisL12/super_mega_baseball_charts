@@ -92,7 +92,6 @@ export const DisplayedTableContainer = styled.div`
   }
 
   tr:hover .player-col {
-    cursor: pointer;
     background: ${armColor};
   }
 

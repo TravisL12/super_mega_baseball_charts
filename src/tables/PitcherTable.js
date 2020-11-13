@@ -34,8 +34,6 @@ const headers = [
   SKILLS.velocity,
   SKILLS.junk,
   SKILLS.accuracy,
-  SKILLS.trait,
-  SKILLS.trait_2,
   SKILLS.bats,
   SKILLS.throws,
   SKILLS.age,
