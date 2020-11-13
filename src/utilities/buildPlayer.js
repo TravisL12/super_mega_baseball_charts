@@ -80,6 +80,7 @@ export const createPlayer = (info) => {
     image: `${snakeCase(info.teamName)}-${info.firstName}_${snakeCase(
       info.lastName
     )}.png`.toLowerCase(),
+    checked: false,
   };
 };
 

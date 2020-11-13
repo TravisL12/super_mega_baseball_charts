@@ -57,7 +57,7 @@ export const positionsAbbrev = {
   [PITCHER_ROLES[4]]: 'CP',
 };
 
-export const columnNameMap = {
+export const tableColumnMap = {
   positions: {
     [SKILLS.team]: 'team',
     [SKILLS.name]: 'name',
@@ -96,7 +96,7 @@ export const columnNameMap = {
   },
 };
 
-export const headers = {
+export const tableHeaders = {
   positions: [
     SKILLS.team,
     SKILLS.name,

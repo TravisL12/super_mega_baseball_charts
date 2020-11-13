@@ -11,6 +11,15 @@ export const AppContainer = styled.div`
   height: 100vh;
   box-sizing: border-box;
 
+  ul {
+    padding: 0;
+    margin: 0;
+
+    li {
+      list-style: none;
+    }
+  }
+
   .title-logo {
     display: flex;
     background: black;

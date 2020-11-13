@@ -3,7 +3,7 @@ import FilterList from './FilterList';
 import TeamFilterList from './TeamFilterList';
 import { FilterListContainer, FilterColumn } from './styles';
 
-const Filters = ({ filters, setFilters }) => {
+const Filters = ({ filters, setFilters, selectedPlayers }) => {
   return (
     <FilterListContainer>
       <TeamFilterList
@@ -43,6 +43,13 @@ const Filters = ({ filters, setFilters }) => {
           small={true}
           setFilters={setFilters}
         />
+      </FilterColumn>
+      <FilterColumn>
+        <ul className="selected-players">
+          {selectedPlayers.map(({ name }) => (
+            <li key={name}>{name}</li>
+          ))}
+        </ul>
       </FilterColumn>
     </FilterListContainer>
   );

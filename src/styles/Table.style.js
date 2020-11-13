@@ -41,7 +41,7 @@ const cellPaddingLr = '5px';
 export const DisplayedTableContainer = styled.div`
   position: relative;
   background: ${backgroundColor};
-  padding-right: 20px;
+  padding: 0 10px;
   grid-column: 1 / 3;
   grid-row: 3;
   overflow: auto;

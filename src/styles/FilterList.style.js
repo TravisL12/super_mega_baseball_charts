@@ -13,13 +13,15 @@ export const FilterColumn = styled.div`
 
 export const FilterListContainer = styled.div`
   display: flex;
-  justify-content: space-between;
   grid-column: 1 / 3;
   grid-row: 2;
-  padding: 0 20px;
+  padding: 0 10px;
   background: ${backgroundColor};
   overflow: auto;
   font-size: 14px;
+
+  .selected-players {
+  }
 
   .all-items {
     cursor: pointer;
@@ -52,7 +54,6 @@ export const FilterListContainer = styled.div`
 
   .filter-items.small {
     display: flex;
-    justify-content: space-between;
 
     .small-list {
       display: flex;

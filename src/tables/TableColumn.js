@@ -38,4 +38,4 @@ const TableColumn = ({ player, header, isSelected }) => {
   );
 };
 
-export default TableColumn;
+export default React.memo(TableColumn);

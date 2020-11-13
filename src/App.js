@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import Papa from 'papaparse';
 import { partition, sortBy, values } from 'lodash';
 import { Switch, Route } from 'react-router-dom';
@@ -18,13 +18,13 @@ import {
   getUniqTeams,
   initialFilters,
   filterPlayers,
-  headers,
-  columnNameMap,
+  tableColumnMap,
+  tableHeaders,
 } from './utilities/helper';
 
 import { AppContainer, DisplayedTableContainer } from './styles';
 import usePlayerModal from './hooks/usePlayerModal';
-import Table from './tables/Table';
+import PlayerTable from './tables/PlayerTable';
 
 const loadPlayers = (cb) => {
   Papa.parse(`${process.env.PUBLIC_URL}/smb_data.csv`, {
@@ -58,6 +58,23 @@ function App() {
     });
     // eslint-disable-next-line
   }, []);
+
+  const addPlayerCompareList = (playerId) => {
+    const updatePlayers = [...players];
+    const playerIdx = updatePlayers.findIndex(
+      (player) => player.id === +playerId
+    );
+    const selectedPlayer = updatePlayers[playerIdx];
+
+    if (selectedPlayer) {
+      updatePlayers[playerIdx].checked = !updatePlayers[playerIdx].checked;
+      setPlayers(updatePlayers);
+    }
+  };
+
+  const selectedPlayers = useMemo(() => {
+    return players.filter(({ checked }) => checked);
+  }, [players]);
 
   const searchNames = useCallback((event) => {
     event.persist();
@@ -94,7 +111,11 @@ function App() {
         filters={filters}
       />
 
-      <Filters filters={filters} setFilters={setFilters} />
+      <Filters
+        filters={filters}
+        setFilters={setFilters}
+        selectedPlayers={selectedPlayers}
+      />
 
       <DisplayedTableContainer>
         <PlayerCard
@@ -104,24 +125,26 @@ function App() {
         />
         <Switch>
           <Route path="/pitchers">
-            <Table
-              headers={headers.pitchers}
+            <PlayerTable
+              headers={tableHeaders.pitchers}
               players={pitchers}
-              columnNameMap={columnNameMap.pitchers}
+              columnNameMap={tableColumnMap.pitchers}
               setModalPlayer={setPlayerModal}
               modalPlayer={modalPlayer}
+              addPlayerCompareList={addPlayerCompareList}
             />
           </Route>
           <Route path="/teams">
             <TeamTable teams={teams} />
           </Route>
           <Route path="/">
-            <Table
-              headers={headers.positions}
+            <PlayerTable
+              headers={tableHeaders.positions}
               players={positionPlayers}
-              columnNameMap={columnNameMap.positions}
+              columnNameMap={tableColumnMap.positions}
               setModalPlayer={setPlayerModal}
               modalPlayer={modalPlayer}
+              addPlayerCompareList={addPlayerCompareList}
             />
           </Route>
         </Switch>
