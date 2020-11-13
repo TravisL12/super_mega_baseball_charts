@@ -202,6 +202,17 @@ export const DisplayedTableContainer = styled.div`
       }
     }
 
+    &.player-checkbox .rating-value {
+      display: flex;
+      label {
+        cursor: pointer;
+        width: 100%;
+      }
+
+      input[type='checkbox']:checked + label {
+        color: yellow;
+      }
+    }
     &.player-team {
       display: flex;
       align-items: center;

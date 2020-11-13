@@ -21,6 +21,17 @@ export const FilterListContainer = styled.div`
   font-size: 14px;
 
   .selected-players {
+    margin-left: 10px;
+
+    ul {
+      display: inline-flex;
+      flex-flow: column wrap;
+      height: 100%;
+
+      li {
+        padding-right: 10px;
+      }
+    }
   }
 
   .all-items {
@@ -34,7 +45,7 @@ export const FilterListContainer = styled.div`
 
     .title {
       font-size: 18px;
-      min-width: 100px;
+      min-width: 85px;
     }
 
     .all-none-filters {

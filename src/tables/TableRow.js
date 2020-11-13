@@ -10,7 +10,11 @@ const TableRow = ({
 }) => {
   return (
     <tr key={player.name}>
-      <td className={`player-col  ${isSelected ? 'selectedPlayer' : ''}`}>
+      <td
+        className={`player-col player-checkbox ${
+          isSelected ? 'selectedPlayer' : ''
+        }`}
+      >
         <span className="rating-value">
           <input
             id={`compare-${player.name}`}

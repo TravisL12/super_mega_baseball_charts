@@ -2,6 +2,7 @@ import React from 'react';
 import FilterList from './FilterList';
 import TeamFilterList from './TeamFilterList';
 import { FilterListContainer, FilterColumn } from './styles';
+import { positionsAbbrev } from './utilities/helper';
 
 const Filters = ({ filters, setFilters, selectedPlayers }) => {
   return (
@@ -45,11 +46,21 @@ const Filters = ({ filters, setFilters, selectedPlayers }) => {
         />
       </FilterColumn>
       <FilterColumn>
-        <ul className="selected-players">
-          {selectedPlayers.map(({ name }) => (
-            <li key={name}>{name}</li>
-          ))}
-        </ul>
+        <div className="selected-players">
+          <p>Compare Players</p>
+          <ul>
+            {selectedPlayers.map(
+              ({ name, position, pitcherRole, isPitcher }) => (
+                <li key={name}>
+                  {isPitcher
+                    ? positionsAbbrev[pitcherRole]
+                    : positionsAbbrev[position]}{' '}
+                  - {name}
+                </li>
+              )
+            )}
+          </ul>
+        </div>
       </FilterColumn>
     </FilterListContainer>
   );
