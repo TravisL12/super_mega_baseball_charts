@@ -4,8 +4,6 @@ import { partition, sortBy, values } from 'lodash';
 import { Switch, Route } from 'react-router-dom';
 
 import PlayerCard from './PlayerCard';
-import PositionTable from './tables/PositionTable';
-import PitcherTable from './tables/PitcherTable';
 import TeamTable from './tables/TeamTable';
 import Header from './Header';
 import Filters from './Filters';
@@ -20,10 +18,13 @@ import {
   getUniqTeams,
   initialFilters,
   filterPlayers,
+  headers,
+  columnNameMap,
 } from './utilities/helper';
 
 import { AppContainer, DisplayedTableContainer } from './styles';
 import usePlayerModal from './hooks/usePlayerModal';
+import Table from './tables/Table';
 
 const loadPlayers = (cb) => {
   Papa.parse(`${process.env.PUBLIC_URL}/smb_data.csv`, {
@@ -103,20 +104,24 @@ function App() {
         />
         <Switch>
           <Route path="/pitchers">
-            <PitcherTable
+            <Table
+              headers={headers.pitchers}
+              players={pitchers}
+              columnNameMap={columnNameMap.pitchers}
               setModalPlayer={setPlayerModal}
               modalPlayer={modalPlayer}
-              players={pitchers}
             />
           </Route>
           <Route path="/teams">
             <TeamTable teams={teams} />
           </Route>
           <Route path="/">
-            <PositionTable
+            <Table
+              headers={headers.positions}
+              players={positionPlayers}
+              columnNameMap={columnNameMap.positions}
               setModalPlayer={setPlayerModal}
               modalPlayer={modalPlayer}
-              players={positionPlayers}
             />
           </Route>
         </Switch>

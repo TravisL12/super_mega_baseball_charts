@@ -45,7 +45,8 @@ const Table = ({
                 className={`player-col  ${isSelected ? 'selectedPlayer' : ''}`}
               >
                 <span className="rating-value">
-                  <input type="checkbox" />
+                  <input id={`compare-${player.name}`} type="checkbox" />
+                  <label htmlFor={`compare-${player.name}`}>Compare</label>
                 </span>
               </td>
               {headers.map((header) => {

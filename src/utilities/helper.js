@@ -1,4 +1,5 @@
 import { uniqBy, values } from 'lodash';
+import { SKILLS } from './buildPlayer';
 
 export const ALL_POSITIONS = {
   2: 'Catcher',
@@ -54,6 +55,84 @@ export const positionsAbbrev = {
   [PITCHER_ROLES[2]]: 'SP/RP',
   [PITCHER_ROLES[3]]: 'RP',
   [PITCHER_ROLES[4]]: 'CP',
+};
+
+export const columnNameMap = {
+  positions: {
+    [SKILLS.team]: 'team',
+    [SKILLS.name]: 'name',
+    [SKILLS.position]: 'P. Pos',
+    [SKILLS.position_2]: 'S. Pos',
+    [SKILLS.power]: 'pow',
+    [SKILLS.contact]: 'con',
+    [SKILLS.speed]: 'spd',
+    [SKILLS.fielding]: 'fld',
+    [SKILLS.arm]: 'arm',
+    [SKILLS.trait]: 'trait 1',
+    [SKILLS.trait_2]: 'trait 2',
+    [SKILLS.bats]: 'bat',
+    [SKILLS.throws]: 'thr',
+    [SKILLS.age]: 'age',
+    [SKILLS.gender]: 'gen',
+  },
+  pitchers: {
+    [SKILLS.team]: 'team',
+    [SKILLS.name]: 'name',
+    [SKILLS.pitcher_role]: 'role',
+    [SKILLS.power]: 'pow',
+    [SKILLS.contact]: 'con',
+    [SKILLS.speed]: 'spd',
+    [SKILLS.fielding]: 'fld',
+    [SKILLS.arsenal]: 'arsenal',
+    [SKILLS.velocity]: 'vel',
+    [SKILLS.junk]: 'jnk',
+    [SKILLS.accuracy]: 'acc',
+    [SKILLS.trait]: 'trait 1',
+    [SKILLS.trait_2]: 'trait 2',
+    [SKILLS.bats]: 'bat',
+    [SKILLS.throws]: 'thr',
+    [SKILLS.age]: 'age',
+    [SKILLS.gender]: 'gen',
+  },
+};
+
+export const headers = {
+  positions: [
+    SKILLS.team,
+    SKILLS.name,
+    SKILLS.position,
+    SKILLS.position_2,
+    SKILLS.power,
+    SKILLS.contact,
+    SKILLS.speed,
+    SKILLS.fielding,
+    SKILLS.arm,
+    // SKILLS.trait,
+    // SKILLS.trait_2,
+    SKILLS.bats,
+    SKILLS.throws,
+    SKILLS.age,
+    SKILLS.gender,
+  ],
+  pitchers: [
+    SKILLS.team,
+    SKILLS.name,
+    SKILLS.pitcher_role,
+    SKILLS.arsenal,
+    SKILLS.power,
+    SKILLS.contact,
+    SKILLS.speed,
+    SKILLS.fielding,
+    SKILLS.velocity,
+    SKILLS.junk,
+    SKILLS.accuracy,
+    // SKILLS.trait,
+    // SKILLS.trait_2,
+    SKILLS.bats,
+    SKILLS.throws,
+    SKILLS.age,
+    SKILLS.gender,
+  ],
 };
 
 export const getUniqTeams = (players) => {
