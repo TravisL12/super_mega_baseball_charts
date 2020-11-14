@@ -72,6 +72,24 @@ function App() {
     }
   };
 
+  const toggleCompare = () => {
+    setFilters((prevFilters) => {
+      return { ...prevFilters, showCompare: !prevFilters.showCompare };
+    });
+  };
+
+  const clearCompareSelection = () => {
+    setPlayers((prevPlayers) => {
+      return prevPlayers.map((player) => {
+        player.checked = false;
+        return player;
+      });
+    });
+    setFilters((prevFilters) => {
+      return { ...prevFilters, showCompare: false };
+    });
+  };
+
   const selectedPlayers = useMemo(() => {
     return players.filter(({ checked }) => checked);
   }, [players]);
@@ -115,6 +133,8 @@ function App() {
         filters={filters}
         setFilters={setFilters}
         selectedPlayers={selectedPlayers}
+        clearCompareSelection={clearCompareSelection}
+        toggleCompare={toggleCompare}
       />
 
       <DisplayedTableContainer>

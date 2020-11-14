@@ -151,9 +151,10 @@ export const initialFilters = {
   positions2: buildChecklist(values(SECONDARY_POSITIONS), true),
   pitchers: buildChecklist(values(PITCHER_ROLES), true),
   gender: buildChecklist(['M', 'F'], true),
-  bats: buildChecklist(['S', 'L', 'R'], true),
+  bats: buildChecklist(['L', 'R', 'S'], true),
   throws: buildChecklist(['L', 'R'], true),
   name: '',
+  showCompare: false,
 };
 
 export const filterPlayers = (filters, players) => {
@@ -175,6 +176,11 @@ export const filterPlayers = (filters, players) => {
     players = players.filter((player) =>
       player.name.toLowerCase().includes(filters.name.toLowerCase())
     );
+  }
+
+  // Filter comparisons
+  if (filters.showCompare) {
+    players = players.filter(({ checked }) => checked);
   }
 
   return uniqBy(players, 'name');

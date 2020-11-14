@@ -1,12 +1,12 @@
 import React from 'react';
 import { keys } from 'lodash';
+import { ToggleItemLink } from './styles/FilterList.style';
 
 const FilterAllNoneControls = ({ small, setFilters, filterAttr }) => {
   return (
     !small && (
       <div className="all-none-filters">
-        <div
-          className="toggle-all-items"
+        <ToggleItemLink
           onClick={() =>
             setFilters((prevFilters) => {
               const values = keys(prevFilters[filterAttr]).reduce(
@@ -22,9 +22,8 @@ const FilterAllNoneControls = ({ small, setFilters, filterAttr }) => {
           }
         >
           All
-        </div>
-        <div
-          className="toggle-all-items"
+        </ToggleItemLink>
+        <ToggleItemLink
           onClick={() =>
             setFilters((prevFilters) => {
               const values = keys(prevFilters[filterAttr]).reduce(
@@ -40,7 +39,7 @@ const FilterAllNoneControls = ({ small, setFilters, filterAttr }) => {
           }
         >
           None
-        </div>
+        </ToggleItemLink>
       </div>
     )
   );

@@ -40,3 +40,11 @@ export const AppContainer = styled.div`
     }
   }
 `;
+
+export const Box = styled.div((props) => {
+  return `
+    display: flex;
+    margin: ${props.margin ?? 0};
+    padding: ${props.padding ?? 0};
+  `;
+});

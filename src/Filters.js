@@ -3,8 +3,16 @@ import FilterList from './FilterList';
 import TeamFilterList from './TeamFilterList';
 import { FilterListContainer, FilterColumn } from './styles';
 import { positionsAbbrev } from './utilities/helper';
+import { SelectedPlayers, ToggleItemLink } from './styles/FilterList.style';
+import { Box } from './styles/App.style';
 
-const Filters = ({ filters, setFilters, selectedPlayers }) => {
+const Filters = ({
+  filters,
+  setFilters,
+  selectedPlayers,
+  clearCompareSelection,
+  toggleCompare,
+}) => {
   return (
     <FilterListContainer>
       <TeamFilterList
@@ -46,21 +54,33 @@ const Filters = ({ filters, setFilters, selectedPlayers }) => {
         />
       </FilterColumn>
       <FilterColumn>
-        <div className="selected-players">
-          <p>Compare Players</p>
+        <SelectedPlayers>
+          <Box>
+            <p>Compare Players</p>
+            {selectedPlayers.length > 0 && (
+              <>
+                <ToggleItemLink onClick={toggleCompare}>Compare</ToggleItemLink>
+                <ToggleItemLink onClick={clearCompareSelection}>
+                  Clear
+                </ToggleItemLink>
+              </>
+            )}
+          </Box>
           <ul>
             {selectedPlayers.map(
               ({ name, position, pitcherRole, isPitcher }) => (
                 <li key={name}>
-                  {isPitcher
-                    ? positionsAbbrev[pitcherRole]
-                    : positionsAbbrev[position]}{' '}
-                  - {name}
+                  <span>
+                    {isPitcher
+                      ? positionsAbbrev[pitcherRole]
+                      : positionsAbbrev[position]}
+                  </span>{' '}
+                  - <span>{name}</span>
                 </li>
               )
             )}
           </ul>
-        </div>
+        </SelectedPlayers>
       </FilterColumn>
     </FilterListContainer>
   );

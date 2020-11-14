@@ -20,20 +20,6 @@ export const FilterListContainer = styled.div`
   overflow: auto;
   font-size: 14px;
 
-  .selected-players {
-    margin-left: 10px;
-
-    ul {
-      display: inline-flex;
-      flex-flow: column wrap;
-      height: 100%;
-
-      li {
-        padding-right: 10px;
-      }
-    }
-  }
-
   .all-items {
     cursor: pointer;
     padding: 4px 10px;
@@ -88,12 +74,6 @@ export const FilterListContainer = styled.div`
 
     .all-none-filters {
       display: flex;
-
-      .toggle-all-items {
-        text-decoration: underline;
-        cursor: pointer;
-        margin-right: 10px;
-      }
     }
   }
   .team-filter-grid {
@@ -119,6 +99,36 @@ export const FilterListContainer = styled.div`
         img {
           filter: grayscale(0);
         }
+      }
+    }
+  }
+`;
+
+export const ToggleItemLink = styled.div`
+  text-decoration: underline;
+  cursor: pointer;
+  margin-right: 10px;
+`;
+
+export const SelectedPlayers = styled.div`
+  height: 90%;
+  margin-left: 10px;
+
+  p {
+    margin-right: 10px;
+  }
+
+  ul {
+    display: inline-flex;
+    flex-flow: column wrap;
+    height: 100%;
+
+    li {
+      padding-right: 10px;
+
+      span:first-child {
+        display: inline-block;
+        width: 18px;
       }
     }
   }
