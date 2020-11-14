@@ -13,7 +13,7 @@ const PlayerTable = ({
   toggleCompare,
   showCompare,
 }) => {
-  const { sortOrder, updateSort, sortColumns } = usePlayerSort();
+  const { updateSort, sortColumns } = usePlayerSort(players);
 
   const handlePlayerCompareChange = (event) => {
     addPlayerCompareList(event.target.value);
@@ -33,7 +33,7 @@ const PlayerTable = ({
         <tr>
           <th className={`header-col`}>
             <button disabled={hasSelectedPlayers} onClick={toggleCompare}>
-              {showCompare ? 'Compare On' : 'Compare Off'}
+              {showCompare ? 'Compare Off' : 'Compare On'}
             </button>
           </th>
           {headers.map((header) => (
@@ -49,7 +49,7 @@ const PlayerTable = ({
         </tr>
       </thead>
       <tbody>
-        {sortColumns(players, sortOrder).map((player) => {
+        {sortColumns.map((player) => {
           const isSelected = player.name === modalPlayer?.name;
           return (
             <TableRow

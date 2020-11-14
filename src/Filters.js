@@ -2,7 +2,7 @@ import React from 'react';
 import FilterList from './FilterList';
 import TeamFilterList from './TeamFilterList';
 import { FilterListContainer, FilterColumn } from './styles';
-import { positionsAbbrev } from './utilities/helper';
+import { positionsAbbrev } from './utilities/constants';
 import { SelectedPlayers, ToggleItemLink } from './styles/FilterList.style';
 import { Box } from './styles/App.style';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { PitchTypeContainer } from '../styles';
-import { SKILLS } from '../utilities/buildPlayer';
+import { SKILLS } from '../utilities/constants';
 import {
   getDisplayValue,
   getRatingPercent,

@@ -1,29 +1,6 @@
 import { keys, pick, reduce, snakeCase } from 'lodash';
-import { ALL_POSITIONS, PITCHER_ROLES } from './helper';
+import { ALL_POSITIONS, PITCHER_ROLES, SKILLS } from './constants';
 import { options } from './playerOptions';
-
-export const SKILLS = {
-  team: 'team',
-  name: 'name',
-  position: 'position',
-  position_2: 'position2',
-  pitcher_role: 'pitcherRole',
-  power: 'power',
-  contact: 'contact',
-  speed: 'speed',
-  fielding: 'fielding',
-  arm: 'arm',
-  trait: 'trait',
-  trait_2: 'trait2',
-  bats: 'bats',
-  throws: 'throws',
-  age: 'age',
-  gender: 'gender',
-  arsenal: 'arsenal',
-  velocity: 'velocity',
-  junk: 'junk',
-  accuracy: 'accuracy',
-};
 
 const buildArsenal = (info) => {
   const pitches = pick(info, ['58', '59', '60', '61', '62', '63', '64', '65']);

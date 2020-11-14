@@ -1,6 +1,6 @@
 import React from 'react';
 import { keys, startCase } from 'lodash';
-import { positionsAbbrev } from './utilities/helper';
+import { positionsAbbrev } from './utilities/constants';
 import FilterAllNoneControls from './FilterAllNoneControls';
 
 const FilterList = ({ filters, setFilters, filterAttr, small = false }) => {

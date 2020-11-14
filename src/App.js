@@ -13,13 +13,12 @@ import {
   compileOptions,
   createPlayer,
 } from './utilities/buildPlayer';
+import { tableColumnMap, tableHeaders } from './utilities/constants';
 import {
   buildChecklist,
   getUniqTeams,
   initialFilters,
   filterPlayers,
-  tableColumnMap,
-  tableHeaders,
 } from './utilities/helper';
 
 import { AppContainer, DisplayedTableContainer } from './styles';
@@ -59,9 +58,10 @@ function App() {
     // eslint-disable-next-line
   }, []);
 
-  const selectedPlayers = useMemo(() => {
-    return players.filter(({ checked }) => checked);
-  }, [players]);
+  const selectedPlayers = useMemo(
+    () => players.filter(({ checked }) => checked),
+    [players]
+  );
 
   const addPlayerCompareList = (playerId) => {
     const updatePlayers = [...players];

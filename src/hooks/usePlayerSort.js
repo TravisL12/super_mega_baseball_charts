@@ -1,37 +1,34 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 const ASC = 'asc';
 const DESC = 'desc';
 
-const sortColumns = (players, sortAttr) => {
-  if (!sortAttr.header) {
-    return players;
-  }
-  return players.sort((a, b) => {
-    const aValue = isNaN(a[sortAttr.header])
-      ? a[sortAttr.header]
-        ? a[sortAttr.header].toLowerCase()
-        : ''
-      : +a[sortAttr.header];
-    const bValue = isNaN(b[sortAttr.header])
-      ? b[sortAttr.header]
-        ? b[sortAttr.header].toLowerCase()
-        : ''
-      : +b[sortAttr.header];
-
-    if (sortAttr.direction === ASC) {
-      return aValue > bValue ? 1 : -1;
-    } else {
-      return aValue < bValue ? 1 : -1;
-    }
-  });
-};
-
-const usePlayerSort = () => {
+const usePlayerSort = (players) => {
   const [sortOrder, setSortOrder] = useState({
     header: 'team',
     direction: ASC,
   });
+
+  const sortColumns = useMemo(() => {
+    return players.sort((a, b) => {
+      const aValue = isNaN(a[sortOrder.header])
+        ? a[sortOrder.header]
+          ? a[sortOrder.header].toLowerCase()
+          : ''
+        : +a[sortOrder.header];
+      const bValue = isNaN(b[sortOrder.header])
+        ? b[sortOrder.header]
+          ? b[sortOrder.header].toLowerCase()
+          : ''
+        : +b[sortOrder.header];
+
+      if (sortOrder.direction === ASC) {
+        return aValue > bValue ? 1 : -1;
+      } else {
+        return aValue < bValue ? 1 : -1;
+      }
+    });
+  }, [players, sortOrder]);
 
   const updateSort = (header) => {
     setSortOrder((prevHeader) => {
@@ -46,7 +43,7 @@ const usePlayerSort = () => {
     });
   };
 
-  return { sortOrder, updateSort, sortColumns };
+  return { updateSort, sortColumns };
 };
 
 export default usePlayerSort;
