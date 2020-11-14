@@ -42,41 +42,23 @@ export const FilterListContainer = styled.div`
 
   .filter-items {
     padding: 2px 4px;
-
-    .title {
-      font-size: 18px;
-      min-width: 85px;
-    }
-
-    .all-none-filters {
-      display: flex;
-
-      .toggle-all-items {
-        text-decoration: underline;
-        cursor: pointer;
-        margin-right: 10px;
-      }
-    }
-
-    .filter-checkbox-container + .filter-checkbox-container {
-      margin-top: 2px;
-    }
-  }
-
-  .filter-items.small {
     display: flex;
+    align-items: center;
 
-    .small-list {
+    .filter-list {
       display: flex;
     }
 
     .filter-checkbox-container {
-      margin-top: 0;
-
       label {
         text-align: center;
         min-width: 35px;
       }
+    }
+
+    .title {
+      font-size: 16px;
+      min-width: 80px;
     }
   }
 
@@ -101,6 +83,19 @@ export const FilterListContainer = styled.div`
     box-shadow: inset 0 0 0px 1px white;
   }
 
+  .team-filter-items {
+    padding-right: 5px;
+
+    .all-none-filters {
+      display: flex;
+
+      .toggle-all-items {
+        text-decoration: underline;
+        cursor: pointer;
+        margin-right: 10px;
+      }
+    }
+  }
   .team-filter-grid {
     display: grid;
     grid-gap: 10px;

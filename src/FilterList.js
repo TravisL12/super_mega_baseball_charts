@@ -12,7 +12,7 @@ const FilterList = ({ filters, setFilters, filterAttr, small = false }) => {
         setFilters={setFilters}
         filterAttr={filterAttr}
       />
-      <div className={`${small ? 'small-list' : ''}`}>
+      <div className="filter-list">
         {keys(filters[filterAttr]).map((value) => (
           <div
             className="filter-checkbox-container"
