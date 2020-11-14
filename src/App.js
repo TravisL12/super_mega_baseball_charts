@@ -159,6 +159,7 @@ function App() {
               hasSelectedPlayers={selectedPlayers.length === 0}
               toggleCompare={toggleCompare}
               showCompare={filters.showCompare}
+              setPlayers={setPlayers}
             />
           </Route>
           <Route path="/">
@@ -172,6 +173,7 @@ function App() {
               hasSelectedPlayers={selectedPlayers.length === 0}
               toggleCompare={toggleCompare}
               showCompare={filters.showCompare}
+              setPlayers={setPlayers}
             />
           </Route>
         </Switch>
