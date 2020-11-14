@@ -1,7 +1,7 @@
 import { uniqBy, values } from 'lodash';
 import { SKILLS } from './buildPlayer';
 
-export const ALL_POSITIONS = {
+export const PRIMARY_POSITIONS = {
   2: 'Catcher',
   3: 'First Base',
   4: 'Second Base',
@@ -18,6 +18,8 @@ export const SECONDARY_POSITIONS = {
   12: 'First Base / Outfield',
   13: 'Infield / Outfield',
 };
+
+export const ALL_POSITIONS = { ...PRIMARY_POSITIONS, ...SECONDARY_POSITIONS };
 
 export const PITCHER_ROLES = {
   1: 'Starting',
@@ -38,7 +40,6 @@ export const PITCH_TYPE = {
 };
 
 export const positionsAbbrev = {
-  [ALL_POSITIONS[1]]: 'P',
   [ALL_POSITIONS[2]]: 'C',
   [ALL_POSITIONS[3]]: '1B',
   [ALL_POSITIONS[4]]: '2B',
@@ -147,7 +148,7 @@ export const buildChecklist = (data, defaultVal = false) => {
 };
 
 export const initialFilters = {
-  positions: buildChecklist(values(ALL_POSITIONS), true),
+  positions: buildChecklist(values(PRIMARY_POSITIONS), true),
   positions2: buildChecklist(values(SECONDARY_POSITIONS), true),
   pitchers: buildChecklist(values(PITCHER_ROLES), true),
   gender: buildChecklist(['M', 'F'], true),

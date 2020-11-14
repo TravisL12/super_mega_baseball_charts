@@ -7,13 +7,16 @@ const sortColumns = (players, sortAttr) => {
   if (!sortAttr.header) {
     return players;
   }
-
   return players.sort((a, b) => {
     const aValue = isNaN(a[sortAttr.header])
       ? a[sortAttr.header]
+        ? a[sortAttr.header].toLowerCase()
+        : ''
       : +a[sortAttr.header];
     const bValue = isNaN(b[sortAttr.header])
       ? b[sortAttr.header]
+        ? b[sortAttr.header].toLowerCase()
+        : ''
       : +b[sortAttr.header];
 
     if (sortAttr.direction === ASC) {

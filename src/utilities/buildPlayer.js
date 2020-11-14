@@ -47,15 +47,14 @@ export const createPlayer = (info) => {
   const bats = ['L', 'R', 'S'][info[5]];
   const arsenal = buildArsenal(info);
   const position = ALL_POSITIONS[info[54]];
-  const position2 = ALL_POSITIONS[info[55]];
+  const position2 = info[55] ? ALL_POSITIONS[info[55]] : '';
   const battingOrder = info.battingOrder;
   const jersey = info[20];
 
-  return {
+  const skills = {
     [SKILLS.team]: info.teamName,
     [SKILLS.name]: `${info.firstName} ${info.lastName}`,
     [SKILLS.position]: position,
-    [SKILLS.position_2]: position2,
     [SKILLS.pitcher_role]: PITCHER_ROLES[info.pitcherRole],
     [SKILLS.power]: info.power,
     [SKILLS.contact]: info.contact,
@@ -82,6 +81,12 @@ export const createPlayer = (info) => {
     )}.png`.toLowerCase(),
     checked: false,
   };
+
+  if (position2) {
+    skills[SKILLS.position_2] = position2;
+  }
+
+  return skills;
 };
 
 export const compileOptions = (info) => {
