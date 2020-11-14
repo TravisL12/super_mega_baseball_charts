@@ -59,6 +59,10 @@ function App() {
     // eslint-disable-next-line
   }, []);
 
+  const selectedPlayers = useMemo(() => {
+    return players.filter(({ checked }) => checked);
+  }, [players]);
+
   const addPlayerCompareList = (playerId) => {
     const updatePlayers = [...players];
     const playerIdx = updatePlayers.findIndex(
@@ -73,9 +77,11 @@ function App() {
   };
 
   const toggleCompare = () => {
-    setFilters((prevFilters) => {
-      return { ...prevFilters, showCompare: !prevFilters.showCompare };
-    });
+    if (selectedPlayers.length > 0) {
+      setFilters((prevFilters) => {
+        return { ...prevFilters, showCompare: !prevFilters.showCompare };
+      });
+    }
   };
 
   const clearCompareSelection = () => {
@@ -89,10 +95,6 @@ function App() {
       return { ...prevFilters, showCompare: false };
     });
   };
-
-  const selectedPlayers = useMemo(() => {
-    return players.filter(({ checked }) => checked);
-  }, [players]);
 
   const searchNames = useCallback((event) => {
     event.persist();
@@ -134,7 +136,6 @@ function App() {
         setFilters={setFilters}
         selectedPlayers={selectedPlayers}
         clearCompareSelection={clearCompareSelection}
-        toggleCompare={toggleCompare}
       />
 
       <DisplayedTableContainer>
@@ -144,6 +145,9 @@ function App() {
           close={closePlayerModal}
         />
         <Switch>
+          <Route path="/teams">
+            <TeamTable teams={teams} />
+          </Route>
           <Route path="/pitchers">
             <PlayerTable
               headers={tableHeaders.pitchers}
@@ -152,10 +156,10 @@ function App() {
               setModalPlayer={setPlayerModal}
               modalPlayer={modalPlayer}
               addPlayerCompareList={addPlayerCompareList}
+              hasSelectedPlayers={selectedPlayers.length === 0}
+              toggleCompare={toggleCompare}
+              showCompare={filters.showCompare}
             />
-          </Route>
-          <Route path="/teams">
-            <TeamTable teams={teams} />
           </Route>
           <Route path="/">
             <PlayerTable
@@ -165,6 +169,9 @@ function App() {
               setModalPlayer={setPlayerModal}
               modalPlayer={modalPlayer}
               addPlayerCompareList={addPlayerCompareList}
+              hasSelectedPlayers={selectedPlayers.length === 0}
+              toggleCompare={toggleCompare}
+              showCompare={filters.showCompare}
             />
           </Route>
         </Switch>

@@ -23,7 +23,9 @@ const TableRow = ({
             type="checkbox"
             onChange={handlePlayerCompareChange}
           />
-          <label htmlFor={`compare-${player.name}`}>Compare</label>
+          <label htmlFor={`compare-${player.name}`}>
+            <div className="checkbox-label"></div>
+          </label>
         </span>
       </td>
       {headers.map((header) => {

@@ -9,6 +9,9 @@ const PlayerTable = ({
   setModalPlayer,
   modalPlayer,
   addPlayerCompareList,
+  hasSelectedPlayers,
+  toggleCompare,
+  showCompare,
 }) => {
   const { sortOrder, updateSort, sortColumns } = usePlayerSort();
 
@@ -28,7 +31,11 @@ const PlayerTable = ({
     <table>
       <thead>
         <tr>
-          <th className={`header-col`}>{/* Checkbox */}</th>
+          <th className={`header-col`}>
+            <button disabled={hasSelectedPlayers} onClick={toggleCompare}>
+              {showCompare ? 'Compare On' : 'Compare Off'}
+            </button>
+          </th>
           {headers.map((header) => (
             <th
               className={`header-col header-${header}`}

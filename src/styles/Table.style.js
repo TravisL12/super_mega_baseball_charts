@@ -202,15 +202,45 @@ export const DisplayedTableContainer = styled.div`
       }
     }
 
-    &.player-checkbox .rating-value {
-      display: flex;
-      label {
-        cursor: pointer;
-        width: 100%;
-      }
+    &.player-checkbox {
+      min-width: 40px;
+      width: 40px;
 
-      input[type='checkbox']:checked + label {
-        color: yellow;
+      .rating-value {
+        display: flex;
+
+        input[type='checkbox'] {
+          display: none;
+        }
+
+        label {
+          cursor: pointer;
+          width: 100%;
+
+          .checkbox-label {
+            display: block;
+            margin: 0 auto;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            background: ${disableGray};
+            box-shadow: inset 0 0 0px 1px black;
+            color: white;
+          }
+        }
+
+        input[type='checkbox']:checked + label .checkbox-label {
+          background: ${armColor};
+          box-shadow: inset 0 0 0px 1px white;
+
+          &:after {
+            content: 'x';
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+          }
+        }
       }
     }
     &.player-team {

@@ -11,7 +11,6 @@ const Filters = ({
   setFilters,
   selectedPlayers,
   clearCompareSelection,
-  toggleCompare,
 }) => {
   return (
     <FilterListContainer>
@@ -59,7 +58,6 @@ const Filters = ({
             <p>Compare Players</p>
             {selectedPlayers.length > 0 && (
               <>
-                <ToggleItemLink onClick={toggleCompare}>Compare</ToggleItemLink>
                 <ToggleItemLink onClick={clearCompareSelection}>
                   Clear
                 </ToggleItemLink>
