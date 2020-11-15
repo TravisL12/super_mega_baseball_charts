@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import usePlayerSort from '../hooks/usePlayerSort';
 import TableRow from './TableRow';
 
@@ -17,7 +17,7 @@ const PlayerTable = ({
   const { updateSort } = usePlayerSort(players, setPlayers);
 
   const handlePlayerCompareChange = (event) => {
-    addPlayerCompareList(event.target.value);
+    addPlayerCompareList(event.target.value, players);
   };
 
   if (!players.length)

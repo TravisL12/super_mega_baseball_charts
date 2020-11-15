@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 const ASC = 'asc';
 const DESC = 'desc';
@@ -9,16 +9,8 @@ const usePlayerSort = (players, setPlayers) => {
     direction: ASC,
   });
 
-  const updateSort = (header) => {
-    const prevHeader = { ...sortOrder };
-    let direction;
-    if (prevHeader.header === header) {
-      direction = prevHeader.direction === ASC ? DESC : ASC;
-    } else {
-      direction = prevHeader.direction === ASC ? ASC : DESC;
-    }
-
-    const sorted = players.sort((a, b) => {
+  const sortPlayers = (header, direction) => {
+    return players.sort((a, b) => {
       const aValue = isNaN(a[header])
         ? a[header]
           ? a[header].toLowerCase()
@@ -36,9 +28,24 @@ const usePlayerSort = (players, setPlayers) => {
         return aValue < bValue ? 1 : -1;
       }
     });
-    setPlayers(sorted);
-    setSortOrder({ header, direction });
   };
+
+  const updateSort = useCallback(
+    (header) => {
+      const prevHeader = { ...sortOrder };
+      let direction;
+      if (prevHeader.header === header) {
+        direction = prevHeader.direction === ASC ? DESC : ASC;
+      } else {
+        direction = prevHeader.direction === ASC ? ASC : DESC;
+      }
+
+      const sorted = sortPlayers(header, direction);
+      setPlayers(sorted);
+      setSortOrder({ header, direction });
+    },
+    [players, setPlayers, sortOrder]
+  );
 
   return { updateSort };
 };

@@ -16,6 +16,7 @@ import {
 import { tableColumnMap, tableHeaders } from './utilities/constants';
 import {
   buildChecklist,
+  filterPlayers,
   getUniqTeams,
   initialFilters,
 } from './utilities/helper';
@@ -33,7 +34,8 @@ const loadPlayers = (cb) => {
 };
 
 function App() {
-  const [players, setPlayers] = useState({ pitchers: [], positionPlayers: [] });
+  const [players, setPlayers] = useState([]);
+  const [pitchers, setPitchers] = useState([]);
   const [teams, setTeams] = useState([]);
   const [filters, setFilters] = useState(initialFilters);
   const { setPlayerModal, closePlayerModal, modalPlayer } = usePlayerModal(
@@ -53,25 +55,24 @@ function App() {
       });
       setTeams(teams);
 
-      const [pitchers, positionPlayers] = partition(
+      const [pitchersPlayers, positionPlayers] = partition(
         buildPlayers,
         ({ isPitcher }) => isPitcher
       );
-      setPlayers({ pitchers, positionPlayers });
+
+      setPlayers(positionPlayers);
+      setPitchers(pitchersPlayers);
     });
     // eslint-disable-next-line
   }, []);
 
   const selectedPlayers = useMemo(
-    () =>
-      Object.values(players)
-        .flat()
-        .filter(({ checked }) => checked),
-    [players]
+    () => [...pitchers, ...players].filter(({ checked }) => checked),
+    [players, pitchers]
   );
 
-  const addPlayerCompareList = (playerId) => {
-    const updatePlayers = { ...players };
+  const addPlayerCompareList = (playerId, playerCollection) => {
+    const updatePlayers = [...playerCollection];
     const playerIdx = updatePlayers.findIndex(
       (player) => player.id === +playerId
     );
@@ -79,7 +80,9 @@ function App() {
 
     if (selectedPlayer) {
       updatePlayers[playerIdx].checked = !updatePlayers[playerIdx].checked;
-      setPlayers(updatePlayers);
+      selectedPlayer.isPitcher
+        ? setPitchers(updatePlayers)
+        : setPlayers(updatePlayers);
     }
   };
 
@@ -92,12 +95,18 @@ function App() {
   };
 
   const clearCompareSelection = () => {
-    setPlayers((prevPlayers) => {
-      return prevPlayers.map((player) => {
+    setPlayers((prevPlayers) =>
+      prevPlayers.map((player) => {
         player.checked = false;
         return player;
-      });
-    });
+      })
+    );
+    setPitchers((prevPitchers) =>
+      prevPitchers.map((pitcher) => {
+        pitcher.checked = false;
+        return pitcher;
+      })
+    );
     setFilters((prevFilters) => {
       return { ...prevFilters, showCompare: false };
     });
@@ -117,6 +126,11 @@ function App() {
     });
   }, [setFilters]);
 
+  const [pitchersPlayers, positionPlayers] = partition(
+    filterPlayers(filters, [...pitchers, ...players]),
+    ({ isPitcher }) => isPitcher
+  );
+
   return (
     <AppContainer>
       <div className="title-logo">
@@ -127,7 +141,8 @@ function App() {
       </div>
 
       <Header
-        playerCounts={players}
+        players={players}
+        pitchers={pitchers}
         searchNames={searchNames}
         clearSearch={clearSearch}
         filters={filters}
@@ -153,7 +168,7 @@ function App() {
           <Route path="/pitchers">
             <PlayerTable
               headers={tableHeaders.pitchers}
-              players={players.pitchers}
+              players={pitchersPlayers}
               columnNameMap={tableColumnMap.pitchers}
               setModalPlayer={setPlayerModal}
               modalPlayer={modalPlayer}
@@ -161,13 +176,13 @@ function App() {
               hasSelectedPlayers={selectedPlayers.length === 0}
               toggleCompare={toggleCompare}
               showCompare={filters.showCompare}
-              setPlayers={setPlayers}
+              setPlayers={setPitchers}
             />
           </Route>
           <Route path="/">
             <PlayerTable
               headers={tableHeaders.positions}
-              players={players.positionPlayers}
+              players={positionPlayers}
               columnNameMap={tableColumnMap.positions}
               setModalPlayer={setPlayerModal}
               modalPlayer={modalPlayer}
