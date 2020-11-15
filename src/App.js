@@ -18,7 +18,6 @@ import {
   buildChecklist,
   getUniqTeams,
   initialFilters,
-  filterPlayers,
 } from './utilities/helper';
 
 import { AppContainer, DisplayedTableContainer } from './styles';
@@ -34,7 +33,7 @@ const loadPlayers = (cb) => {
 };
 
 function App() {
-  const [players, setPlayers] = useState([]);
+  const [players, setPlayers] = useState({ pitchers: [], positionPlayers: [] });
   const [teams, setTeams] = useState([]);
   const [filters, setFilters] = useState(initialFilters);
   const { setPlayerModal, closePlayerModal, modalPlayer } = usePlayerModal(
@@ -53,18 +52,26 @@ function App() {
         teams: buildChecklist(sortBy(getUniqTeams(buildPlayers)), true),
       });
       setTeams(teams);
-      setPlayers(buildPlayers);
+
+      const [pitchers, positionPlayers] = partition(
+        buildPlayers,
+        ({ isPitcher }) => isPitcher
+      );
+      setPlayers({ pitchers, positionPlayers });
     });
     // eslint-disable-next-line
   }, []);
 
   const selectedPlayers = useMemo(
-    () => players.filter(({ checked }) => checked),
+    () =>
+      Object.values(players)
+        .flat()
+        .filter(({ checked }) => checked),
     [players]
   );
 
   const addPlayerCompareList = (playerId) => {
-    const updatePlayers = [...players];
+    const updatePlayers = { ...players };
     const playerIdx = updatePlayers.findIndex(
       (player) => player.id === +playerId
     );
@@ -110,11 +117,6 @@ function App() {
     });
   }, [setFilters]);
 
-  const [pitchers, positionPlayers] = partition(
-    filterPlayers(filters, players),
-    ({ isPitcher }) => isPitcher
-  );
-
   return (
     <AppContainer>
       <div className="title-logo">
@@ -125,7 +127,7 @@ function App() {
       </div>
 
       <Header
-        playerCounts={{ pitchers, positionPlayers }}
+        playerCounts={players}
         searchNames={searchNames}
         clearSearch={clearSearch}
         filters={filters}
@@ -151,7 +153,7 @@ function App() {
           <Route path="/pitchers">
             <PlayerTable
               headers={tableHeaders.pitchers}
-              players={pitchers}
+              players={players.pitchers}
               columnNameMap={tableColumnMap.pitchers}
               setModalPlayer={setPlayerModal}
               modalPlayer={modalPlayer}
@@ -165,7 +167,7 @@ function App() {
           <Route path="/">
             <PlayerTable
               headers={tableHeaders.positions}
-              players={positionPlayers}
+              players={players.positionPlayers}
               columnNameMap={tableColumnMap.positions}
               setModalPlayer={setPlayerModal}
               modalPlayer={modalPlayer}
