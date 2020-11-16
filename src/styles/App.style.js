@@ -6,10 +6,26 @@ export const AppContainer = styled.div`
   color: white;
   display: grid;
   grid-template-columns: 220px 1fr;
-  grid-template-rows: 80px auto 1fr;
+  grid-template-rows: 80px 180px 1fr;
   grid-row-gap: 10px;
   height: 100vh;
   box-sizing: border-box;
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
+
+  ul {
+    padding: 0;
+    margin: 0;
+
+    li {
+      list-style: none;
+    }
+  }
 
   .title-logo {
     display: flex;
@@ -24,3 +40,11 @@ export const AppContainer = styled.div`
     }
   }
 `;
+
+export const Box = styled.div((props) => {
+  return `
+    display: flex;
+    margin: ${props.margin ?? 0};
+    padding: ${props.padding ?? 0};
+  `;
+});

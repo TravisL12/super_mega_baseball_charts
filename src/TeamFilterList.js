@@ -4,7 +4,7 @@ import FilterAllNoneControls from './FilterAllNoneControls';
 
 const TeamFilterList = ({ filters, setFilters, filterAttr }) => {
   return (
-    <div className={`filter-items`}>
+    <div className={`team-filter-items`}>
       <div className="team-filter-grid">
         {keys(filters[filterAttr]).map((value) => (
           <div

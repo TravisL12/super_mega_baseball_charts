@@ -1,7 +1,6 @@
 import React from 'react';
 import { mean, values } from 'lodash';
-import { SKILLS } from '../utilities/buildPlayer';
-import usePlayerSort from '../hooks/usePlayerSort';
+import { SKILLS } from '../utilities/constants';
 
 // power, contact, speed, defense, rotation, bullpen
 // pow, con, spd, def, rot, pen
@@ -44,7 +43,6 @@ const buildRatings = (players, skills) => {
 };
 
 const TeamTable = ({ teams }) => {
-  const { sortOrder, updateSort, sortColumns } = usePlayerSort();
   const teamRatings = Object.keys(teams).map((name) => {
     const powerRatings = buildRatings(
       teams[name].players.filter(({ isPitcher }) => !isPitcher),
@@ -99,18 +97,14 @@ const TeamTable = ({ teams }) => {
       <thead>
         <tr>
           {headers.map((header) => (
-            <th
-              className={`header-col header-${header}`}
-              onClick={() => updateSort(header)}
-              key={header}
-            >
+            <th className={`header-col header-${header}`} key={header}>
               {header}
             </th>
           ))}
         </tr>
       </thead>
       <tbody>
-        {sortColumns(teamRatings, sortOrder).map((team, idx) => {
+        {teamRatings.map((team, idx) => {
           return (
             <tr key={`team.name-${idx}`}>
               {headers.map((header) => {

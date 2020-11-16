@@ -1,29 +1,6 @@
 import { keys, pick, reduce, snakeCase } from 'lodash';
-import { ALL_POSITIONS, PITCHER_ROLES } from './helper';
+import { ALL_POSITIONS, PITCHER_ROLES, SKILLS } from './constants';
 import { options } from './playerOptions';
-
-export const SKILLS = {
-  team: 'team',
-  name: 'name',
-  position: 'position',
-  position_2: 'position2',
-  pitcher_role: 'pitcherRole',
-  power: 'power',
-  contact: 'contact',
-  speed: 'speed',
-  fielding: 'fielding',
-  arm: 'arm',
-  trait: 'trait',
-  trait_2: 'trait2',
-  bats: 'bats',
-  throws: 'throws',
-  age: 'age',
-  gender: 'gender',
-  arsenal: 'arsenal',
-  velocity: 'velocity',
-  junk: 'junk',
-  accuracy: 'accuracy',
-};
 
 const buildArsenal = (info) => {
   const pitches = pick(info, ['58', '59', '60', '61', '62', '63', '64', '65']);
@@ -47,15 +24,14 @@ export const createPlayer = (info) => {
   const bats = ['L', 'R', 'S'][info[5]];
   const arsenal = buildArsenal(info);
   const position = ALL_POSITIONS[info[54]];
-  const position2 = ALL_POSITIONS[info[55]];
+  const position2 = info[55] ? ALL_POSITIONS[info[55]] : '';
   const battingOrder = info.battingOrder;
   const jersey = info[20];
 
-  return {
+  const skills = {
     [SKILLS.team]: info.teamName,
     [SKILLS.name]: `${info.firstName} ${info.lastName}`,
     [SKILLS.position]: position,
-    [SKILLS.position_2]: position2,
     [SKILLS.pitcher_role]: PITCHER_ROLES[info.pitcherRole],
     [SKILLS.power]: info.power,
     [SKILLS.contact]: info.contact,
@@ -80,7 +56,14 @@ export const createPlayer = (info) => {
     image: `${snakeCase(info.teamName)}-${info.firstName}_${snakeCase(
       info.lastName
     )}.png`.toLowerCase(),
+    checked: false,
   };
+
+  if (position2) {
+    skills[SKILLS.position_2] = position2;
+  }
+
+  return skills;
 };
 
 export const compileOptions = (info) => {

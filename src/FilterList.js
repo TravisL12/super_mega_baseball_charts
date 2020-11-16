@@ -1,6 +1,6 @@
 import React from 'react';
 import { keys, startCase } from 'lodash';
-import { positionsAbbrev } from './utilities/helper';
+import { positionsAbbrev } from './utilities/constants';
 import FilterAllNoneControls from './FilterAllNoneControls';
 
 const FilterList = ({ filters, setFilters, filterAttr, small = false }) => {
@@ -12,7 +12,7 @@ const FilterList = ({ filters, setFilters, filterAttr, small = false }) => {
         setFilters={setFilters}
         filterAttr={filterAttr}
       />
-      <div className={`${small ? 'small-list' : ''}`}>
+      <div className="filter-list">
         {keys(filters[filterAttr]).map((value) => (
           <div
             className="filter-checkbox-container"

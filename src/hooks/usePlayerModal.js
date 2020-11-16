@@ -22,7 +22,9 @@ const usePlayerModal = (players) => {
 
   useEffect(() => {
     const playerName = query.get('player');
-    const queryPlayer = players.find((player) => player.name === playerName);
+    const queryPlayer = Object.values(players)
+      .flat()
+      .find((player) => player.name === playerName);
     if (queryPlayer) {
       setModalPlayer(queryPlayer);
     }

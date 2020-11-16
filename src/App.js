@@ -1,11 +1,9 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import Papa from 'papaparse';
 import { partition, sortBy, values } from 'lodash';
 import { Switch, Route } from 'react-router-dom';
 
 import PlayerCard from './PlayerCard';
-import PositionTable from './tables/PositionTable';
-import PitcherTable from './tables/PitcherTable';
 import TeamTable from './tables/TeamTable';
 import Header from './Header';
 import Filters from './Filters';
@@ -15,15 +13,17 @@ import {
   compileOptions,
   createPlayer,
 } from './utilities/buildPlayer';
+import { ASC, DESC, tableColumnMap, tableHeaders } from './utilities/constants';
 import {
   buildChecklist,
+  filterPlayers,
   getUniqTeams,
   initialFilters,
-  filterPlayers,
 } from './utilities/helper';
 
 import { AppContainer, DisplayedTableContainer } from './styles';
 import usePlayerModal from './hooks/usePlayerModal';
+import PlayerTable from './tables/PlayerTable';
 
 const loadPlayers = (cb) => {
   Papa.parse(`${process.env.PUBLIC_URL}/smb_data.csv`, {
@@ -35,6 +35,7 @@ const loadPlayers = (cb) => {
 
 function App() {
   const [players, setPlayers] = useState([]);
+  const [pitchers, setPitchers] = useState([]);
   const [teams, setTeams] = useState([]);
   const [filters, setFilters] = useState(initialFilters);
   const { setPlayerModal, closePlayerModal, modalPlayer } = usePlayerModal(
@@ -53,10 +54,58 @@ function App() {
         teams: buildChecklist(sortBy(getUniqTeams(buildPlayers)), true),
       });
       setTeams(teams);
-      setPlayers(buildPlayers);
+
+      const [pitchersPlayers, positionPlayers] = partition(
+        buildPlayers,
+        ({ isPitcher }) => isPitcher
+      );
+
+      setPlayers(positionPlayers);
+      setPitchers(pitchersPlayers);
     });
     // eslint-disable-next-line
   }, []);
+
+  const selectedPlayers = useMemo(
+    () =>
+      [...pitchers, ...players].filter(({ id }) =>
+        filters.comparePlayerIds.includes(id)
+      ),
+    [players, pitchers, filters.comparePlayerIds]
+  );
+
+  const addPlayerCompareList = (playerId) => {
+    setFilters((prevFilters) => {
+      const alreadyChecked = prevFilters.comparePlayerIds.includes(+playerId);
+      if (alreadyChecked) {
+        const filterWithRemoved = prevFilters.comparePlayerIds.filter(
+          (id) => id !== +playerId
+        );
+        return {
+          ...prevFilters,
+          comparePlayerIds: filterWithRemoved,
+        };
+      }
+      return {
+        ...prevFilters,
+        comparePlayerIds: [...prevFilters.comparePlayerIds, +playerId],
+      };
+    });
+  };
+
+  const toggleCompare = () => {
+    if (selectedPlayers.length > 0) {
+      setFilters((prevFilters) => {
+        return { ...prevFilters, showCompare: !prevFilters.showCompare };
+      });
+    }
+  };
+
+  const clearCompareSelection = () => {
+    setFilters((prevFilters) => {
+      return { ...prevFilters, showCompare: false, comparePlayerIds: [] };
+    });
+  };
 
   const searchNames = useCallback((event) => {
     event.persist();
@@ -72,8 +121,24 @@ function App() {
     });
   }, [setFilters]);
 
-  const [pitchers, positionPlayers] = partition(
-    filterPlayers(filters, players),
+  const updateSort = useCallback(
+    (header) => {
+      setFilters((prevFilters) => {
+        let direction;
+        if (prevFilters.sort.header === header) {
+          direction = prevFilters.sort.direction === ASC ? DESC : ASC;
+        } else {
+          direction = prevFilters.sort.direction === ASC ? ASC : DESC;
+        }
+
+        return { ...prevFilters, sort: { header, direction } };
+      });
+    },
+    [setFilters]
+  );
+
+  const [pitchersPlayers, positionPlayers] = partition(
+    filterPlayers(filters, [...pitchers, ...players]),
     ({ isPitcher }) => isPitcher
   );
 
@@ -87,13 +152,19 @@ function App() {
       </div>
 
       <Header
-        playerCounts={{ pitchers, positionPlayers }}
+        players={positionPlayers}
+        pitchers={pitchersPlayers}
         searchNames={searchNames}
         clearSearch={clearSearch}
         filters={filters}
       />
 
-      <Filters filters={filters} setFilters={setFilters} />
+      <Filters
+        filters={filters}
+        setFilters={setFilters}
+        selectedPlayers={selectedPlayers}
+        clearCompareSelection={clearCompareSelection}
+      />
 
       <DisplayedTableContainer>
         <PlayerCard
@@ -102,21 +173,33 @@ function App() {
           close={closePlayerModal}
         />
         <Switch>
-          <Route path="/pitchers">
-            <PitcherTable
-              setModalPlayer={setPlayerModal}
-              modalPlayer={modalPlayer}
-              players={pitchers}
-            />
-          </Route>
           <Route path="/teams">
             <TeamTable teams={teams} />
           </Route>
-          <Route path="/">
-            <PositionTable
+          <Route path="/pitchers">
+            <PlayerTable
+              headers={tableHeaders.pitchers}
+              players={pitchersPlayers}
+              columnNameMap={tableColumnMap.pitchers}
               setModalPlayer={setPlayerModal}
               modalPlayer={modalPlayer}
+              addPlayerCompareList={addPlayerCompareList}
+              toggleCompare={toggleCompare}
+              filters={filters}
+              updateSort={updateSort}
+            />
+          </Route>
+          <Route path="/">
+            <PlayerTable
+              headers={tableHeaders.positions}
               players={positionPlayers}
+              columnNameMap={tableColumnMap.positions}
+              setModalPlayer={setPlayerModal}
+              modalPlayer={modalPlayer}
+              addPlayerCompareList={addPlayerCompareList}
+              toggleCompare={toggleCompare}
+              filters={filters}
+              updateSort={updateSort}
             />
           </Route>
         </Switch>

@@ -1,6 +1,5 @@
 import React from 'react';
-import { SKILLS } from '../utilities/buildPlayer';
-import { positionsAbbrev } from '../utilities/helper';
+import { SKILLS, positionsAbbrev } from '../utilities/constants';
 
 const RATING_PERCENT = [SKILLS.age, SKILLS.trait, SKILLS.trait_2];
 

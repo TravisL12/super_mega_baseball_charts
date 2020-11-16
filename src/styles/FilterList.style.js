@@ -13,10 +13,9 @@ export const FilterColumn = styled.div`
 
 export const FilterListContainer = styled.div`
   display: flex;
-  justify-content: space-between;
   grid-column: 1 / 3;
   grid-row: 2;
-  padding: 0 20px;
+  padding: 0 10px;
   background: ${backgroundColor};
   overflow: auto;
   font-size: 14px;
@@ -29,42 +28,23 @@ export const FilterListContainer = styled.div`
 
   .filter-items {
     padding: 2px 4px;
-
-    .title {
-      font-size: 18px;
-      min-width: 100px;
-    }
-
-    .all-none-filters {
-      display: flex;
-
-      .toggle-all-items {
-        text-decoration: underline;
-        cursor: pointer;
-        margin-right: 10px;
-      }
-    }
-
-    .filter-checkbox-container + .filter-checkbox-container {
-      margin-top: 2px;
-    }
-  }
-
-  .filter-items.small {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
 
-    .small-list {
+    .filter-list {
       display: flex;
     }
 
     .filter-checkbox-container {
-      margin-top: 0;
-
       label {
         text-align: center;
         min-width: 35px;
       }
+    }
+
+    .title {
+      font-size: 16px;
+      min-width: 80px;
     }
   }
 
@@ -89,6 +69,13 @@ export const FilterListContainer = styled.div`
     box-shadow: inset 0 0 0px 1px white;
   }
 
+  .team-filter-items {
+    padding-right: 5px;
+
+    .all-none-filters {
+      display: flex;
+    }
+  }
   .team-filter-grid {
     display: grid;
     grid-gap: 10px;
@@ -112,6 +99,36 @@ export const FilterListContainer = styled.div`
         img {
           filter: grayscale(0);
         }
+      }
+    }
+  }
+`;
+
+export const ToggleItemLink = styled.div`
+  text-decoration: underline;
+  cursor: pointer;
+  margin-right: 10px;
+`;
+
+export const SelectedPlayers = styled.div`
+  height: 90%;
+  margin-left: 10px;
+
+  p {
+    margin-right: 10px;
+  }
+
+  ul {
+    display: inline-flex;
+    flex-flow: column wrap;
+    height: 100%;
+
+    li {
+      padding-right: 10px;
+
+      span:first-child {
+        display: inline-block;
+        width: 18px;
       }
     }
   }

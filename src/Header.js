@@ -2,12 +2,12 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { HeaderContainer } from './styles';
 
-const Header = ({ playerCounts, searchNames, clearSearch, filters }) => {
+const Header = ({ players, pitchers, searchNames, clearSearch, filters }) => {
   return (
     <HeaderContainer>
       <div className="player-type-nav">
         <NavLink className="player-type" exact activeClassName="active" to="/">
-          Positions ({playerCounts.positionPlayers.length})
+          Positions ({players.length})
         </NavLink>
 
         <NavLink
@@ -15,7 +15,7 @@ const Header = ({ playerCounts, searchNames, clearSearch, filters }) => {
           activeClassName="active"
           to="/pitchers"
         >
-          Pitchers ({playerCounts.pitchers.length})
+          Pitchers ({pitchers.length})
         </NavLink>
 
         <NavLink className="player-type" activeClassName="active" to="/teams">
