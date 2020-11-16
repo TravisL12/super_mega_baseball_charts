@@ -152,8 +152,8 @@ function App() {
       </div>
 
       <Header
-        players={players}
-        pitchers={pitchers}
+        players={positionPlayers}
+        pitchers={pitchersPlayers}
         searchNames={searchNames}
         clearSearch={clearSearch}
         filters={filters}

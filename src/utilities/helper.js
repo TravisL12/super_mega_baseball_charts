@@ -32,8 +32,8 @@ export const initialFilters = {
 };
 
 export const filterPlayers = (filters, players) => {
+  // Filter comparisons
   if (filters.showCompare) {
-    // Filter comparisons
     players = players.filter((player) =>
       filters.comparePlayerIds.includes(player.id)
     );
