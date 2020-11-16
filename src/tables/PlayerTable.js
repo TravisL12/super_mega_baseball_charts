@@ -1,5 +1,4 @@
 import React from 'react';
-import usePlayerSort from '../hooks/usePlayerSort';
 import TableRow from './TableRow';
 
 const PlayerTable = ({
@@ -9,15 +8,12 @@ const PlayerTable = ({
   setModalPlayer,
   modalPlayer,
   addPlayerCompareList,
-  hasSelectedPlayers,
   toggleCompare,
-  showCompare,
-  setPlayers,
+  filters,
+  updateSort,
 }) => {
-  const { updateSort } = usePlayerSort(players, setPlayers);
-
   const handlePlayerCompareChange = (event) => {
-    addPlayerCompareList(event.target.value, players);
+    addPlayerCompareList(event.target.value);
   };
 
   if (!players.length)
@@ -33,8 +29,11 @@ const PlayerTable = ({
       <thead>
         <tr>
           <th className={`header-col`}>
-            <button disabled={hasSelectedPlayers} onClick={toggleCompare}>
-              {showCompare ? 'Compare Off' : 'Compare On'}
+            <button
+              disabled={filters.comparePlayerIds.length === 0}
+              onClick={toggleCompare}
+            >
+              {filters.showCompare ? 'Compare Off' : 'Compare On'}
             </button>
           </th>
           {headers.map((header) => (
@@ -52,10 +51,12 @@ const PlayerTable = ({
       <tbody>
         {players.map((player) => {
           const isSelected = player.name === modalPlayer?.name;
+          const isChecked = filters.comparePlayerIds.includes(player.id);
           return (
             <TableRow
               key={player.name}
               isSelected={isSelected}
+              isChecked={isChecked}
               player={player}
               handlePlayerCompareChange={handlePlayerCompareChange}
               setModalPlayer={setModalPlayer}

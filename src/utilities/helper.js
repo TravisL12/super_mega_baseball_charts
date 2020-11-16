@@ -1,8 +1,10 @@
-import { uniqBy, values } from 'lodash';
+import { orderBy, uniqBy, values } from 'lodash';
 import {
+  SKILLS,
   PRIMARY_POSITIONS,
   SECONDARY_POSITIONS,
   PITCHER_ROLES,
+  ASC,
 } from './constants';
 
 export const getUniqTeams = (players) => {
@@ -25,9 +27,18 @@ export const initialFilters = {
   throws: buildChecklist(['L', 'R'], true),
   name: '',
   showCompare: false,
+  comparePlayerIds: [],
+  sort: { header: SKILLS.team, direction: ASC },
 };
 
 export const filterPlayers = (filters, players) => {
+  if (filters.showCompare) {
+    // Filter comparisons
+    players = players.filter((player) =>
+      filters.comparePlayerIds.includes(player.id)
+    );
+  }
+
   // Filter team names
   players = players.filter((player) => filters.teams[player.team]);
   players = players.filter((player) => filters.gender[player.gender]);
@@ -48,10 +59,11 @@ export const filterPlayers = (filters, players) => {
     );
   }
 
-  // Filter comparisons
-  if (filters.showCompare) {
-    players = players.filter(({ checked }) => checked);
-  }
+  const sorted = orderBy(
+    players,
+    [filters.sort.header],
+    [filters.sort.direction]
+  );
 
-  return uniqBy(players, 'name');
+  return uniqBy(sorted, 'name');
 };

@@ -1,3 +1,6 @@
+export const ASC = 'asc';
+export const DESC = 'desc';
+
 export const SKILLS = {
   team: 'team',
   name: 'name',

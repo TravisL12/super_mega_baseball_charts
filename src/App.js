@@ -13,7 +13,7 @@ import {
   compileOptions,
   createPlayer,
 } from './utilities/buildPlayer';
-import { tableColumnMap, tableHeaders } from './utilities/constants';
+import { ASC, DESC, tableColumnMap, tableHeaders } from './utilities/constants';
 import {
   buildChecklist,
   filterPlayers,
@@ -56,7 +56,7 @@ function App() {
       setTeams(teams);
 
       const [pitchersPlayers, positionPlayers] = partition(
-        sortBy(buildPlayers, ['team', 'position']),
+        buildPlayers,
         ({ isPitcher }) => isPitcher
       );
 
@@ -67,23 +67,30 @@ function App() {
   }, []);
 
   const selectedPlayers = useMemo(
-    () => [...pitchers, ...players].filter(({ checked }) => checked),
-    [players, pitchers]
+    () =>
+      [...pitchers, ...players].filter(({ id }) =>
+        filters.comparePlayerIds.includes(id)
+      ),
+    [players, pitchers, filters.comparePlayerIds]
   );
 
-  const addPlayerCompareList = (playerId, playerCollection) => {
-    const updatePlayers = [...playerCollection];
-    const playerIdx = updatePlayers.findIndex(
-      (player) => player.id === +playerId
-    );
-    const selectedPlayer = updatePlayers[playerIdx];
-
-    if (selectedPlayer) {
-      updatePlayers[playerIdx].checked = !updatePlayers[playerIdx].checked;
-      selectedPlayer.isPitcher
-        ? setPitchers(updatePlayers)
-        : setPlayers(updatePlayers);
-    }
+  const addPlayerCompareList = (playerId) => {
+    setFilters((prevFilters) => {
+      const alreadyChecked = prevFilters.comparePlayerIds.includes(+playerId);
+      if (alreadyChecked) {
+        const filterWithRemoved = prevFilters.comparePlayerIds.filter(
+          (id) => id !== +playerId
+        );
+        return {
+          ...prevFilters,
+          comparePlayerIds: filterWithRemoved,
+        };
+      }
+      return {
+        ...prevFilters,
+        comparePlayerIds: [...prevFilters.comparePlayerIds, +playerId],
+      };
+    });
   };
 
   const toggleCompare = () => {
@@ -95,20 +102,8 @@ function App() {
   };
 
   const clearCompareSelection = () => {
-    setPlayers((prevPlayers) =>
-      prevPlayers.map((player) => {
-        player.checked = false;
-        return player;
-      })
-    );
-    setPitchers((prevPitchers) =>
-      prevPitchers.map((pitcher) => {
-        pitcher.checked = false;
-        return pitcher;
-      })
-    );
     setFilters((prevFilters) => {
-      return { ...prevFilters, showCompare: false };
+      return { ...prevFilters, showCompare: false, comparePlayerIds: [] };
     });
   };
 
@@ -125,6 +120,22 @@ function App() {
       return { ...prevFilters, name: '' };
     });
   }, [setFilters]);
+
+  const updateSort = useCallback(
+    (header) => {
+      setFilters((prevFilters) => {
+        let direction;
+        if (prevFilters.sort.header === header) {
+          direction = prevFilters.sort.direction === ASC ? DESC : ASC;
+        } else {
+          direction = prevFilters.sort.direction === ASC ? ASC : DESC;
+        }
+
+        return { ...prevFilters, sort: { header, direction } };
+      });
+    },
+    [setFilters]
+  );
 
   const [pitchersPlayers, positionPlayers] = partition(
     filterPlayers(filters, [...pitchers, ...players]),
@@ -173,10 +184,9 @@ function App() {
               setModalPlayer={setPlayerModal}
               modalPlayer={modalPlayer}
               addPlayerCompareList={addPlayerCompareList}
-              hasSelectedPlayers={selectedPlayers.length === 0}
               toggleCompare={toggleCompare}
-              showCompare={filters.showCompare}
-              setPlayers={setPitchers}
+              filters={filters}
+              updateSort={updateSort}
             />
           </Route>
           <Route path="/">
@@ -187,10 +197,9 @@ function App() {
               setModalPlayer={setPlayerModal}
               modalPlayer={modalPlayer}
               addPlayerCompareList={addPlayerCompareList}
-              hasSelectedPlayers={selectedPlayers.length === 0}
               toggleCompare={toggleCompare}
-              showCompare={filters.showCompare}
-              setPlayers={setPlayers}
+              filters={filters}
+              updateSort={updateSort}
             />
           </Route>
         </Switch>

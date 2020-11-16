@@ -3,6 +3,7 @@ import TableColumn from './TableColumn';
 
 const TableRow = ({
   isSelected,
+  isChecked,
   player,
   handlePlayerCompareChange,
   setModalPlayer,
@@ -19,7 +20,7 @@ const TableRow = ({
           <input
             id={`compare-${player.name}`}
             value={player.id}
-            checked={player.checked}
+            checked={isChecked}
             type="checkbox"
             onChange={handlePlayerCompareChange}
           />
