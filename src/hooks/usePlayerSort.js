@@ -1,48 +1,27 @@
-import { useCallback, useState } from 'react';
+import { orderBy } from 'lodash';
+import { useCallback, useRef } from 'react';
 
 const ASC = 'asc';
 const DESC = 'desc';
 
 const usePlayerSort = (players, setPlayers) => {
-  const [sortOrder, setSortOrder] = useState({
+  const sortOrder = useRef({
     header: 'team',
     direction: ASC,
   });
 
-  const sortPlayers = (header, direction) => {
-    return players.sort((a, b) => {
-      const aValue = isNaN(a[header])
-        ? a[header]
-          ? a[header].toLowerCase()
-          : ''
-        : +a[header];
-      const bValue = isNaN(b[header])
-        ? b[header]
-          ? b[header].toLowerCase()
-          : ''
-        : +b[header];
-
-      if (direction === ASC) {
-        return aValue > bValue ? 1 : -1;
-      } else {
-        return aValue < bValue ? 1 : -1;
-      }
-    });
-  };
-
   const updateSort = useCallback(
     (header) => {
-      const prevHeader = { ...sortOrder };
       let direction;
-      if (prevHeader.header === header) {
-        direction = prevHeader.direction === ASC ? DESC : ASC;
+      if (sortOrder.current.header === header) {
+        direction = sortOrder.current.direction === ASC ? DESC : ASC;
       } else {
-        direction = prevHeader.direction === ASC ? ASC : DESC;
+        direction = sortOrder.current.direction === ASC ? ASC : DESC;
       }
 
-      const sorted = sortPlayers(header, direction);
+      const sorted = orderBy(players, [header], [direction]);
+      sortOrder.current = { header, direction };
       setPlayers(sorted);
-      setSortOrder({ header, direction });
     },
     [players, setPlayers, sortOrder]
   );

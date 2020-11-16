@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import usePlayerSort from '../hooks/usePlayerSort';
 import TableRow from './TableRow';
 

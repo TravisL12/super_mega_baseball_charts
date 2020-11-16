@@ -56,7 +56,7 @@ function App() {
       setTeams(teams);
 
       const [pitchersPlayers, positionPlayers] = partition(
-        buildPlayers,
+        sortBy(buildPlayers, ['team', 'position']),
         ({ isPitcher }) => isPitcher
       );
 
