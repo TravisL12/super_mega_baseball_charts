@@ -35,7 +35,6 @@ const loadPlayers = (cb) => {
 
 function App() {
   const [players, setPlayers] = useState([]);
-  const [pitchers, setPitchers] = useState([]);
   const [teams, setTeams] = useState([]);
   const [filters, setFilters] = useState(initialFilters);
   const { setPlayerModal, closePlayerModal, modalPlayer } = usePlayerModal(
@@ -54,24 +53,14 @@ function App() {
         teams: buildChecklist(sortBy(getUniqTeams(buildPlayers)), true),
       });
       setTeams(teams);
-
-      const [pitchersPlayers, positionPlayers] = partition(
-        buildPlayers,
-        ({ isPitcher }) => isPitcher
-      );
-
-      setPlayers(positionPlayers);
-      setPitchers(pitchersPlayers);
+      setPlayers(buildPlayers);
     });
     // eslint-disable-next-line
   }, []);
 
   const selectedPlayers = useMemo(
-    () =>
-      [...pitchers, ...players].filter(({ id }) =>
-        filters.comparePlayerIds.includes(id)
-      ),
-    [players, pitchers, filters.comparePlayerIds]
+    () => players.filter(({ id }) => filters.comparePlayerIds.includes(id)),
+    [players, filters.comparePlayerIds]
   );
 
   const addPlayerCompareList = (playerId) => {
@@ -138,7 +127,7 @@ function App() {
   );
 
   const [pitchersPlayers, positionPlayers] = partition(
-    filterPlayers(filters, [...pitchers, ...players]),
+    filterPlayers(filters, players),
     ({ isPitcher }) => isPitcher
   );
 
