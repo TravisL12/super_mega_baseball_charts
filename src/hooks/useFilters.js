@@ -86,7 +86,10 @@ const useFilters = () => {
 
     const sorted = orderBy(
       players,
-      [filters.sort.header],
+      (player) => {
+        const val = player[filters.sort.header];
+        return isNaN(val) ? val : +val;
+      },
       [filters.sort.direction]
     );
 
