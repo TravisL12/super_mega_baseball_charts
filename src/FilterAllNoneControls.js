@@ -2,46 +2,44 @@ import React from 'react';
 import { keys } from 'lodash';
 import { ToggleItemLink } from './styles/FilterList.style';
 
-const FilterAllNoneControls = ({ small, setFilters, filterAttr }) => {
+const FilterAllNoneControls = ({ setFilters, filterAttr }) => {
   return (
-    !small && (
-      <div className="all-none-filters">
-        <ToggleItemLink
-          onClick={() =>
-            setFilters((prevFilters) => {
-              const values = keys(prevFilters[filterAttr]).reduce(
-                (acc, value) => {
-                  acc[value] = true;
-                  return acc;
-                },
-                {}
-              );
+    <div className="all-none-filters">
+      <ToggleItemLink
+        onClick={() =>
+          setFilters((prevFilters) => {
+            const values = keys(prevFilters[filterAttr]).reduce(
+              (acc, value) => {
+                acc[value] = true;
+                return acc;
+              },
+              {}
+            );
 
-              return { ...prevFilters, [filterAttr]: values };
-            })
-          }
-        >
-          All
-        </ToggleItemLink>
-        <ToggleItemLink
-          onClick={() =>
-            setFilters((prevFilters) => {
-              const values = keys(prevFilters[filterAttr]).reduce(
-                (acc, value) => {
-                  acc[value] = false;
-                  return acc;
-                },
-                {}
-              );
+            return { ...prevFilters, [filterAttr]: values };
+          })
+        }
+      >
+        All
+      </ToggleItemLink>
+      <ToggleItemLink
+        onClick={() =>
+          setFilters((prevFilters) => {
+            const values = keys(prevFilters[filterAttr]).reduce(
+              (acc, value) => {
+                acc[value] = false;
+                return acc;
+              },
+              {}
+            );
 
-              return { ...prevFilters, [filterAttr]: values };
-            })
-          }
-        >
-          None
-        </ToggleItemLink>
-      </div>
-    )
+            return { ...prevFilters, [filterAttr]: values };
+          })
+        }
+      >
+        None
+      </ToggleItemLink>
+    </div>
   );
 };
 

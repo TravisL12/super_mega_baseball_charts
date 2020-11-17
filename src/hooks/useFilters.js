@@ -37,6 +37,8 @@ const useFilters = () => {
         return {
           ...prevFilters,
           comparePlayerIds: filterWithRemoved,
+          showCompare:
+            prevFilters.showCompare && filterWithRemoved.length !== 0,
         };
       }
       return {

@@ -24,31 +24,26 @@ const Filters = ({
         <FilterList
           filterAttr="positions"
           filters={filters}
-          small={true}
           setFilters={setFilters}
         />
         <FilterList
           filterAttr="pitchers"
           filters={filters}
-          small={true}
           setFilters={setFilters}
         />
         <FilterList
           filterAttr="bats"
           filters={filters}
-          small={true}
           setFilters={setFilters}
         />
         <FilterList
           filterAttr="throws"
           filters={filters}
-          small={true}
           setFilters={setFilters}
         />
         <FilterList
           filterAttr="gender"
           filters={filters}
-          small={true}
           setFilters={setFilters}
         />
       </FilterColumn>

@@ -17,7 +17,7 @@ export const FilterListContainer = styled.div`
   grid-row: 2;
   padding: 0 10px;
   background: ${backgroundColor};
-  overflow: auto;
+  overflow: hidden;
   font-size: 14px;
 
   .all-items {
@@ -27,11 +27,14 @@ export const FilterListContainer = styled.div`
   }
 
   .filter-items {
-    padding: 2px 4px;
+    padding: 0px 4px 8px;
     display: flex;
-    align-items: center;
 
-    .filter-list {
+    .filter-items--title {
+      line-height: 1;
+    }
+
+    .filter-items--list {
       display: flex;
     }
 
@@ -69,13 +72,15 @@ export const FilterListContainer = styled.div`
     box-shadow: inset 0 0 0px 1px white;
   }
 
+  .all-none-filters {
+    display: flex;
+    font-size: 12px;
+  }
+
   .team-filter-items {
     padding-right: 5px;
-
-    .all-none-filters {
-      display: flex;
-    }
   }
+
   .team-filter-grid {
     display: grid;
     grid-gap: 10px;
