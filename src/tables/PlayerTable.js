@@ -8,7 +8,6 @@ const PlayerTable = ({
   setModalPlayer,
   modalPlayer,
   addPlayerCompareList,
-  toggleCompare,
   filters,
   updateSort,
 }) => {
@@ -28,14 +27,7 @@ const PlayerTable = ({
     <table>
       <thead>
         <tr>
-          <th className={`header-col`}>
-            <button
-              disabled={filters.comparePlayerIds.length === 0}
-              onClick={toggleCompare}
-            >
-              {filters.showCompare ? 'Compare Off' : 'Compare On'}
-            </button>
-          </th>
+          <th className={`header-col`}></th>
           {headers.map((header) => (
             <th
               className={`header-col header-${header}`}

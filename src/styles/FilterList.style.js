@@ -6,9 +6,9 @@ import {
   backgroundColor,
 } from './colors';
 
-export const FilterColumn = styled.div`
+export const FilterFlex = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: ${(props) => (props.isRow ? 'row' : 'column')};
 `;
 
 export const FilterListContainer = styled.div`
@@ -47,7 +47,7 @@ export const FilterListContainer = styled.div`
 
     .title {
       font-size: 16px;
-      min-width: 80px;
+      min-width: 90px;
     }
   }
 

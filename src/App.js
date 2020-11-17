@@ -93,6 +93,7 @@ function App() {
         setFilters={setFilters}
         selectedPlayers={selectedPlayers}
         clearCompareSelection={clearCompareSelection}
+        toggleCompare={toggleCompare}
       />
 
       <DisplayedTableContainer>
@@ -113,7 +114,6 @@ function App() {
               setModalPlayer={setPlayerModal}
               modalPlayer={modalPlayer}
               addPlayerCompareList={addPlayerCompareList}
-              toggleCompare={toggleCompare}
               filters={filters}
               updateSort={updateSort}
             />
@@ -126,7 +126,6 @@ function App() {
               setModalPlayer={setPlayerModal}
               modalPlayer={modalPlayer}
               addPlayerCompareList={addPlayerCompareList}
-              toggleCompare={toggleCompare}
               filters={filters}
               updateSort={updateSort}
             />

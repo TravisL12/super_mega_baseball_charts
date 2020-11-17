@@ -4,7 +4,7 @@ import { values, orderBy, uniqBy } from 'lodash';
 import { buildChecklist } from '../utilities/helper';
 import {
   PRIMARY_POSITIONS,
-  SECONDARY_POSITIONS,
+  ALL_POSITIONS,
   PITCHER_ROLES,
   SKILLS,
   ASC,
@@ -13,7 +13,7 @@ import {
 
 export const initialFilters = {
   positions: buildChecklist(values(PRIMARY_POSITIONS), true),
-  positions2: buildChecklist(values(SECONDARY_POSITIONS), true),
+  positions2: buildChecklist(values(ALL_POSITIONS), true),
   pitchers: buildChecklist(values(PITCHER_ROLES), true),
   gender: buildChecklist(['M', 'F'], true),
   bats: buildChecklist(['L', 'R', 'S'], true),
@@ -71,9 +71,10 @@ const useFilters = () => {
     players = players.filter((player) => filters.throws[player.throws]);
 
     // Filter positions
-    players = players.filter(({ position, pitcherRole }) => {
+    players = players.filter(({ position, position2, pitcherRole }) => {
       const isPitcher = filters.pitchers[pitcherRole];
-      const isPosition = filters.positions[position];
+      const isPosition =
+        filters.positions[position] && filters.positions2[position2];
       return isPitcher || isPosition;
     });
 
