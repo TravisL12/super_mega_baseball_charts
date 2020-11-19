@@ -45,6 +45,7 @@ export const SECONDARY_POSITIONS = {
   11: 'Outfield',
   12: 'First Base / Outfield',
   13: 'Infield / Outfield',
+  none: 'None',
 };
 
 export const ALL_POSITIONS = { ...PRIMARY_POSITIONS, ...SECONDARY_POSITIONS };

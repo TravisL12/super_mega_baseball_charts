@@ -1,80 +1,73 @@
 import React from 'react';
 import FilterList from './FilterList';
 import TeamFilterList from './TeamFilterList';
-import { FilterListContainer, FilterColumn } from './styles';
-import { positionsAbbrev } from './utilities/constants';
-import { SelectedPlayers, ToggleItemLink } from './styles/FilterList.style';
-import { Box } from './styles/App.style';
+import { FilterListContainer, FilterFlex } from './styles';
+import { ToggleItemLink } from './styles/FilterList.style';
 
 const Filters = ({
   filters,
   setFilters,
   selectedPlayers,
   clearCompareSelection,
+  toggleCompare,
 }) => {
   return (
     <FilterListContainer>
-      <TeamFilterList
-        filterAttr="teams"
-        filters={filters}
-        setFilters={setFilters}
-      />
+      <FilterFlex>
+        <TeamFilterList
+          filterAttr="teams"
+          filters={filters}
+          setFilters={setFilters}
+        />
 
-      <FilterColumn>
-        <FilterList
-          filterAttr="positions"
-          filters={filters}
-          setFilters={setFilters}
-        />
-        <FilterList
-          filterAttr="pitchers"
-          filters={filters}
-          setFilters={setFilters}
-        />
-        <FilterList
-          filterAttr="bats"
-          filters={filters}
-          setFilters={setFilters}
-        />
+        {selectedPlayers.length > 0 && (
+          <FilterFlex isRow={true}>
+            <ToggleItemLink onClick={toggleCompare}>
+              {filters.showCompare ? 'Compare Off' : 'Compare On'}
+            </ToggleItemLink>
+            <ToggleItemLink onClick={clearCompareSelection}>
+              Clear Selections
+            </ToggleItemLink>
+          </FilterFlex>
+        )}
+      </FilterFlex>
+
+      <FilterFlex>
+        <FilterFlex>
+          <FilterList
+            filterAttr="positions"
+            filters={filters}
+            setFilters={setFilters}
+          />
+          <FilterList
+            filterAttr="positions2"
+            filters={filters}
+            setFilters={setFilters}
+          />
+          <FilterList
+            filterAttr="pitchers"
+            filters={filters}
+            setFilters={setFilters}
+          />
+        </FilterFlex>
+        <FilterFlex isRow={true}>
+          <FilterList
+            filterAttr="bats"
+            filters={filters}
+            setFilters={setFilters}
+          />
+          <FilterList
+            filterAttr="gender"
+            filters={filters}
+            setFilters={setFilters}
+          />
+        </FilterFlex>
         <FilterList
           filterAttr="throws"
           filters={filters}
           setFilters={setFilters}
         />
-        <FilterList
-          filterAttr="gender"
-          filters={filters}
-          setFilters={setFilters}
-        />
-      </FilterColumn>
-      <FilterColumn>
-        <SelectedPlayers>
-          <Box>
-            <p>Compare Players</p>
-            {selectedPlayers.length > 0 && (
-              <>
-                <ToggleItemLink onClick={clearCompareSelection}>
-                  Clear
-                </ToggleItemLink>
-              </>
-            )}
-          </Box>
-          <ul>
-            {selectedPlayers.map(
-              ({ name, position, pitcherRole, isPitcher }) => (
-                <li key={name}>
-                  <span>
-                    {isPitcher
-                      ? positionsAbbrev[pitcherRole]
-                      : positionsAbbrev[position]}
-                  </span>{' '}
-                  - <span>{name}</span>
-                </li>
-              )
-            )}
-          </ul>
-        </SelectedPlayers>
-      </FilterColumn>
+      </FilterFlex>
     </FilterListContainer>
   );
 };
