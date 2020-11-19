@@ -29,6 +29,30 @@ export const SKILLS = {
   arm_slot: 'arm_slot',
 };
 
+export const TRAITS = {
+  none: 'None',
+  bad_jumps: 'Bad Jumps',
+  bb_prone: 'BB Prone',
+  composed: 'Composed',
+  con_vs_lhp: 'CON vs LHP',
+  con_vs_rhp: 'CON vs RHP',
+  high_pitch: 'High Pitch',
+  inside_pitch: 'Inside Pitch',
+  k_dud: 'K Dud',
+  k_man: 'K Man',
+  low_pitch: 'Low Pitch',
+  outside_pitch: 'Outside Pitch',
+  pow_vs_lhp: 'POW vs LHP',
+  pow_vs_rhp: 'POW vs RHP',
+  rbi_dud: 'RBI Dud',
+  rbi_man: 'RBI Man',
+  specialist: 'Specialist',
+  stealer: 'Stealer',
+  tough_out: 'Tough Out',
+  utility: 'Utility',
+  whiffer: 'Whiffer',
+};
+
 export const PRIMARY_POSITIONS = {
   2: 'Catcher',
   3: 'First Base',

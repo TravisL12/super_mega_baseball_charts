@@ -67,7 +67,7 @@ function App() {
   );
 
   const [pitchersPlayers, positionPlayers] = partition(
-    filterPlayers(filters, players),
+    filterPlayers(players),
     ({ isPitcher }) => isPitcher
   );
 

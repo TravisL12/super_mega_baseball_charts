@@ -9,12 +9,15 @@ import {
   SKILLS,
   ASC,
   DESC,
+  TRAITS,
 } from '../utilities/constants';
 
 export const initialFilters = {
   positions: buildChecklist(values(PRIMARY_POSITIONS), true),
   positions2: buildChecklist(values(ALL_POSITIONS), true),
   pitchers: buildChecklist(values(PITCHER_ROLES), true),
+  traits: buildChecklist(values(TRAITS), true),
+  traits2: buildChecklist(values(TRAITS), true),
   gender: buildChecklist(['M', 'F'], true),
   bats: buildChecklist(['L', 'R', 'S'], true),
   throws: buildChecklist(['L', 'R'], true),
@@ -56,7 +59,7 @@ const useFilters = () => {
     }
   };
 
-  const filterPlayers = (filters, players) => {
+  const filterPlayers = (players) => {
     // Filter comparisons
     if (filters.showCompare) {
       players = players.filter((player) =>
@@ -69,6 +72,16 @@ const useFilters = () => {
     players = players.filter((player) => filters.gender[player.gender]);
     players = players.filter((player) => filters.bats[player.bats]);
     players = players.filter((player) => filters.throws[player.throws]);
+    players = players.filter(
+      (player) =>
+        (!player.trait_pretty && filters.traits.None) ||
+        filters.traits[player.trait_pretty]
+    );
+    players = players.filter(
+      (player) =>
+        (!player.trait_2_pretty && filters.traits2.None) ||
+        filters.traits2[player.trait_2_pretty]
+    );
 
     // Filter positions
     players = players.filter(({ position, position2, pitcherRole }) => {
@@ -84,12 +97,11 @@ const useFilters = () => {
         player.name.toLowerCase().includes(filters.name.toLowerCase())
       );
     }
-
     const sorted = orderBy(
       players,
       (player) => {
         const val = player[filters.sort.header];
-        return isNaN(val) ? val : +val;
+        return !val || isNaN(val) ? val.toLowerCase() : +val;
       },
       [filters.sort.direction]
     );

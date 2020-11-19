@@ -35,6 +35,16 @@ const Filters = ({
       <FilterFlex>
         <FilterFlex>
           <FilterList
+            filterAttr="traits"
+            filters={filters}
+            setFilters={setFilters}
+          />
+          <FilterList
+            filterAttr="traits2"
+            filters={filters}
+            setFilters={setFilters}
+          />
+          <FilterList
             filterAttr="positions"
             filters={filters}
             setFilters={setFilters}
@@ -61,12 +71,12 @@ const Filters = ({
             filters={filters}
             setFilters={setFilters}
           />
+          <FilterList
+            filterAttr="throws"
+            filters={filters}
+            setFilters={setFilters}
+          />
         </FilterFlex>
-        <FilterList
-          filterAttr="throws"
-          filters={filters}
-          setFilters={setFilters}
-        />
       </FilterFlex>
     </FilterListContainer>
   );
