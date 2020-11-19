@@ -48,6 +48,11 @@ export const createPlayer = (info) => {
     [SKILLS.velocity]: info.velocity,
     [SKILLS.junk]: info.junk,
     [SKILLS.accuracy]: info.accuracy,
+    [SKILLS.salary]: info.salary,
+    [SKILLS.rating]: info.rating,
+    [SKILLS.trait_pretty]: info.traitPretty,
+    [SKILLS.trait_2_pretty]: info.subTraitPretty,
+    [SKILLS.arm_slot]: info.armSlot,
     battingOrder,
     jersey,
     id: +info.id,
@@ -69,19 +74,18 @@ export const createPlayer = (info) => {
 export const compileOptions = (info) => {
   return info.reduce((acc, option) => {
     const optionKeys = keys(option);
-    acc[option.baseballPlayerLocalID] = acc[option.baseballPlayerLocalID] ?? {
-      id: option.baseballPlayerLocalID,
+    acc[option.id] = acc[option.id] ?? {
+      id: option.id,
     };
 
     optionKeys.forEach((key) => {
       if (
-        !acc[option.baseballPlayerLocalID][key] &&
+        !acc[option.id][key] &&
         !['optionKey', 'optionType', 'optionValue'].includes(key)
       ) {
-        acc[option.baseballPlayerLocalID][key] = option[key];
+        acc[option.id][key] = option[key];
       } else if (key === 'optionKey') {
-        acc[option.baseballPlayerLocalID][option.optionKey] =
-          option.optionValue;
+        acc[option.id][option.optionKey] = option.optionValue;
       }
     });
     return acc;

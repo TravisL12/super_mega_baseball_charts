@@ -22,6 +22,11 @@ export const SKILLS = {
   velocity: 'velocity',
   junk: 'junk',
   accuracy: 'accuracy',
+  salary: 'salary',
+  rating: 'rating',
+  trait_pretty: 'trait_pretty',
+  trait_2_pretty: 'trait_2_pretty',
+  arm_slot: 'arm_slot',
 };
 
 export const PRIMARY_POSITIONS = {
@@ -84,6 +89,7 @@ export const positionsAbbrev = {
 export const tableColumnMap = {
   positions: {
     [SKILLS.team]: 'team',
+    [SKILLS.rating]: 'rating',
     [SKILLS.name]: 'name',
     [SKILLS.position]: 'P. Pos',
     [SKILLS.position_2]: 'S. Pos',
@@ -92,8 +98,8 @@ export const tableColumnMap = {
     [SKILLS.speed]: 'spd',
     [SKILLS.fielding]: 'fld',
     [SKILLS.arm]: 'arm',
-    [SKILLS.trait]: 'trait 1',
-    [SKILLS.trait_2]: 'trait 2',
+    [SKILLS.trait_pretty]: 'trait 1',
+    [SKILLS.trait_2_pretty]: 'trait 2',
     [SKILLS.bats]: 'bat',
     [SKILLS.throws]: 'thr',
     [SKILLS.age]: 'age',
@@ -101,6 +107,7 @@ export const tableColumnMap = {
   },
   pitchers: {
     [SKILLS.team]: 'team',
+    [SKILLS.rating]: 'rating',
     [SKILLS.name]: 'name',
     [SKILLS.pitcher_role]: 'role',
     [SKILLS.power]: 'pow',
@@ -111,8 +118,8 @@ export const tableColumnMap = {
     [SKILLS.velocity]: 'vel',
     [SKILLS.junk]: 'jnk',
     [SKILLS.accuracy]: 'acc',
-    [SKILLS.trait]: 'trait 1',
-    [SKILLS.trait_2]: 'trait 2',
+    [SKILLS.trait_pretty]: 'trait 1',
+    [SKILLS.trait_2_pretty]: 'trait 2',
     [SKILLS.bats]: 'bat',
     [SKILLS.throws]: 'thr',
     [SKILLS.age]: 'age',
@@ -123,6 +130,7 @@ export const tableColumnMap = {
 export const tableHeaders = {
   positions: [
     SKILLS.team,
+    SKILLS.rating,
     SKILLS.name,
     SKILLS.position,
     SKILLS.position_2,
@@ -131,8 +139,8 @@ export const tableHeaders = {
     SKILLS.speed,
     SKILLS.fielding,
     SKILLS.arm,
-    // SKILLS.trait,
-    // SKILLS.trait_2,
+    SKILLS.trait_pretty,
+    SKILLS.trait_2_pretty,
     SKILLS.bats,
     SKILLS.throws,
     SKILLS.age,
@@ -140,6 +148,7 @@ export const tableHeaders = {
   ],
   pitchers: [
     SKILLS.team,
+    SKILLS.rating,
     SKILLS.name,
     SKILLS.pitcher_role,
     SKILLS.arsenal,
@@ -150,8 +159,8 @@ export const tableHeaders = {
     SKILLS.velocity,
     SKILLS.junk,
     SKILLS.accuracy,
-    // SKILLS.trait,
-    // SKILLS.trait_2,
+    SKILLS.trait_pretty,
+    SKILLS.trait_2_pretty,
     SKILLS.bats,
     SKILLS.throws,
     SKILLS.age,

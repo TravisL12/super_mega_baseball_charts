@@ -1,7 +1,7 @@
 import React from 'react';
 import { SKILLS, positionsAbbrev } from '../utilities/constants';
 
-const RATING_PERCENT = [SKILLS.age, SKILLS.trait, SKILLS.trait_2];
+const RATING_PERCENT = [SKILLS.age, SKILLS.trait_pretty, SKILLS.trait_2_pretty];
 
 const DISPLAY_VALUES = {
   pitcher: [SKILLS.pitcher_role],
