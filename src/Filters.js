@@ -3,6 +3,7 @@ import FilterList from './FilterList';
 import TeamFilterList from './TeamFilterList';
 import { FilterListContainer, FilterFlex } from './styles';
 import { ToggleItemLink } from './styles/FilterList.style';
+import FilterDropdown from './FilterDropdown';
 
 const Filters = ({
   filters,
@@ -34,26 +35,30 @@ const Filters = ({
 
       <FilterFlex>
         <FilterFlex>
-          <FilterList
-            filterAttr="traits"
-            filters={filters}
-            setFilters={setFilters}
-          />
-          <FilterList
-            filterAttr="traits2"
-            filters={filters}
-            setFilters={setFilters}
-          />
-          <FilterList
-            filterAttr="positions"
-            filters={filters}
-            setFilters={setFilters}
-          />
-          <FilterList
-            filterAttr="positions2"
-            filters={filters}
-            setFilters={setFilters}
-          />
+          <FilterFlex isRow={true}>
+            <FilterDropdown
+              filterAttr="positions"
+              filters={filters}
+              setFilters={setFilters}
+            />
+            <FilterDropdown
+              filterAttr="positions2"
+              filters={filters}
+              setFilters={setFilters}
+            />
+          </FilterFlex>
+          <FilterFlex isRow={true}>
+            <FilterDropdown
+              filterAttr="traits"
+              filters={filters}
+              setFilters={setFilters}
+            />
+            <FilterDropdown
+              filterAttr="traits2"
+              filters={filters}
+              setFilters={setFilters}
+            />
+          </FilterFlex>
           <FilterList
             filterAttr="pitchers"
             filters={filters}

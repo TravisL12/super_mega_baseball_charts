@@ -11,6 +11,32 @@ export const FilterFlex = styled.div`
   flex-direction: ${(props) => (props.isRow ? 'row' : 'column')};
 `;
 
+export const FilterDropdownContainer = styled.div`
+  width: 200px;
+
+  .select {
+    position: relative;
+
+    select {
+      width: 100%;
+    }
+  }
+
+  .overSelect {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  .checkbox-list {
+    position: absolute;
+    z-index: 10;
+    width: 200px;
+  }
+`;
+
 export const FilterListContainer = styled.div`
   display: flex;
   grid-column: 1 / 3;
