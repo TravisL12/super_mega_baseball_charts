@@ -12,11 +12,15 @@ export const FilterFlex = styled.div`
 `;
 
 export const FilterDropdownContainer = styled.div`
-  width: 200px;
+  position: relative;
+  display: flex;
+
+  .dropdown {
+    position: relative;
+    width: 200px;
+  }
 
   .select {
-    position: relative;
-
     select {
       width: 100%;
     }
@@ -32,6 +36,7 @@ export const FilterDropdownContainer = styled.div`
 
   .checkbox-list {
     position: absolute;
+    top: 20px;
     z-index: 10;
     width: 200px;
   }
@@ -53,7 +58,7 @@ export const FilterListContainer = styled.div`
   }
 
   .filter-items {
-    padding: 0px 4px 8px;
+    padding-bottom: 8px;
     display: flex;
 
     .filter-items--title {

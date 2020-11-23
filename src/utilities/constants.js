@@ -155,10 +155,10 @@ export const tableColumnMap = {
 export const tableHeaders = {
   positions: [
     SKILLS.team,
-    SKILLS.rating,
     SKILLS.name,
     SKILLS.position,
     SKILLS.position_2,
+    SKILLS.rating,
     SKILLS.power,
     SKILLS.contact,
     SKILLS.speed,
@@ -173,10 +173,10 @@ export const tableHeaders = {
   ],
   pitchers: [
     SKILLS.team,
-    SKILLS.rating,
     SKILLS.name,
     SKILLS.pitcher_role,
     SKILLS.arsenal,
+    SKILLS.rating,
     SKILLS.power,
     SKILLS.contact,
     SKILLS.speed,
