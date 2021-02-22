@@ -2,6 +2,9 @@
 
 I found this data within the SMB3 `sqlite` database located within the `Steam` program files on Windows 10.
 
+## Player Images
+Download all the player images from : https://drive.google.com/drive/u/0/folders/1RtlftwSAvzLRdTmpspko-ejrwEhGO6Rl
+
 ## Querying database
 
 The database was named `bigfly.sqlite`, I made a copy of it and used `sqlite3` to dig into the database schema. Some quick commands for `sqlite3`:
