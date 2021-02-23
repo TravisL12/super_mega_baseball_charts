@@ -8,6 +8,20 @@ import {
 } from './tableUtilities';
 import { PlayerColumn } from '../styles/Table.style';
 
+const centeredColumns = [
+  'age',
+  'arsenal',
+  'pitcherRole',
+  'position',
+  'trait',
+  'trait2',
+  'bats',
+  'throws',
+  'position2',
+  'gender',
+  'age',
+];
+
 const TableColumn = ({ player, header, isSelected }) => {
   const logo = getTeamLogo(player, header);
   const ratingPercent = getRatingPercent(player, header);
@@ -27,13 +41,14 @@ const TableColumn = ({ player, header, isSelected }) => {
     <PlayerColumn
       key={header}
       isSelected={isSelected}
+      centered={centeredColumns.includes(header)}
       className={`player-${header}`}
     >
       {ratingPercent && (
         <span className="rating-color" style={{ width: ratingPercent }}></span>
       )}
       {logo}
-      {!logo && <span className="rating-value">{displayValue}</span>}
+      <span className="rating-value">{displayValue}</span>
     </PlayerColumn>
   );
 };

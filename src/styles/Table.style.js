@@ -163,22 +163,8 @@ export const PlayerColumn = styled.td`
     min-width: 160px;
   }
 
-  .header-age,
-  .header-position,
-  &.player-age,
-  &.player-arsenal,
-  &.player-pitcherRole,
-  &.player-position,
-  &.player-trait,
-  &.player-trait2,
-  &.player-bats,
-  &.player-throws,
-  &.player-position2,
-  &.player-gender,
-  &.player-age {
-    min-width: 20px;
-    text-align: center;
-  }
+  min-width: ${(props) => (props.centered ? '20px' : 'none')};
+  text-align: ${(props) => (props.centered ? 'center' : 'left')};
 
   &.player-speed .rating-color {
     background: ${speedColor};
@@ -203,6 +189,35 @@ export const PlayerColumn = styled.td`
   }
   &.player-junk .rating-color {
     background: ${junkColor};
+  }
+`;
+
+export const PlayerColumnHeader = styled.th`
+  text-transform: uppercase;
+  cursor: pointer;
+  position: sticky;
+  background: black;
+  top: 0;
+  padding: ${cellPaddingTb} ${cellPaddingLr};
+  z-index: 1;
+  white-space: nowrap;
+
+  min-width: ${(props) => (props.centered ? '20px' : 'none')};
+  text-align: ${(props) => (props.centered ? 'center' : 'left')};
+
+  &:first-child,
+  ${PlayerColumn}:first-child {
+    padding-left: 15px;
+  }
+
+  &.header-name {
+    min-width: 160px;
+  }
+
+  &.header-team {
+    display: flex;
+    align-items: center;
+    min-width: 100px;
   }
 `;
 
@@ -238,37 +253,8 @@ export const DisplayedTableContainer = styled.div`
     }
   }
 
-  .header-col {
-    text-transform: uppercase;
-    text-align: center;
-    cursor: pointer;
-    position: sticky;
-    background: black;
-    top: 0;
-    padding: ${cellPaddingTb} ${cellPaddingLr};
-    z-index: 1;
-    white-space: nowrap;
-  }
-
-  .header-name {
-    text-align: left;
-    min-width: 160px;
-  }
-
   tr:nth-child(even) ${PlayerColumn} {
     background: ${disableGray};
-  }
-
-  .header-col:first-child,
-  ${PlayerColumn}:first-child {
-    padding-left: 15px;
-  }
-
-  .header-team {
-    display: flex;
-    align-items: center;
-    min-width: 100px;
-    text-align: left;
   }
 
   .rating-value {
