@@ -2,10 +2,17 @@ import React, { useState } from 'react';
 import { keys, startCase } from 'lodash';
 import { positionsAbbrev } from './utilities/constants';
 import FilterAllNoneControls from './FilterAllNoneControls';
-import { FilterDropdownContainer } from './styles/FilterList.style';
+import {
+  FilterDropdownContainer,
+  FilterPortalDropdown,
+} from './styles/FilterList.style';
+import Portal from './FilterPortal';
+import { usePortal } from './hooks/usePortal';
 
 const FilterDropdown = ({ filters, setFilters, filterAttr }) => {
   const [showCheckboxes, setShowCheckboxes] = useState(false);
+  const [coords, setPortalCoordinates] = usePortal();
+
   return (
     <FilterDropdownContainer>
       <div className="filter-items--title">
@@ -16,38 +23,40 @@ const FilterDropdown = ({ filters, setFilters, filterAttr }) => {
         />
       </div>
       <div className="dropdown">
-        <div
+        <button
           className="select"
-          onClick={() => setShowCheckboxes(!showCheckboxes)}
+          onClick={(e) => {
+            setPortalCoordinates(e);
+            setShowCheckboxes(!showCheckboxes);
+          }}
         >
-          <select>
-            <option>{startCase(filterAttr)}</option>
-          </select>
-          <div className="overSelect"></div>
-        </div>
+          {showCheckboxes ? 'close' : 'open'}
+        </button>
 
         {showCheckboxes && (
-          <div className="checkbox-list">
-            {keys(filters[filterAttr]).map((value) => (
-              <div key={`${filterAttr}-${value}`}>
-                <input
-                  type="checkbox"
-                  id={`${filterAttr}-${value}`}
-                  checked={filters[filterAttr][value]}
-                  onChange={() =>
-                    setFilters((prevFilters) => {
-                      const values = { ...prevFilters[filterAttr] };
-                      values[value] = !values[value];
-                      return { ...prevFilters, [filterAttr]: values };
-                    })
-                  }
-                />
-                <label htmlFor={`${filterAttr}-${value}`}>
-                  {positionsAbbrev[value] ?? value}
-                </label>
-              </div>
-            ))}
-          </div>
+          <Portal>
+            <FilterPortalDropdown style={{ ...coords }}>
+              {keys(filters[filterAttr]).map((value) => (
+                <div key={`${filterAttr}-${value}`}>
+                  <input
+                    type="checkbox"
+                    id={`${filterAttr}-${value}`}
+                    checked={filters[filterAttr][value]}
+                    onChange={() =>
+                      setFilters((prevFilters) => {
+                        const values = { ...prevFilters[filterAttr] };
+                        values[value] = !values[value];
+                        return { ...prevFilters, [filterAttr]: values };
+                      })
+                    }
+                  />
+                  <label htmlFor={`${filterAttr}-${value}`}>
+                    {positionsAbbrev[value] ?? value}
+                  </label>
+                </div>
+              ))}
+            </FilterPortalDropdown>
+          </Portal>
         )}
       </div>
     </FilterDropdownContainer>

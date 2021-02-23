@@ -11,33 +11,19 @@ export const FilterFlex = styled.div`
   flex-direction: ${(props) => (props.isRow ? 'row' : 'column')};
 `;
 
+export const FilterPortalDropdown = styled.div`
+  position: absolute;
+  z-index: 10;
+  width: 200px;
+  background: white;
+`;
+
 export const FilterDropdownContainer = styled.div`
   position: relative;
   display: flex;
 
   .dropdown {
     position: relative;
-    width: 200px;
-  }
-
-  .select {
-    select {
-      width: 100%;
-    }
-  }
-
-  .overSelect {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-  }
-
-  .checkbox-list {
-    position: absolute;
-    top: 20px;
-    z-index: 10;
     width: 200px;
   }
 `;
