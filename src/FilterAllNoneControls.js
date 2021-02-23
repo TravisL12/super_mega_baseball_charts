@@ -2,9 +2,9 @@ import React from 'react';
 import { keys } from 'lodash';
 import { ToggleItemLink } from './styles/FilterList.style';
 
-const FilterAllNoneControls = ({ setFilters, filterAttr }) => {
+const FilterAllNoneControls = ({ setFilters, filterAttr, styles = {} }) => {
   return (
-    <div className="all-none-filters">
+    <div className="all-none-filters" style={styles}>
       <ToggleItemLink
         onClick={() =>
           setFilters((prevFilters) => {

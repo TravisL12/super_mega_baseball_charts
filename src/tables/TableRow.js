@@ -1,4 +1,6 @@
 import React from 'react';
+import { ToggleItemLink } from '../styles/FilterList.style';
+import { TableRowContainer, SelectionCheckbox } from '../styles/Table.style';
 import TableColumn from './TableColumn';
 
 const TableRow = ({
@@ -10,13 +12,13 @@ const TableRow = ({
   headers,
 }) => {
   return (
-    <tr key={player.name}>
+    <TableRowContainer key={player.name} isChecked={isChecked}>
       <td
         className={`player-col player-checkbox ${
           isSelected ? 'selectedPlayer' : ''
         }`}
       >
-        <span className="rating-value">
+        <SelectionCheckbox>
           <input
             id={`compare-${player.name}`}
             value={player.id}
@@ -27,7 +29,7 @@ const TableRow = ({
           <label htmlFor={`compare-${player.name}`}>
             <div className="checkbox-label"></div>
           </label>
-        </span>
+        </SelectionCheckbox>
       </td>
       {headers.map((header) => {
         return (
@@ -41,10 +43,12 @@ const TableRow = ({
       })}
       <td className={`player-col  ${isSelected ? 'selectedPlayer' : ''}`}>
         <span className="rating-value">
-          <button onClick={() => setModalPlayer(player)}>Show Card</button>
+          <ToggleItemLink onClick={() => setModalPlayer(player)}>
+            Show Card
+          </ToggleItemLink>
         </span>
       </td>
-    </tr>
+    </TableRowContainer>
   );
 };
 

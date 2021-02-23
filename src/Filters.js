@@ -42,14 +42,14 @@ const Filters = ({
               setFilters={setFilters}
             />
             <FilterDropdown
-              filterAttr="positions2"
+              filterAttr="traits"
               filters={filters}
               setFilters={setFilters}
             />
           </FilterFlex>
           <FilterFlex isRow={true}>
             <FilterDropdown
-              filterAttr="traits"
+              filterAttr="positions2"
               filters={filters}
               setFilters={setFilters}
             />
@@ -59,11 +59,6 @@ const Filters = ({
               setFilters={setFilters}
             />
           </FilterFlex>
-          <FilterList
-            filterAttr="pitchers"
-            filters={filters}
-            setFilters={setFilters}
-          />
         </FilterFlex>
         <FilterFlex isRow={true}>
           <FilterList
@@ -72,12 +67,19 @@ const Filters = ({
             setFilters={setFilters}
           />
           <FilterList
-            filterAttr="gender"
+            filterAttr="pitchers"
+            filters={filters}
+            setFilters={setFilters}
+          />
+        </FilterFlex>
+        <FilterFlex isRow={true}>
+          <FilterList
+            filterAttr="throws"
             filters={filters}
             setFilters={setFilters}
           />
           <FilterList
-            filterAttr="throws"
+            filterAttr="gender"
             filters={filters}
             setFilters={setFilters}
           />

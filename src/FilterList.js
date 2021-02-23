@@ -2,10 +2,11 @@ import React from 'react';
 import { keys, startCase } from 'lodash';
 import { positionsAbbrev } from './utilities/constants';
 import FilterAllNoneControls from './FilterAllNoneControls';
+import { FilterItems } from './styles/FilterList.style';
 
 const FilterList = ({ filters, setFilters, filterAttr }) => {
   return (
-    <div className="filter-items">
+    <FilterItems>
       <div className="filter-items--title">
         <div className="title">{startCase(filterAttr)}</div>
         <FilterAllNoneControls
@@ -37,7 +38,7 @@ const FilterList = ({ filters, setFilters, filterAttr }) => {
           </div>
         ))}
       </div>
-    </div>
+    </FilterItems>
   );
 };
 

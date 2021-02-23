@@ -1,20 +1,23 @@
 import { memo, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
+// from: https://blog.logrocket.com/learn-react-portals-by-example/
+
 const mount = document.getElementById('portal-root');
 
 const Portal = ({ children }) => {
-  const el = useRef(null);
-  if (!el.current) el.current = document.createElement('div');
-  el.current.classList = 'dropdown-portal';
+  const portalRef = useRef(null);
+  if (!portalRef.current) {
+    portalRef.current = document.createElement('div');
+  }
+  portalRef.current.classList = 'dropdown-portal';
 
   useEffect(() => {
-    const { current } = el;
-    mount.appendChild(current);
-    return () => mount.removeChild(current);
+    mount.appendChild(portalRef.current);
+    return () => mount.removeChild(portalRef.current);
   }, []);
 
-  return createPortal(children, el.current);
+  return createPortal(children, portalRef.current);
 };
 
 export default memo(Portal);

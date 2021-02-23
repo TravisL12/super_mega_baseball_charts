@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import {
   backgroundColor,
   disableGray,
+  highlightGray,
   attrTipHighlight,
   speedColor,
   armColor,
@@ -12,6 +13,48 @@ import {
   velocityColor,
   junkColor,
 } from './colors';
+
+export const TableRowContainer = styled.tr`
+  td {
+    background: ${({ isChecked }) =>
+      isChecked ? `${speedColor} !important` : 'inherit'};
+  }
+`;
+
+export const SelectionCheckbox = styled.div`
+  input[type='checkbox'] {
+    display: none;
+  }
+
+  label {
+    cursor: pointer;
+    width: 100%;
+
+    .checkbox-label {
+      display: block;
+      margin: 0 auto;
+      width: 25px;
+      height: 25px;
+      cursor: pointer;
+      background: ${highlightGray};
+      box-shadow: inset 0 0 0px 1px black;
+      color: white;
+    }
+  }
+
+  input[type='checkbox']:checked + label .checkbox-label {
+    background: ${speedColor};
+    box-shadow: inset 0 0 0px 1px white;
+
+    &:after {
+      content: 'x';
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+  }
+`;
 
 export const TeamTableContainer = styled.div`
   .title {
@@ -89,10 +132,6 @@ export const DisplayedTableContainer = styled.div`
 
   tr:nth-child(even) .player-col {
     background: ${disableGray};
-  }
-
-  tr:hover .player-col {
-    background: ${armColor};
   }
 
   .header-col:first-child,
@@ -208,39 +247,6 @@ export const DisplayedTableContainer = styled.div`
 
       .rating-value {
         display: flex;
-
-        input[type='checkbox'] {
-          display: none;
-        }
-
-        label {
-          cursor: pointer;
-          width: 100%;
-
-          .checkbox-label {
-            display: block;
-            margin: 0 auto;
-            width: 25px;
-            height: 25px;
-            cursor: pointer;
-            background: ${disableGray};
-            box-shadow: inset 0 0 0px 1px black;
-            color: white;
-          }
-        }
-
-        input[type='checkbox']:checked + label .checkbox-label {
-          background: ${armColor};
-          box-shadow: inset 0 0 0px 1px white;
-
-          &:after {
-            content: 'x';
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-          }
-        }
       }
     }
     &.player-team {

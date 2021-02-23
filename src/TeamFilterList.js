@@ -5,7 +5,6 @@ import FilterAllNoneControls from './FilterAllNoneControls';
 const TeamFilterList = ({ filters, setFilters, filterAttr }) => {
   return (
     <div className={`team-filter-items`}>
-      <FilterAllNoneControls setFilters={setFilters} filterAttr={filterAttr} />
       <div className="team-filter-grid">
         {keys(filters[filterAttr]).map((value) => (
           <div
@@ -33,6 +32,11 @@ const TeamFilterList = ({ filters, setFilters, filterAttr }) => {
           </div>
         ))}
       </div>
+      <FilterAllNoneControls
+        setFilters={setFilters}
+        filterAttr={filterAttr}
+        styles={{ justifyContent: 'flex-end' }}
+      />
     </div>
   );
 };
