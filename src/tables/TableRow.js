@@ -1,6 +1,6 @@
 import React from 'react';
 import { ToggleItemLink } from '../styles/FilterList.style';
-import { TableRowContainer, SelectionCheckbox } from '../styles/Table.style';
+import { PlayerColumn, SelectionCheckbox } from '../styles/Table.style';
 import TableColumn from './TableColumn';
 
 const TableRow = ({
@@ -11,18 +11,15 @@ const TableRow = ({
   setModalPlayer,
   headers,
 }) => {
+  const selectedRow = isSelected || isChecked;
   return (
-    <TableRowContainer key={player.name} isChecked={isChecked}>
-      <td
-        className={`player-col player-checkbox ${
-          isSelected ? 'selectedPlayer' : ''
-        }`}
-      >
+    <tr key={player.name}>
+      <PlayerColumn isSelected={selectedRow} className="player-checkbox">
         <SelectionCheckbox>
           <input
             id={`compare-${player.name}`}
             value={player.id}
-            checked={isChecked}
+            checked={selectedRow}
             type="checkbox"
             onChange={handlePlayerCompareChange}
           />
@@ -30,25 +27,25 @@ const TableRow = ({
             <div className="checkbox-label"></div>
           </label>
         </SelectionCheckbox>
-      </td>
+      </PlayerColumn>
       {headers.map((header) => {
         return (
           <TableColumn
             key={header}
-            isSelected={isSelected}
+            isSelected={selectedRow}
             player={player}
             header={header}
           />
         );
       })}
-      <td className={`player-col  ${isSelected ? 'selectedPlayer' : ''}`}>
+      <PlayerColumn isSelected={selectedRow}>
         <span className="rating-value">
           <ToggleItemLink onClick={() => setModalPlayer(player)}>
             Show Card
           </ToggleItemLink>
         </span>
-      </td>
-    </TableRowContainer>
+      </PlayerColumn>
+    </tr>
   );
 };
 

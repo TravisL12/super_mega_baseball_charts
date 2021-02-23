@@ -22,7 +22,7 @@ const Filters = ({
         />
 
         {selectedPlayers.length > 0 && (
-          <FilterFlex isRow={true}>
+          <FilterFlex isRow={true} gap="10px">
             <ToggleItemLink onClick={toggleCompare}>
               {filters.showCompare ? 'Compare Off' : 'Compare On'}
             </ToggleItemLink>

@@ -8,6 +8,7 @@ import {
 
 export const FilterFlex = styled.div`
   display: flex;
+  gap: ${(props) => props.gap ?? 0};
   flex-direction: ${(props) => (props.isRow ? 'row' : 'column')};
 `;
 
