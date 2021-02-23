@@ -51,6 +51,13 @@ export const FilterItems = styled.div`
     width: 90px;
   }
 
+  .filter-items--title.dropdown {
+    display: flex;
+    gap: 10px;
+    font-size: 16px;
+    width: 150px;
+  }
+
   .filter-items--list {
     display: flex;
   }
@@ -102,12 +109,6 @@ export const FilterListContainer = styled.div`
   input[type='checkbox']:checked + label {
     background: ${armColor};
     box-shadow: inset 0 0 0px 1px white;
-  }
-
-  .all-none-filters {
-    display: flex;
-    gap: 10px;
-    font-size: 12px;
   }
 
   .team-filter-items {

@@ -10,6 +10,7 @@ import {
   ASC,
   DESC,
   TRAITS,
+  NO_TRAIT,
 } from '../utilities/constants';
 
 export const initialFilters = {
@@ -74,12 +75,12 @@ const useFilters = () => {
     players = players.filter((player) => filters.throws[player.throws]);
     players = players.filter(
       (player) =>
-        (!player.trait_pretty && filters.traits.None) ||
+        (!player.trait_pretty && filters.traits[NO_TRAIT]) ||
         filters.traits[player.trait_pretty]
     );
     players = players.filter(
       (player) =>
-        (!player.trait_2_pretty && filters.traits2.None) ||
+        (!player.trait_2_pretty && filters.traits2[NO_TRAIT]) ||
         filters.traits2[player.trait_2_pretty]
     );
 
@@ -101,7 +102,9 @@ const useFilters = () => {
       players,
       (player) => {
         const val = player[filters.sort.header];
-        return !val || isNaN(val) ? val.toLowerCase() : +val;
+        if (!val) return '';
+
+        return isNaN(val) ? val.toLowerCase() : +val;
       },
       [filters.sort.direction]
     );
@@ -111,6 +114,10 @@ const useFilters = () => {
 
   const updateSort = useCallback(
     (header) => {
+      if (header === 'arsenal') {
+        return;
+      }
+
       setFilters((prevFilters) => {
         let direction;
         if (prevFilters.sort.header === header) {

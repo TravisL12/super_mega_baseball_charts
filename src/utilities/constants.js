@@ -1,5 +1,6 @@
 export const ASC = 'asc';
 export const DESC = 'desc';
+export const NO_TRAIT = 'No Trait';
 
 export const SKILLS = {
   team: 'team',
@@ -30,7 +31,7 @@ export const SKILLS = {
 };
 
 export const TRAITS = {
-  none: 'None',
+  none: NO_TRAIT,
   bad_jumps: 'Bad Jumps',
   bb_prone: 'BB Prone',
   composed: 'Composed',
@@ -69,7 +70,7 @@ export const SECONDARY_POSITIONS = {
   11: 'Outfield',
   12: 'First Base / Outfield',
   13: 'Infield / Outfield',
-  none: 'None',
+  none: 'No 2nd Pos.',
 };
 
 export const ALL_POSITIONS = { ...PRIMARY_POSITIONS, ...SECONDARY_POSITIONS };

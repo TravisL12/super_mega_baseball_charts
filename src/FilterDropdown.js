@@ -19,7 +19,7 @@ const FilterDropdown = ({ filters, setFilters, filterAttr }) => {
   return (
     <FilterDropdownContainer>
       <FilterItems>
-        <div className="filter-items--title">
+        <div className="filter-items--title dropdown">
           <ToggleItemLink
             className="title"
             onClick={(e) => {
@@ -27,18 +27,25 @@ const FilterDropdown = ({ filters, setFilters, filterAttr }) => {
               setShowCheckboxes(!showCheckboxes);
             }}
           >
-            {startCase(filterAttr)}
+            {showCheckboxes
+              ? `Close ${startCase(filterAttr)}`
+              : startCase(filterAttr)}
           </ToggleItemLink>
-          <FilterAllNoneControls
-            setFilters={setFilters}
-            filterAttr={filterAttr}
-          />
         </div>
       </FilterItems>
 
       {showCheckboxes && (
         <Portal>
           <FilterPortalDropdown style={{ ...coords }}>
+            <FilterAllNoneControls
+              setFilters={setFilters}
+              filterAttr={filterAttr}
+              styles={{
+                boxShadow: 'inset 0 0 0px 1px white',
+                justifyContent: 'space-around',
+                padding: '5px 0',
+              }}
+            />
             {keys(filters[filterAttr]).map((value) => (
               <FilterDropdownCheckbox key={`${filterAttr}-${value}`}>
                 <input

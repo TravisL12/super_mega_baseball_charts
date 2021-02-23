@@ -1,8 +1,9 @@
 import React from 'react';
 import TableRow from './TableRow';
 import { PlayerColumnHeader } from '../styles/Table.style';
+import { SKILLS } from '../utilities/constants';
 
-const centeredColumns = ['age', 'position'];
+const centeredColumns = [SKILLS.age, SKILLS.position, SKILLS.arsenal];
 
 const PlayerTable = ({
   players,

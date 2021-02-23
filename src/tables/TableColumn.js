@@ -9,17 +9,16 @@ import {
 import { PlayerColumn } from '../styles/Table.style';
 
 const centeredColumns = [
-  'age',
-  'arsenal',
-  'pitcherRole',
-  'position',
-  'trait',
-  'trait2',
-  'bats',
-  'throws',
-  'position2',
-  'gender',
-  'age',
+  SKILLS.age,
+  SKILLS.arsenal,
+  SKILLS.pitcherRole,
+  SKILLS.position,
+  SKILLS.trait,
+  SKILLS.trait2,
+  SKILLS.bats,
+  SKILLS.throws,
+  SKILLS.position2,
+  SKILLS.gender,
 ];
 
 const TableColumn = ({ player, header, isSelected }) => {
