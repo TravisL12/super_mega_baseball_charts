@@ -6,6 +6,20 @@ import {
   getRatingPercent,
   getTeamLogo,
 } from './tableUtilities';
+import { PlayerColumn } from '../styles/Table.style';
+
+const centeredColumns = [
+  SKILLS.age,
+  SKILLS.arsenal,
+  SKILLS.pitcherRole,
+  SKILLS.position,
+  SKILLS.trait,
+  SKILLS.trait2,
+  SKILLS.bats,
+  SKILLS.throws,
+  SKILLS.position2,
+  SKILLS.gender,
+];
 
 const TableColumn = ({ player, header, isSelected }) => {
   const logo = getTeamLogo(player, header);
@@ -23,18 +37,18 @@ const TableColumn = ({ player, header, isSelected }) => {
   }
 
   return (
-    <td
-      className={`player-col player-${header} ${
-        isSelected ? 'selectedPlayer' : ''
-      }`}
+    <PlayerColumn
       key={header}
+      isSelected={isSelected}
+      centered={centeredColumns.includes(header)}
+      className={`player-${header}`}
     >
       {ratingPercent && (
         <span className="rating-color" style={{ width: ratingPercent }}></span>
       )}
       {logo}
       <span className="rating-value">{displayValue}</span>
-    </td>
+    </PlayerColumn>
   );
 };
 

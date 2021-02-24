@@ -8,7 +8,71 @@ import {
 
 export const FilterFlex = styled.div`
   display: flex;
+  gap: ${(props) => props.gap ?? 0};
   flex-direction: ${(props) => (props.isRow ? 'row' : 'column')};
+`;
+
+export const FilterPortalDropdown = styled.div`
+  position: absolute;
+  z-index: 10;
+  width: 200px;
+  background: white;
+`;
+
+export const FilterDropdownCheckbox = styled.div`
+  display: flex;
+  padding: 4px;
+  background: ${armColor};
+  box-shadow: inset 0 0 0px 1px white;
+  color: white;
+
+  label {
+    cursor: pointer;
+    flex: 1;
+  }
+`;
+
+export const FilterDropdownContainer = styled.div`
+  position: relative;
+  display: flex;
+
+  .dropdown {
+    position: relative;
+    width: 200px;
+  }
+`;
+
+export const FilterItems = styled.div`
+  display: flex;
+  width: 220px;
+  padding-bottom: 8px;
+
+  .filter-items--title {
+    width: 90px;
+  }
+
+  .filter-items--title.dropdown {
+    display: flex;
+    gap: 10px;
+    font-size: 16px;
+    width: 150px;
+  }
+
+  .filter-items--list {
+    display: flex;
+  }
+
+  .filter-checkbox-container {
+    label {
+      text-align: center;
+      min-width: 35px;
+    }
+  }
+
+  .title {
+    font-size: 16px;
+    min-width: 90px;
+  }
 `;
 
 export const FilterListContainer = styled.div`
@@ -24,31 +88,6 @@ export const FilterListContainer = styled.div`
     cursor: pointer;
     padding: 4px 10px;
     margin-bottom: 2px;
-  }
-
-  .filter-items {
-    padding: 0px 4px 8px;
-    display: flex;
-
-    .filter-items--title {
-      line-height: 1;
-    }
-
-    .filter-items--list {
-      display: flex;
-    }
-
-    .filter-checkbox-container {
-      label {
-        text-align: center;
-        min-width: 35px;
-      }
-    }
-
-    .title {
-      font-size: 16px;
-      min-width: 90px;
-    }
   }
 
   label {
@@ -72,13 +111,8 @@ export const FilterListContainer = styled.div`
     box-shadow: inset 0 0 0px 1px white;
   }
 
-  .all-none-filters {
-    display: flex;
-    font-size: 12px;
-  }
-
   .team-filter-items {
-    padding-right: 5px;
+    padding-right: 15px;
   }
 
   .team-filter-grid {
@@ -112,7 +146,6 @@ export const FilterListContainer = styled.div`
 export const ToggleItemLink = styled.div`
   text-decoration: underline;
   cursor: pointer;
-  margin-right: 10px;
 `;
 
 export const SelectedPlayers = styled.div`

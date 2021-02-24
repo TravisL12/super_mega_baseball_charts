@@ -1,5 +1,9 @@
 import React from 'react';
 import TableRow from './TableRow';
+import { PlayerColumnHeader } from '../styles/Table.style';
+import { SKILLS } from '../utilities/constants';
+
+const centeredColumns = [SKILLS.age, SKILLS.position, SKILLS.arsenal];
 
 const PlayerTable = ({
   players,
@@ -27,17 +31,18 @@ const PlayerTable = ({
     <table>
       <thead>
         <tr>
-          <th className={`header-col`}></th>
+          <PlayerColumnHeader>{/* Compare Checkbox */}</PlayerColumnHeader>
           {headers.map((header) => (
-            <th
-              className={`header-col header-${header}`}
+            <PlayerColumnHeader
+              centered={centeredColumns.includes(header)}
+              className={`header-${header}`}
               onClick={() => updateSort(header)}
               key={header}
             >
               {columnNameMap[header]}
-            </th>
+            </PlayerColumnHeader>
           ))}
-          <th className={`header-col`}>{/* Player Card */}</th>
+          <PlayerColumnHeader>{/* Player Card */}</PlayerColumnHeader>
         </tr>
       </thead>
       <tbody>
