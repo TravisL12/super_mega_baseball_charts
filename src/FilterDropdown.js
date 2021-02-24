@@ -23,7 +23,7 @@ const FilterDropdown = ({ filters, setFilters, filterAttr }) => {
     const filter = filters[filterAttr];
     const count = keys(filter).filter((key) => filter[key]).length;
     const total = keys(filter).length;
-    if (count / total > FILTER_PERCENT_DISPLAY) {
+    if (count === 0 || count / total > FILTER_PERCENT_DISPLAY) {
       return `${count} of ${total}`;
     } else {
       const allSelected = keys(filter).filter((key) => filter[key]);
