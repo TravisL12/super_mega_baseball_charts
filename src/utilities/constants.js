@@ -106,6 +106,7 @@ export const positionsAbbrev = {
   [ALL_POSITIONS[11]]: 'OF',
   [ALL_POSITIONS[12]]: '1B/OF',
   [ALL_POSITIONS[13]]: 'IF/OF',
+  [ALL_POSITIONS.none]: 'No 2nd Pos.',
   [PITCHER_ROLES[1]]: 'SP',
   [PITCHER_ROLES[2]]: 'SP/RP',
   [PITCHER_ROLES[3]]: 'RP',

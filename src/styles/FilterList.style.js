@@ -54,7 +54,8 @@ export const FilterDropdownContainer = styled.div`
 
 export const FilterItems = styled.div`
   display: flex;
-  width: 220px;
+  min-width: 220px;
+  max-width: 380px;
   padding-bottom: 8px;
 
   .filter-items--title {

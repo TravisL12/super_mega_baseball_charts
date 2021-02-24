@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { keys, startCase } from 'lodash';
 import { positionsAbbrev } from './utilities/constants';
 import FilterAllNoneControls from './FilterAllNoneControls';
@@ -13,22 +13,40 @@ import {
 import Portal from './FilterPortal';
 import { usePortal } from './hooks/usePortal';
 
+const FILTER_PERCENT_DISPLAY = 0.6;
+
 const FilterDropdown = ({ filters, setFilters, filterAttr }) => {
   const [showCheckboxes, setShowCheckboxes] = useState(false);
-  const [coords, setPortalCoordinates] = usePortal({ top: 20 });
+  const [coords, setPortalCoordinates] = usePortal({ top: 35 });
 
+  const selectedFilterCount = useMemo(() => {
+    const filter = filters[filterAttr];
+    const count = keys(filter).filter((key) => filter[key]).length;
+    const total = keys(filter).length;
+    if (count / total > FILTER_PERCENT_DISPLAY) {
+      return `${count} of ${total}`;
+    } else {
+      const allSelected = keys(filter).filter((key) => filter[key]);
+      return ['positions', 'positions2'].includes(filterAttr)
+        ? allSelected.map((key) => positionsAbbrev[key]).join(', ')
+        : allSelected.join(', ');
+    }
+  }, [filters, filterAttr]);
   return (
     <FilterDropdownContainer>
-      <FilterItems>
-        <ToggleItemLink
-          style={{ fontSize: '16px' }}
-          onClick={(e) => {
-            setPortalCoordinates(e);
-            setShowCheckboxes(!showCheckboxes);
-          }}
-        >
-          {startCase(filterAttr)}
-        </ToggleItemLink>
+      <FilterItems style={{ flexDirection: 'column' }}>
+        <div>
+          <ToggleItemLink
+            style={{ fontSize: '16px', display: 'inline-block' }}
+            onClick={(e) => {
+              setPortalCoordinates(e);
+              setShowCheckboxes(!showCheckboxes);
+            }}
+          >
+            {startCase(filterAttr)}
+          </ToggleItemLink>
+        </div>
+        <span style={{ fontSize: '12px' }}>{selectedFilterCount}</span>
       </FilterItems>
 
       {showCheckboxes && (
