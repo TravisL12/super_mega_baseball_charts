@@ -19,6 +19,16 @@ export const FilterPortalDropdown = styled.div`
   background: white;
 `;
 
+export const FilterPortalDropdownTitle = styled.div`
+  display: flex;
+  box-shadow: inset 0 0 0px 1px white;
+  justify-content: space-between;
+  background: ${backgroundColor};
+  padding: 5px 10px;
+  color: white;
+  font-size: 12px;
+`;
+
 export const FilterDropdownCheckbox = styled.div`
   display: flex;
   padding: 4px;

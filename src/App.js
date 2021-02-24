@@ -30,6 +30,7 @@ const loadPlayers = (cb) => {
 };
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
   const [players, setPlayers] = useState([]);
   const {
     filters,
@@ -57,6 +58,7 @@ function App() {
         teams: buildChecklist(sortBy(getUniqTeams(buildPlayers)), true),
       });
       setPlayers(buildPlayers);
+      setIsLoading(false);
     });
     // eslint-disable-next-line
   }, []);
@@ -128,6 +130,7 @@ function App() {
               addPlayerCompareList={addPlayerCompareList}
               filters={filters}
               updateSort={updateSort}
+              isLoading={isLoading}
             />
           </Route>
         </Switch>

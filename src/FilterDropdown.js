@@ -8,6 +8,7 @@ import {
   FilterDropdownCheckbox,
   FilterItems,
   ToggleItemLink,
+  FilterPortalDropdownTitle,
 } from './styles/FilterList.style';
 import Portal from './FilterPortal';
 import { usePortal } from './hooks/usePortal';
@@ -26,22 +27,26 @@ const FilterDropdown = ({ filters, setFilters, filterAttr }) => {
             setShowCheckboxes(!showCheckboxes);
           }}
         >
-          {showCheckboxes ? `Close` : startCase(filterAttr)}
+          {startCase(filterAttr)}
         </ToggleItemLink>
       </FilterItems>
 
       {showCheckboxes && (
         <Portal>
           <FilterPortalDropdown style={{ ...coords }}>
-            <FilterAllNoneControls
-              setFilters={setFilters}
-              filterAttr={filterAttr}
-              styles={{
-                boxShadow: 'inset 0 0 0px 1px white',
-                justifyContent: 'space-around',
-                padding: '5px 0',
-              }}
-            />
+            <FilterPortalDropdownTitle>
+              <FilterAllNoneControls
+                setFilters={setFilters}
+                filterAttr={filterAttr}
+              />
+              <ToggleItemLink
+                onClick={() => {
+                  setShowCheckboxes(false);
+                }}
+              >
+                Close
+              </ToggleItemLink>
+            </FilterPortalDropdownTitle>
             {keys(filters[filterAttr]).map((value) => (
               <FilterDropdownCheckbox key={`${filterAttr}-${value}`}>
                 <input

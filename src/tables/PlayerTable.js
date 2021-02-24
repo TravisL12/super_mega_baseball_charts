@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import TableRow from './TableRow';
 import { PlayerColumnHeader } from '../styles/Table.style';
 import { SKILLS } from '../utilities/constants';
@@ -14,18 +14,31 @@ const PlayerTable = ({
   addPlayerCompareList,
   filters,
   updateSort,
+  isLoading,
 }) => {
-  const handlePlayerCompareChange = (event) => {
-    addPlayerCompareList(event.target.value);
-  };
+  const handlePlayerCompareChange = useCallback(
+    (event) => {
+      addPlayerCompareList(event.target.value);
+    },
+    [addPlayerCompareList]
+  );
 
-  if (!players.length)
+  if (isLoading) {
+    return (
+      <div className="no-players">
+        <p>Loading...</p>
+      </div>
+    );
+  }
+
+  if (!players.length) {
     return (
       <div className="no-players">
         <p>No players found.</p>
         <p>Adjust the search filters.</p>
       </div>
     );
+  }
 
   return (
     <table>
