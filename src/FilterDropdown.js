@@ -14,24 +14,20 @@ import { usePortal } from './hooks/usePortal';
 
 const FilterDropdown = ({ filters, setFilters, filterAttr }) => {
   const [showCheckboxes, setShowCheckboxes] = useState(false);
-  const [coords, setPortalCoordinates] = usePortal({ top: 20, left: -90 });
+  const [coords, setPortalCoordinates] = usePortal({ top: 20 });
 
   return (
     <FilterDropdownContainer>
       <FilterItems>
-        <div className="filter-items--title dropdown">
-          <ToggleItemLink
-            className="title"
-            onClick={(e) => {
-              setPortalCoordinates(e);
-              setShowCheckboxes(!showCheckboxes);
-            }}
-          >
-            {showCheckboxes
-              ? `Close ${startCase(filterAttr)}`
-              : startCase(filterAttr)}
-          </ToggleItemLink>
-        </div>
+        <ToggleItemLink
+          style={{ fontSize: '16px' }}
+          onClick={(e) => {
+            setPortalCoordinates(e);
+            setShowCheckboxes(!showCheckboxes);
+          }}
+        >
+          {showCheckboxes ? `Close` : startCase(filterAttr)}
+        </ToggleItemLink>
       </FilterItems>
 
       {showCheckboxes && (
