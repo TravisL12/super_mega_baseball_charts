@@ -64,76 +64,57 @@ const useFilters = () => {
     }
   };
 
-  const filterPlayers = useCallback(
-    (players) => {
-      console.log('FILTERING!!!');
-      // Filter comparisons
-      if (filters.showCompare) {
-        players = players.filter((player) =>
-          filters.comparePlayerIds.includes(player.id)
-        );
-      }
-
-      // Filter team names
-      players = players.filter((player) => filters.teams[player.team]);
-      players = players.filter((player) => filters.gender[player.gender]);
-      players = players.filter((player) => filters.bats[player.bats]);
-      players = players.filter((player) => filters.throws[player.throws]);
-      players = players.filter(
-        (player) =>
-          (!player.trait_pretty && filters.traits[NO_TRAIT]) ||
-          filters.traits[player.trait_pretty]
+  const filterPlayers = (players) => {
+    // Filter comparisons
+    if (filters.showCompare) {
+      players = players.filter((player) =>
+        filters.comparePlayerIds.includes(player.id)
       );
-      players = players.filter(
-        (player) =>
-          (!player.trait_2_pretty && filters.traits2[NO_TRAIT]) ||
-          filters.traits2[player.trait_2_pretty]
+    }
+
+    // Filter team names
+    players = players.filter((player) => filters.teams[player.team]);
+    players = players.filter((player) => filters.gender[player.gender]);
+    players = players.filter((player) => filters.bats[player.bats]);
+    players = players.filter((player) => filters.throws[player.throws]);
+    players = players.filter(
+      (player) =>
+        (!player.trait_pretty && filters.traits[NO_TRAIT]) ||
+        filters.traits[player.trait_pretty]
+    );
+    players = players.filter(
+      (player) =>
+        (!player.trait_2_pretty && filters.traits2[NO_TRAIT]) ||
+        filters.traits2[player.trait_2_pretty]
+    );
+
+    // Filter positions
+    players = players.filter(({ position, position2, pitcherRole }) => {
+      const isPitcher = filters.pitchers[pitcherRole];
+      const isPosition =
+        filters.positions[position] && filters.positions2[position2];
+      return isPitcher || isPosition;
+    });
+
+    // Filter name search
+    if (filters.name) {
+      players = players.filter((player) =>
+        player.name.toLowerCase().includes(filters.name.toLowerCase())
       );
+    }
+    const sorted = orderBy(
+      players,
+      (player) => {
+        const val = player[filters.sort.header];
+        if (!val) return '';
 
-      // Filter positions
-      players = players.filter(({ position, position2, pitcherRole }) => {
-        const isPitcher = filters.pitchers[pitcherRole];
-        const isPosition =
-          filters.positions[position] && filters.positions2[position2];
-        return isPitcher || isPosition;
-      });
+        return isNaN(val) ? val.toLowerCase() : +val;
+      },
+      [filters.sort.direction]
+    );
 
-      // Filter name search
-      if (filters.name) {
-        players = players.filter((player) =>
-          player.name.toLowerCase().includes(filters.name.toLowerCase())
-        );
-      }
-      const sorted = orderBy(
-        players,
-        (player) => {
-          const val = player[filters.sort.header];
-          if (!val) return '';
-
-          return isNaN(val) ? val.toLowerCase() : +val;
-        },
-        [filters.sort.direction]
-      );
-
-      return uniqBy(sorted, 'name');
-    },
-    [
-      filters.bats,
-      filters.comparePlayerIds,
-      filters.gender,
-      filters.name,
-      filters.pitchers,
-      filters.positions,
-      filters.positions2,
-      filters.showCompare,
-      filters.sort.direction,
-      filters.sort.header,
-      filters.teams,
-      filters.throws,
-      filters.traits,
-      filters.traits2,
-    ]
-  );
+    return uniqBy(sorted, 'name');
+  };
 
   const updateSort = useCallback(
     (header) => {
