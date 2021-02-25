@@ -90,25 +90,27 @@ function App() {
         filters={filters}
       />
 
-      <Filters
-        filters={filters}
-        setFilters={setFilters}
-        selectedPlayers={selectedPlayers}
-        clearCompareSelection={clearCompareSelection}
-        toggleCompare={toggleCompare}
-      />
-
-      <DisplayedTableContainer>
-        <PlayerCard
-          player={modalPlayer}
-          isOpen={!!modalPlayer}
-          close={closePlayerModal}
-        />
-        <Switch>
-          <Route path="/teams">
+      <Switch>
+        <Route path="/teams">
+          <DisplayedTableContainer>
             <TeamTable teams={buildTeams(players)} />
-          </Route>
-          <Route path="/pitchers">
+          </DisplayedTableContainer>
+        </Route>
+        <Route path="/pitchers">
+          <Filters
+            filters={filters}
+            setFilters={setFilters}
+            selectedPlayers={selectedPlayers}
+            clearCompareSelection={clearCompareSelection}
+            toggleCompare={toggleCompare}
+          />
+
+          <DisplayedTableContainer>
+            <PlayerCard
+              player={modalPlayer}
+              isOpen={!!modalPlayer}
+              close={closePlayerModal}
+            />
             <PlayerTable
               headers={tableHeaders.pitchers}
               players={pitchersPlayers}
@@ -119,8 +121,23 @@ function App() {
               filters={filters}
               updateSort={updateSort}
             />
-          </Route>
-          <Route path="/">
+          </DisplayedTableContainer>
+        </Route>
+        <Route path="/">
+          <Filters
+            filters={filters}
+            setFilters={setFilters}
+            selectedPlayers={selectedPlayers}
+            clearCompareSelection={clearCompareSelection}
+            toggleCompare={toggleCompare}
+          />
+
+          <DisplayedTableContainer>
+            <PlayerCard
+              player={modalPlayer}
+              isOpen={!!modalPlayer}
+              close={closePlayerModal}
+            />
             <PlayerTable
               headers={tableHeaders.positions}
               players={positionPlayers}
@@ -132,9 +149,9 @@ function App() {
               updateSort={updateSort}
               isLoading={isLoading}
             />
-          </Route>
-        </Switch>
-      </DisplayedTableContainer>
+          </DisplayedTableContainer>
+        </Route>
+      </Switch>
     </AppContainer>
   );
 }
