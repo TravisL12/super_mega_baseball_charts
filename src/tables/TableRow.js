@@ -7,11 +7,12 @@ const TableRow = ({
   isSelected,
   isChecked,
   player,
-  handlePlayerCompareChange,
+  addPlayerCompareList,
   setModalPlayer,
   headers,
 }) => {
   const selectedRow = isSelected || isChecked;
+
   return (
     <tr key={player.name}>
       <PlayerColumn isSelected={selectedRow} className="player-checkbox">
@@ -21,7 +22,9 @@ const TableRow = ({
             value={player.id}
             checked={selectedRow}
             type="checkbox"
-            onChange={handlePlayerCompareChange}
+            onChange={(event) => {
+              addPlayerCompareList(event.target.value);
+            }}
           />
           <label htmlFor={`compare-${player.name}`}>
             <div className="checkbox-label"></div>

@@ -21,11 +21,6 @@ import usePlayerModal from './hooks/usePlayerModal';
 import PlayerTable from './tables/PlayerTable';
 import useFilters from './hooks/useFilters';
 import { TeamContainer } from './styles/Table.style';
-import {
-  HOME_ROUTE,
-  PITCHERS_ROUTE,
-  TEAMS_ROUTE,
-} from './utilities/routeConstants';
 
 const loadPlayers = (cb) => {
   Papa.parse(`${process.env.PUBLIC_URL}/smb_data.csv`, {
@@ -128,9 +123,10 @@ function App() {
                 addPlayerCompareList={addPlayerCompareList}
                 filters={filters}
                 updateSort={updateSort}
+                isLoading={isLoading}
               />
             </Route>
-            <Route path="/">
+            <Route exact path="/">
               <PlayerTable
                 headers={tableHeaders.positions}
                 players={positionPlayers}

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import TableRow from './TableRow';
 import { PlayerColumnHeader } from '../styles/Table.style';
 import { SKILLS } from '../utilities/constants';
@@ -16,17 +16,10 @@ const PlayerTable = ({
   updateSort,
   isLoading,
 }) => {
-  const handlePlayerCompareChange = useCallback(
-    (event) => {
-      addPlayerCompareList(event.target.value);
-    },
-    [addPlayerCompareList]
-  );
-
   if (isLoading) {
     return (
       <div className="no-players">
-        <p>Loading...</p>
+        <h1>Loading...</h1>
       </div>
     );
   }
@@ -68,7 +61,7 @@ const PlayerTable = ({
               isSelected={isSelected}
               isChecked={isChecked}
               player={player}
-              handlePlayerCompareChange={handlePlayerCompareChange}
+              addPlayerCompareList={addPlayerCompareList}
               setModalPlayer={setModalPlayer}
               headers={headers}
             />
