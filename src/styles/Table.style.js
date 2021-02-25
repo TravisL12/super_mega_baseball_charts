@@ -221,14 +221,7 @@ export const PlayerColumnHeader = styled.th`
   }
 `;
 
-export const DisplayedTableContainer = styled.div`
-  position: relative;
-  background: ${backgroundColor};
-  padding: 0 10px;
-  grid-column: 1 / 3;
-  grid-row: 3;
-  overflow: auto;
-
+const sharedTable = `
   table {
     margin-bottom: 30px;
     padding: 10px;
@@ -284,4 +277,20 @@ export const DisplayedTableContainer = styled.div`
       background: ${attrTipHighlight};
     }
   }
+`;
+
+export const TeamContainer = styled.div`
+  grid-column: 1 / 3;
+  grid-row: 2 / 3;
+  ${sharedTable}
+`;
+
+export const DisplayedTableContainer = styled.div`
+  position: relative;
+  background: ${backgroundColor};
+  padding: 0 10px;
+  grid-column: 1 / 3;
+  grid-row: 3;
+  overflow: auto;
+  ${sharedTable}
 `;
