@@ -21,6 +21,11 @@ import usePlayerModal from './hooks/usePlayerModal';
 import PlayerTable from './tables/PlayerTable';
 import useFilters from './hooks/useFilters';
 import { TeamContainer } from './styles/Table.style';
+import {
+  HOME_ROUTE,
+  PITCHERS_ROUTE,
+  TEAMS_ROUTE,
+} from './utilities/routeConstants';
 
 const loadPlayers = (cb) => {
   Papa.parse(`${process.env.PUBLIC_URL}/smb_data.csv`, {
@@ -92,13 +97,13 @@ function App() {
       />
 
       <Switch>
-        <Route exact path="/teams">
+        <Route exact path={TEAMS_ROUTE}>
           <TeamContainer>
             <TeamTable teams={buildTeams(players)} />
           </TeamContainer>
         </Route>
 
-        <Route path="/">
+        <Route path={HOME_ROUTE}>
           <Filters
             filters={filters}
             setFilters={setFilters}
@@ -113,7 +118,7 @@ function App() {
             close={closePlayerModal}
           />
           <DisplayedTableContainer>
-            <Route exact path="/pitchers">
+            <Route exact path={PITCHERS_ROUTE}>
               <PlayerTable
                 headers={tableHeaders.pitchers}
                 players={pitchersPlayers}
@@ -125,7 +130,7 @@ function App() {
                 updateSort={updateSort}
               />
             </Route>
-            <Route path="/">
+            <Route path={HOME_ROUTE}>
               <PlayerTable
                 headers={tableHeaders.positions}
                 players={positionPlayers}
