@@ -97,13 +97,13 @@ function App() {
       />
 
       <Switch>
-        <Route exact path={TEAMS_ROUTE}>
+        <Route exact path="/teams">
           <TeamContainer>
             <TeamTable teams={buildTeams(players)} />
           </TeamContainer>
         </Route>
 
-        <Route path={HOME_ROUTE}>
+        <Route path="/">
           <Filters
             filters={filters}
             setFilters={setFilters}
@@ -118,7 +118,7 @@ function App() {
             close={closePlayerModal}
           />
           <DisplayedTableContainer>
-            <Route exact path={PITCHERS_ROUTE}>
+            <Route exact path="/pitchers">
               <PlayerTable
                 headers={tableHeaders.pitchers}
                 players={pitchersPlayers}
@@ -130,7 +130,7 @@ function App() {
                 updateSort={updateSort}
               />
             </Route>
-            <Route path={HOME_ROUTE}>
+            <Route path="/">
               <PlayerTable
                 headers={tableHeaders.positions}
                 players={positionPlayers}
