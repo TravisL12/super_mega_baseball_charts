@@ -1,5 +1,5 @@
-import React from 'react';
-import { mean, values } from 'lodash';
+import React, { useState } from 'react';
+import { keys, mean, values } from 'lodash';
 import { SKILLS } from '../utilities/constants';
 
 // power, contact, speed, defense, rotation, bullpen
@@ -31,112 +31,30 @@ const headers = [
   'bullpen',
 ];
 
-const buildRatings = (players, skills) => {
-  return skills.reduce((acc, skill) => {
-    acc[skill] =
-      players.reduce((total, player) => {
-        return total + +player[skill];
-      }, 0) / players.length;
-
-    return acc;
-  }, {});
-};
-
 const TeamTable = ({ teams }) => {
-  const teamRatings = Object.keys(teams).map((name) => {
-    const powerRatings = buildRatings(
-      teams[name].players.filter(({ isPitcher }) => !isPitcher),
-      [SKILLS.power]
-    );
-
-    const contactRatings = buildRatings(
-      teams[name].players.filter(({ isPitcher }) => !isPitcher),
-      [SKILLS.contact]
-    );
-
-    const speedRatings = buildRatings(
-      teams[name].players.filter(({ isPitcher }) => !isPitcher),
-      [SKILLS.speed]
-    );
-
-    const defenseRatings = buildRatings(
-      teams[name].players.filter(({ isPitcher }) => !isPitcher),
-      defense
-    );
-
-    const rotationRatings = buildRatings(
-      teams[name].players.filter(
-        (player) =>
-          player.isPitcher && player[SKILLS.pitcher_role] === 'Starting'
-      ),
-      pitching
-    );
-
-    const bullpenRatings = buildRatings(
-      teams[name].players.filter(
-        (player) =>
-          player.isPitcher && player[SKILLS.pitcher_role] !== 'Starting'
-      ),
-      pitching
-    );
-
-    return {
-      logo: `${process.env.PUBLIC_URL}/team_logos/${name}.png`,
-      team: name,
-      power: values(powerRatings)[0],
-      contact: values(contactRatings)[0],
-      speed: values(speedRatings)[0],
-      defense: mean(values(defenseRatings)),
-      rotation: mean(values(rotationRatings)),
-      bullpen: mean(values(bullpenRatings)),
-    };
-  });
+  const [selectTeam, setSelectedTeam] = useState(null);
 
   return (
-    <table>
-      <thead>
-        <tr>
-          {headers.map((header) => (
-            <th className={`header-col header-${header}`} key={header}>
-              {header}
-            </th>
+    <div style={{ display: 'flex', padding: '30px' }}>
+      <div style={{ padding: '0 30px' }}>
+        <ul>
+          {keys(teams).map((team) => (
+            <li onClick={() => setSelectedTeam(teams[team])}>
+              {teams[team].name}
+            </li>
           ))}
-        </tr>
-      </thead>
-      <tbody>
-        {teamRatings.map((team, idx) => {
-          return (
-            <tr key={`team.name-${idx}`}>
-              {headers.map((header) => {
-                if (header === SKILLS.team) {
-                  return (
-                    <td
-                      className={`player-col team-col team-${header}`}
-                      key={header}
-                    >
-                      <div className="team-logo">
-                        <img alt={team[header]} src={team.logo} />
-                        <p>{team[header]}</p>
-                      </div>
-                    </td>
-                  );
-                }
-                return (
-                  <td
-                    className={`player-col team-col team-${header}`}
-                    key={header}
-                  >
-                    <span className="rating-value">
-                      {team[header].toFixed(0)}
-                    </span>
-                  </td>
-                );
-              })}
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
+        </ul>
+      </div>
+      {selectTeam && (
+        <div>
+          {selectTeam.players.map((player) => (
+            <div>
+              {player.name} - {player.position ?? 'Pitcher'}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   );
 };
 
