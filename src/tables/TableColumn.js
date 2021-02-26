@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { PitchTypeContainer } from '../styles';
+import { Img, PitchTypeContainer } from '../styles';
 import { positionsAbbrev, SKILLS } from '../utilities/constants';
 import { PlayerColumn } from '../styles/Table.style';
 
@@ -26,7 +26,7 @@ const DISPLAY_VALUES = {
 const TableColumn = ({ player, header, isSelected }) => {
   const logo = useMemo(() => {
     return header === SKILLS.team ? (
-      <img
+      <Img
         alt={`${player[header]} logo`}
         src={`${process.env.PUBLIC_URL}/team_logos/${player[header]}.png`}
       />

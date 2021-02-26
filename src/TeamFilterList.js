@@ -1,6 +1,7 @@
 import React from 'react';
 import { keys } from 'lodash';
 import FilterAllNoneControls from './FilterAllNoneControls';
+import { Img } from './styles';
 
 const TeamFilterList = ({ filters, setFilters, filterAttr }) => {
   return (
@@ -24,7 +25,7 @@ const TeamFilterList = ({ filters, setFilters, filterAttr }) => {
               }
             />
             <label htmlFor={`${filterAttr}-${value}`}>
-              <img
+              <Img
                 alt={`${value} logo`}
                 src={`${process.env.PUBLIC_URL}/team_logos/${value}.png`}
               />

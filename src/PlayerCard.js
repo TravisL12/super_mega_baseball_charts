@@ -1,6 +1,11 @@
 import React from 'react';
 import { positionsAbbrev } from './utilities/constants';
-import { PitchTypeContainer, PlayerCardContainer, SkillRating } from './styles';
+import {
+  Img,
+  PitchTypeContainer,
+  PlayerCardContainer,
+  SkillRating,
+} from './styles';
 
 export const PlayerSkill = ({ skill, rating }) => {
   return (
@@ -18,7 +23,7 @@ const PlayerCard = ({ player, close }) => {
     !!player && (
       <PlayerCardContainer onClick={close}>
         <div className="player-image">
-          <img
+          <Img
             alt={`${player.name} in all ${
               player.gender === 'M' ? 'his' : 'her'
             } glory`}

@@ -16,7 +16,7 @@ import {
 import { tableColumnMap, tableHeaders } from './utilities/constants';
 import { buildChecklist, getUniqTeams } from './utilities/helper';
 
-import { AppContainer, DisplayedTableContainer } from './styles';
+import { AppContainer, DisplayedTableContainer, Img } from './styles';
 import usePlayerModal from './hooks/usePlayerModal';
 import PlayerTable from './tables/PlayerTable';
 import useFilters from './hooks/useFilters';
@@ -77,7 +77,7 @@ function App() {
   return (
     <AppContainer>
       <div className="title-logo">
-        <img
+        <Img
           alt="Super Mega Baseball Logo"
           src={`${process.env.PUBLIC_URL}/smb_logo.png`}
         />
@@ -92,7 +92,7 @@ function App() {
       />
 
       <Switch>
-        <Route exact path="/teams">
+        <Route path="/teams">
           <TeamContainer>
             <TeamTable teams={buildTeams(players)} />
           </TeamContainer>

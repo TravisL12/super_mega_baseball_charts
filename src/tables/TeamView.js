@@ -1,20 +1,25 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 import { PlayerSkill } from '../PlayerCard';
 import {
   StyledTeamView,
   PitchTypeContainer,
   TeamTablePlayerContainer,
+  Img,
 } from '../styles';
 import { positionsAbbrev } from '../utilities/constants';
 
-const TeamView = ({ team }) => {
+const TeamView = ({ teams }) => {
+  const params = useParams();
+  const team = teams[params.teamName];
+
   return (
     <StyledTeamView>
       {team.players.map((player) => (
-        <TeamTablePlayerContainer>
+        <TeamTablePlayerContainer key={player.name}>
           <div className="player-image">
-            <img
+            <Img
               alt={`${player.name} in all ${
                 player.gender === 'M' ? 'his' : 'her'
               } glory`}

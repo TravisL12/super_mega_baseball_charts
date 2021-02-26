@@ -1,27 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { keys } from 'lodash';
 import TeamView from './TeamView';
-import { StyledTeamList, StyledTeamTable } from '../styles';
+import {
+  StyledTeamList,
+  StyledTeamTable,
+  StyledTeamListItem,
+  Img,
+} from '../styles';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
 
 const TeamTable = ({ teams }) => {
-  const [selectTeam, setSelectedTeam] = useState(null);
-
-  useEffect(() => {
-    setSelectedTeam(teams[keys(teams)[0]]);
-  }, [teams]);
+  const match = useRouteMatch();
 
   return (
     <StyledTeamTable>
       <StyledTeamList>
-        <ul>
+        <div>
           {keys(teams).map((team) => (
-            <li onClick={() => setSelectedTeam(teams[team])}>
-              {teams[team].name}
-            </li>
+            <StyledTeamListItem key={team} to={`${match.url}/${team}`}>
+              <Img
+                alt={`${team} logo`}
+                src={`${process.env.PUBLIC_URL}/team_logos/${team}.png`}
+              />
+              <span>{teams[team].name}</span>
+            </StyledTeamListItem>
           ))}
-        </ul>
+        </div>
       </StyledTeamList>
-      {selectTeam && <TeamView team={selectTeam} />}
+      <Switch>
+        <Route path={`${match.path}/:teamName`}>
+          <TeamView teams={teams} />
+        </Route>
+      </Switch>
     </StyledTeamTable>
   );
 };

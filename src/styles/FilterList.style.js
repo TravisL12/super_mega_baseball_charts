@@ -139,8 +139,6 @@ export const FilterListContainer = styled.div`
         height: 100%;
 
         img {
-          max-width: 100%;
-          max-height: 100%;
           filter: grayscale(0.9);
         }
       }

@@ -57,3 +57,8 @@ export const PitchTypeContainer = styled.span`
       ? 'orange'
       : getPitchType(props.pitchType)};
 `;
+
+export const Img = styled.img`
+  max-height: 100%;
+  max-width: 100%;
+`;

@@ -33,11 +33,6 @@ export const AppContainer = styled.div`
     align-items: center;
     grid-column: 1;
     grid-row: 1;
-
-    img {
-      max-width: 100%;
-      max-height: 100%;
-    }
   }
 `;
 
