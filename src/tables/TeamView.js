@@ -14,6 +14,10 @@ const TeamView = ({ teams }) => {
   const params = useParams();
   const team = teams[params.teamName];
 
+  if (!team) {
+    return <div>Loading</div>;
+  }
+
   return (
     <StyledTeamView>
       {team.players.map((player) => (
