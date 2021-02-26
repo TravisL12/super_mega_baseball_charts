@@ -281,7 +281,7 @@ const sharedTable = `
 
 export const TeamContainer = styled.div`
   grid-column: 1 / 3;
-  grid-row: 2 / 3;
+  grid-row: 2 / 4;
   ${sharedTable}
 `;
 

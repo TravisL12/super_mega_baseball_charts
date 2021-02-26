@@ -2,7 +2,7 @@ import React from 'react';
 import { positionsAbbrev } from './utilities/constants';
 import { PitchTypeContainer, PlayerCardContainer, SkillRating } from './styles';
 
-const PlayerSkill = ({ skill, rating }) => {
+export const PlayerSkill = ({ skill, rating }) => {
   return (
     <div className="player-skill">
       <span>{skill}</span>
@@ -16,7 +16,7 @@ const PlayerSkill = ({ skill, rating }) => {
 const PlayerCard = ({ player, close }) => {
   return (
     !!player && (
-      <PlayerCardContainer className="player-modal" onClick={close}>
+      <PlayerCardContainer onClick={close}>
         <div className="player-image">
           <img
             alt={`${player.name} in all ${
