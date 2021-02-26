@@ -19,43 +19,49 @@ export const StyledTeamList = styled.div`
   background: ${black};
 `;
 
-export const StyledTeamBody = styled.div`
+export const StyledTeamView = styled.div`
   grid-column: 2;
-  background: ${black};
-  height: 100%;
+  background: white;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 `;
 
 export const TeamTablePlayerContainer = styled.div`
-  text-transform: uppercase;
   display: flex;
+  text-transform: uppercase;
   background: ${black};
   padding: 10px;
-  box-shadow: inset 0 0 0px 2px white;
+  gap: 10px;
+  height: 200px;
+
+  .player-image {
+    height: 100%;
+    img {
+      max-height: 100%;
+    }
+  }
 
   .player-skills {
-    padding-left: 10px;
-
-    .close-btn {
-      position: absolute;
-      bottom: 10px;
-      right: 10px;
-    }
+    display: flex;
+    flex: 1;
+    gap: 10px;
 
     .bat-throw-pos {
       display: flex;
-      justify-content: space-around;
-      margin-bottom: 10px;
+      flex-direction: column;
     }
 
     .skills {
       display: flex;
       flex-direction: column;
+      gap: 3px;
+      flex: 1;
 
       .player-skill {
         display: flex;
-        justify-content: space-between;
-        margin-bottom: 10px;
+        width: 200px;
 
         & > span {
           flex: 1;
