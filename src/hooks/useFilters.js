@@ -11,6 +11,7 @@ import {
   DESC,
   TRAITS,
   NO_TRAIT,
+  RATING_MAP,
 } from '../utilities/constants';
 
 export const initialFilters = {
@@ -64,6 +65,9 @@ const useFilters = () => {
     }
   };
 
+  const orderRatings = (rating) =>
+    RATING_MAP.findIndex((r) => r === rating.toLowerCase());
+
   const filterPlayers = (players) => {
     // Filter comparisons
     if (filters.showCompare) {
@@ -105,7 +109,10 @@ const useFilters = () => {
     const sorted = orderBy(
       players,
       (player) => {
-        const val = player[filters.sort.header];
+        const val =
+          filters.sort.header === 'rating'
+            ? orderRatings(player.rating)
+            : player[filters.sort.header];
         if (!val) return '';
 
         return isNaN(val) ? val.toLowerCase() : +val;

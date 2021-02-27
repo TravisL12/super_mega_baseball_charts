@@ -2,6 +2,22 @@ export const ASC = 'asc';
 export const DESC = 'desc';
 export const NO_TRAIT = 'No Trait';
 
+export const RATING_MAP = [
+  's',
+  'a+',
+  'a',
+  'a-',
+  'b+',
+  'b',
+  'b-',
+  'c+',
+  'c',
+  'c-',
+  'd+',
+  'd',
+  'd-',
+];
+
 export const SKILLS = {
   team: 'team',
   name: 'name',

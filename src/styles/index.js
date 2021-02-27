@@ -62,3 +62,16 @@ export const Img = styled.img`
   max-height: 100%;
   max-width: 100%;
 `;
+
+export const Box = styled.div((props) => {
+  const justify = props.justify ? `justify-content: ${props.justify}` : '';
+  const align = props.alignItems ? `align-items: ${props.alignItems}` : '';
+  return `
+    display: flex;
+    margin: ${props.margin ?? 0};
+    padding: ${props.padding ?? 0};
+    gap: ${props.gap || 0};
+    ${justify};
+    ${align};
+  `;
+});

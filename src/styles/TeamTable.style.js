@@ -46,6 +46,11 @@ export const StyledTeamView = styled.div`
   padding: 5px;
 `;
 
+export const DetailContainer = styled.div`
+  flex: 1;
+  overflow: auto;
+`;
+
 export const StyledTeamViewPitchers = styled(StyledTeamView)`
   grid-column: 3;
 `;
@@ -67,16 +72,21 @@ export const TeamTablePlayerContainer = styled.div`
     flex: 1;
     gap: 10px;
 
-    .bat-throw-pos {
+    .info {
       display: flex;
       flex-direction: column;
+      flex: 1;
+
+      .title {
+        width: 120px;
+      }
     }
 
     .skills {
       display: flex;
       flex-direction: column;
       gap: 3px;
-      flex: 1;
+      width: 200px;
 
       .player-skill {
         display: flex;

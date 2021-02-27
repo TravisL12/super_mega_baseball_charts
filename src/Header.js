@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Route } from 'react-router-dom';
 import { HeaderContainer } from './styles';
 import {
   HOME_ROUTE,
@@ -36,15 +36,17 @@ const Header = ({ players, pitchers, searchNames, clearSearch, filters }) => {
           Teams
         </NavLink>
       </div>
-      <div className="search-input">
-        <input
-          type="text"
-          placeholder="Search Players by name"
-          value={filters.name}
-          onChange={searchNames}
-        />
-        {filters.name && <button onClick={clearSearch}>X</button>}
-      </div>
+      <Route exact path={['/', '/pitchers']}>
+        <div className="search-input">
+          <input
+            type="text"
+            placeholder="Search Players by name"
+            value={filters.name}
+            onChange={searchNames}
+          />
+          {filters.name && <button onClick={clearSearch}>X</button>}
+        </div>
+      </Route>
     </HeaderContainer>
   );
 };

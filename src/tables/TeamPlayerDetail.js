@@ -1,7 +1,7 @@
 import React from 'react';
 import { PlayerSkill } from '../PlayerCard';
 import PlayerImage from '../PlayerImage';
-import { PitchTypeContainer, TeamTablePlayerContainer } from '../styles';
+import { Box, PitchTypeContainer, TeamTablePlayerContainer } from '../styles';
 import { positionsAbbrev } from '../utilities/constants';
 
 const TeamPlayerDetail = ({ player }) => {
@@ -16,22 +16,57 @@ const TeamPlayerDetail = ({ player }) => {
         />
       </div>
       <div className="player-skills">
-        <div className="bat-throw-pos">
-          <span>Bats: {player.bats}</span>
-          <span>Throws: {player.throws}</span>
+        <div className="info">
+          <Box>
+            <span>{player.name}</span>
+          </Box>
+          <Box>
+            <span className="title">Age:</span>
+            <span>{player.age}</span>
+          </Box>
+          <Box>
+            <span className="title">Rating:</span>
+            <span>{player.rating}</span>
+          </Box>
+          <Box>
+            <span className="title">Gender:</span>
+            <span>{player.gender}</span>
+          </Box>
+          <Box>
+            <span className="title">Bats:</span>
+            <span>{player.bats}</span>
+          </Box>
+          <Box>
+            <span className="title">Throws:</span>
+            <span>{player.throws}</span>
+          </Box>
           {player.isPitcher ? (
             <>
-              <span>Pitcher Type: {player.pitcherRole}</span>
-              <span>Arm Slot: {player.arm_slot}</span>
+              <Box>
+                <span>Pitcher Type:</span>
+                <span>{player.pitcherRole}</span>
+              </Box>
+              <Box>
+                <span className="title">Arm Slot:</span>
+                <span>{player.arm_slot}</span>
+              </Box>
             </>
           ) : (
             <>
-              <span>Position: {positionsAbbrev[player.position]}</span>
-              <span>
-                Secondary Position: {positionsAbbrev[player.position2]}
-              </span>
+              <Box>
+                <span className="title">Position:</span>
+                <span>{player.position}</span>
+              </Box>
+              <Box>
+                <span className="title">Position 2:</span>
+                <span>{player.position2}</span>
+              </Box>
             </>
           )}
+          <Box>
+            <span className="title">Salary:</span>
+            <span>{player.salary}</span>
+          </Box>
         </div>
         <div className="skills">
           <PlayerSkill skill={'power'} rating={player.power} />

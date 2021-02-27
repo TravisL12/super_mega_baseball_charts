@@ -7,6 +7,7 @@ import {
   StyledTeamListItem,
   StyledTeamView,
   StyledTeamViewPitchers,
+  DetailContainer,
   Img,
 } from '../styles';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
@@ -45,15 +46,19 @@ const TeamTable = ({ teams }) => {
               <>
                 <StyledTeamView>
                   <h3>Position Players</h3>
-                  {positionPlayers.map((player) => (
-                    <TeamPlayerDetail player={player} />
-                  ))}
+                  <DetailContainer>
+                    {positionPlayers.map((player) => (
+                      <TeamPlayerDetail key={player.name} player={player} />
+                    ))}
+                  </DetailContainer>
                 </StyledTeamView>
                 <StyledTeamViewPitchers>
                   <h3>Pitchers</h3>
-                  {pitchersPlayers.map((player) => (
-                    <TeamPlayerDetail player={player} />
-                  ))}
+                  <DetailContainer>
+                    {pitchersPlayers.map((player) => (
+                      <TeamPlayerDetail key={player.name} player={player} />
+                    ))}
+                  </DetailContainer>
                 </StyledTeamViewPitchers>
               </>
             );
