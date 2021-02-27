@@ -1,5 +1,4 @@
 import React from 'react';
-import { ToggleItemLink } from '../styles/FilterList.style';
 import { PlayerColumn, SelectionCheckbox } from '../styles/Table.style';
 import TableColumn from './TableColumn';
 
@@ -38,16 +37,10 @@ const TableRow = ({
             isSelected={selectedRow}
             player={player}
             header={header}
+            setModalPlayer={setModalPlayer}
           />
         );
       })}
-      <PlayerColumn isSelected={selectedRow}>
-        <span className="rating-value">
-          <ToggleItemLink onClick={() => setModalPlayer(player)}>
-            Show Card
-          </ToggleItemLink>
-        </span>
-      </PlayerColumn>
     </tr>
   );
 };

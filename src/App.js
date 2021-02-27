@@ -16,13 +16,7 @@ import {
 import { tableColumnMap, tableHeaders } from './utilities/constants';
 import { buildChecklist, getUniqTeams } from './utilities/helper';
 
-import {
-  AppContainer,
-  DisplayedTableContainer,
-  Img,
-  Loading,
-  NoPlayer,
-} from './styles';
+import { AppContainer, DisplayedTableContainer, Img, Loading } from './styles';
 import usePlayerModal from './hooks/usePlayerModal';
 import PlayerTable from './tables/PlayerTable';
 import useFilters from './hooks/useFilters';

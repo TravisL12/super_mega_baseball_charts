@@ -1,13 +1,14 @@
 import React from 'react';
 import { PlayerSkill } from '../PlayerCard';
-import { PitchTypeContainer, TeamTablePlayerContainer, Img } from '../styles';
+import PlayerImage from '../PlayerImage';
+import { PitchTypeContainer, TeamTablePlayerContainer } from '../styles';
 import { positionsAbbrev } from '../utilities/constants';
 
 const TeamPlayerDetail = ({ player }) => {
   return (
     <TeamTablePlayerContainer key={player.name}>
       <div className="player-image">
-        <Img
+        <PlayerImage
           alt={`${player.name} in all ${
             player.gender === 'M' ? 'his' : 'her'
           } glory`}
@@ -16,8 +17,8 @@ const TeamPlayerDetail = ({ player }) => {
       </div>
       <div className="player-skills">
         <div className="bat-throw-pos">
-          <span>Bat: {player.bats}</span>
-          <span>Thr: {player.throws}</span>
+          <span>Bats: {player.bats}</span>
+          <span>Throws: {player.throws}</span>
           {player.isPitcher ? (
             <>
               <span>Pitcher Type: {player.pitcherRole}</span>

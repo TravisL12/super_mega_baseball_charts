@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { black, fieldingColor } from './colors';
 
@@ -7,10 +7,10 @@ export const StyledTeamTable = styled.div`
   grid-row: 2 / 4;
 
   display: grid;
-  grid-template-columns: 250px 1fr;
+  grid-template-columns: 250px 1fr 1fr;
   grid-auto-rows: 1fr;
   gap: 10px;
-  padding: 10px;
+  padding: 0 10px;
   height: 100%;
 `;
 
@@ -19,10 +19,11 @@ export const StyledTeamList = styled.div`
   overflow: auto;
 `;
 
-export const StyledTeamListItem = styled(Link)`
+export const StyledTeamListItem = styled(NavLink)`
   display: flex;
   align-items: center;
-  height: 50px;
+  height: 60px;
+  padding: 5px;
   cursor: pointer;
   color: white;
   gap: 10px;
@@ -30,16 +31,23 @@ export const StyledTeamListItem = styled(Link)`
   &:hover {
     background: ${fieldingColor};
   }
+  &.active {
+    background: white;
+    color: black;
+  }
 `;
 
 export const StyledTeamView = styled.div`
   grid-column: 2;
-  background: white;
   overflow: auto;
   display: flex;
   flex-direction: column;
   gap: 5px;
   padding: 5px;
+`;
+
+export const StyledTeamViewPitchers = styled(StyledTeamView)`
+  grid-column: 3;
 `;
 
 export const TeamTablePlayerContainer = styled.div`

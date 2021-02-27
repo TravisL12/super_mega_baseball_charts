@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Img, PitchTypeContainer } from '../styles';
+import { Img, PitchTypeContainer, ToggleItemLink } from '../styles';
 import { positionsAbbrev, SKILLS } from '../utilities/constants';
 import { PlayerColumn } from '../styles/Table.style';
 
@@ -23,7 +23,7 @@ const DISPLAY_VALUES = {
   position: [SKILLS.position, SKILLS.position_2],
 };
 
-const TableColumn = ({ player, header, isSelected }) => {
+const TableColumn = ({ player, header, isSelected, setModalPlayer }) => {
   const logo = useMemo(() => {
     return header === SKILLS.team ? (
       <Img
@@ -56,6 +56,14 @@ const TableColumn = ({ player, header, isSelected }) => {
         </PitchTypeContainer>
       );
     });
+  }
+
+  if (header === SKILLS.name) {
+    displayValue = (
+      <ToggleItemLink onClick={() => setModalPlayer(player)}>
+        {player[header]}
+      </ToggleItemLink>
+    );
   }
 
   return (
