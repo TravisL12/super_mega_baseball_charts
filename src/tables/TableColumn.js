@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { Img, PitchTypeContainer, ToggleItemLink } from '../styles';
 import { positionsAbbrev, SKILLS } from '../utilities/constants';
 import { PlayerColumn } from '../styles/Table.style';
+import { Link } from 'react-router-dom';
 
 const centeredColumns = [
   SKILLS.age,
@@ -60,9 +61,9 @@ const TableColumn = ({ player, header, isSelected, setModalPlayer }) => {
 
   if (header === SKILLS.name) {
     displayValue = (
-      <ToggleItemLink onClick={() => setModalPlayer(player)}>
+      <Link className="modal-link" to={`/player/${player.name}`}>
         {player[header]}
-      </ToggleItemLink>
+      </Link>
     );
   }
 

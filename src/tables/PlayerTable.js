@@ -10,8 +10,6 @@ const PlayerTable = ({
   players,
   headers,
   columnNameMap,
-  setModalPlayer,
-  modalPlayer,
   addPlayerCompareList,
   filters,
   updateSort,
@@ -45,16 +43,13 @@ const PlayerTable = ({
       </thead>
       <tbody>
         {players.map((player) => {
-          const isSelected = player.name === modalPlayer?.name;
           const isChecked = filters.comparePlayerIds.includes(player.id);
           return (
             <TableRow
               key={player.name}
-              isSelected={isSelected}
               isChecked={isChecked}
               player={player}
               addPlayerCompareList={addPlayerCompareList}
-              setModalPlayer={setModalPlayer}
               headers={headers}
             />
           );

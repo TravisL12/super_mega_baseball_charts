@@ -1,46 +1,37 @@
 import styled from 'styled-components';
-import { black } from './colors';
+import { powerColor } from './colors';
 
 export const PlayerCardContainer = styled.div`
   position: fixed;
-  text-transform: uppercase;
-  top: 100px;
-  right: 20px;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
   z-index: 2;
+  width: 100vw;
+  height: 100vh;
   display: flex;
-  background: ${black};
+  align-items: center;
+  justify-content: center;
+  background: #1e5290ab; // speedColor @ 0.67 opacity
+`;
+
+export const InnerCard = styled.div`
+  position: relative;
+
+  background: black;
   padding: 10px;
-  box-shadow: inset 0 0 0px 2px white;
 
-  .player-skills {
-    width: 250px;
-    padding-left: 10px;
-
-    .close-btn {
-      position: absolute;
-      bottom: 10px;
-      right: 10px;
-    }
-
-    .bat-throw-pos {
-      display: flex;
-      justify-content: space-around;
-      margin-bottom: 10px;
-    }
-
-    .skills {
-      display: flex;
-      flex-direction: column;
-
-      .player-skill {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 10px;
-
-        & > span {
-          flex: 1;
-        }
-      }
-    }
+  .close-btn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: ${powerColor};
+    border-radius: 0;
+    color: white;
+    font-size: 18px;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
   }
 `;

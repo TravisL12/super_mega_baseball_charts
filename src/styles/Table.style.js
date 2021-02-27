@@ -85,6 +85,10 @@ export const PlayerColumn = styled.td`
   padding: ${cellPaddingTb} ${cellPaddingLr};
   white-space: nowrap;
 
+  .modal-link {
+    color: white;
+  }
+
   background: ${(props) =>
     props.isSelected ? `${speedColor} !important` : ''};
 

@@ -2,11 +2,10 @@ import React from 'react';
 import { PlayerSkill } from '../PlayerCard';
 import PlayerImage from '../PlayerImage';
 import { Box, PitchTypeContainer, TeamTablePlayerContainer } from '../styles';
-import { positionsAbbrev } from '../utilities/constants';
 
-const TeamPlayerDetail = ({ player }) => {
+const TeamPlayerDetail = ({ player, height }) => {
   return (
-    <TeamTablePlayerContainer key={player.name}>
+    <TeamTablePlayerContainer key={player.name} height={height}>
       <div className="player-image">
         <PlayerImage
           alt={`${player.name} in all ${

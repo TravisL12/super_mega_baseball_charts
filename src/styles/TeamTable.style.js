@@ -61,7 +61,7 @@ export const TeamTablePlayerContainer = styled.div`
   background: ${black};
   padding: 10px;
   gap: 10px;
-  height: 200px;
+  height: ${(props) => props.height || '200px'};
 
   .player-image {
     height: 100%;

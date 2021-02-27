@@ -17,7 +17,6 @@ import { tableColumnMap, tableHeaders } from './utilities/constants';
 import { buildChecklist, getUniqTeams } from './utilities/helper';
 
 import { AppContainer, DisplayedTableContainer, Img, Loading } from './styles';
-import usePlayerModal from './hooks/usePlayerModal';
 import PlayerTable from './tables/PlayerTable';
 import useFilters from './hooks/useFilters';
 import { TeamContainer } from './styles/Table.style';
@@ -45,9 +44,6 @@ function App() {
     searchNames,
     clearSearch,
   } = useFilters();
-  const { setPlayerModal, closePlayerModal, modalPlayer } = usePlayerModal(
-    players
-  );
 
   useEffect(() => {
     loadPlayers(({ data }) => {
@@ -121,32 +117,31 @@ function App() {
             clearCompareSelection={clearCompareSelection}
             toggleCompare={toggleCompare}
           />
-
-          <PlayerCard
-            player={modalPlayer}
-            isOpen={!!modalPlayer}
-            close={closePlayerModal}
-          />
+          <Route
+            exact
+            path="/player/:playerName"
+            render={(props) => {
+              const name = props.match.params.playerName;
+              const player = players.find((player) => player.name === name);
+              return <PlayerCard player={player} />;
+            }}
+          ></Route>
           <DisplayedTableContainer>
-            <Route exact path="/pitchers">
+            <Route path="/pitchers">
               <PlayerTable
                 headers={tableHeaders.pitchers}
                 players={pitchersPlayers}
                 columnNameMap={tableColumnMap.pitchers}
-                setModalPlayer={setPlayerModal}
-                modalPlayer={modalPlayer}
                 addPlayerCompareList={addPlayerCompareList}
                 filters={filters}
                 updateSort={updateSort}
               />
             </Route>
-            <Route exact path="/">
+            <Route path="/">
               <PlayerTable
                 headers={tableHeaders.positions}
                 players={positionPlayers}
                 columnNameMap={tableColumnMap.positions}
-                setModalPlayer={setPlayerModal}
-                modalPlayer={modalPlayer}
                 addPlayerCompareList={addPlayerCompareList}
                 filters={filters}
                 updateSort={updateSort}

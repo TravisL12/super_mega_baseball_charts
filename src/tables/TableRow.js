@@ -2,24 +2,15 @@ import React from 'react';
 import { PlayerColumn, SelectionCheckbox } from '../styles/Table.style';
 import TableColumn from './TableColumn';
 
-const TableRow = ({
-  isSelected,
-  isChecked,
-  player,
-  addPlayerCompareList,
-  setModalPlayer,
-  headers,
-}) => {
-  const selectedRow = isSelected || isChecked;
-
+const TableRow = ({ isChecked, player, addPlayerCompareList, headers }) => {
   return (
     <tr key={player.name}>
-      <PlayerColumn isSelected={selectedRow} className="player-checkbox">
+      <PlayerColumn isSelected={isChecked} className="player-checkbox">
         <SelectionCheckbox>
           <input
             id={`compare-${player.name}`}
             value={player.id}
-            checked={selectedRow}
+            checked={isChecked}
             type="checkbox"
             onChange={(event) => {
               addPlayerCompareList(event.target.value);
@@ -34,10 +25,9 @@ const TableRow = ({
         return (
           <TableColumn
             key={header}
-            isSelected={selectedRow}
+            isSelected={isChecked}
             player={player}
             header={header}
-            setModalPlayer={setModalPlayer}
           />
         );
       })}
