@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { black } from './colors';
+import { black, fieldingColor } from './colors';
 
 export const StyledTeamTable = styled.div`
   grid-column: 1 / 3;
@@ -16,7 +16,6 @@ export const StyledTeamTable = styled.div`
 
 export const StyledTeamList = styled.div`
   grid-column: 1;
-  background: ${black};
   overflow: auto;
 `;
 
@@ -26,6 +25,11 @@ export const StyledTeamListItem = styled(Link)`
   height: 50px;
   cursor: pointer;
   color: white;
+  gap: 10px;
+
+  &:hover {
+    background: ${fieldingColor};
+  }
 `;
 
 export const StyledTeamView = styled.div`

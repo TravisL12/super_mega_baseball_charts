@@ -33,6 +33,7 @@ const loadPlayers = (cb) => {
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [players, setPlayers] = useState([]);
+  const [teams, setTeams] = useState([]);
   const {
     filters,
     setFilters,
@@ -58,6 +59,7 @@ function App() {
         ...filters,
         teams: buildChecklist(sortBy(getUniqTeams(buildPlayers)), true),
       });
+      setTeams(buildTeams(buildPlayers));
       setPlayers(buildPlayers);
       setIsLoading(false);
     });
@@ -94,7 +96,7 @@ function App() {
       <Switch>
         <Route path="/teams">
           <TeamContainer>
-            <TeamTable teams={buildTeams(players)} />
+            <TeamTable teams={teams} />
           </TeamContainer>
         </Route>
 
