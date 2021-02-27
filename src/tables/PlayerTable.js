@@ -1,7 +1,8 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import TableRow from './TableRow';
 import { PlayerColumnHeader } from '../styles/Table.style';
 import { SKILLS } from '../utilities/constants';
+import { NoPlayer } from '../styles';
 
 const centeredColumns = [SKILLS.age, SKILLS.position, SKILLS.arsenal];
 
@@ -14,29 +15,13 @@ const PlayerTable = ({
   addPlayerCompareList,
   filters,
   updateSort,
-  isLoading,
 }) => {
-  const handlePlayerCompareChange = useCallback(
-    (event) => {
-      addPlayerCompareList(event.target.value);
-    },
-    [addPlayerCompareList]
-  );
-
-  if (isLoading) {
-    return (
-      <div className="no-players">
-        <p>Loading...</p>
-      </div>
-    );
-  }
-
   if (!players.length) {
     return (
-      <div className="no-players">
+      <NoPlayer>
         <p>No players found.</p>
         <p>Adjust the search filters.</p>
-      </div>
+      </NoPlayer>
     );
   }
 
@@ -68,7 +53,7 @@ const PlayerTable = ({
               isSelected={isSelected}
               isChecked={isChecked}
               player={player}
-              handlePlayerCompareChange={handlePlayerCompareChange}
+              addPlayerCompareList={addPlayerCompareList}
               setModalPlayer={setModalPlayer}
               headers={headers}
             />

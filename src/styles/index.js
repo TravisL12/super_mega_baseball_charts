@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 import { forkBallBg, fastBallBg, speedColor, contactColor } from './colors';
 
-export { AppContainer } from './App.style';
-export { HeaderContainer } from './Header.style';
-export { FilterListContainer, FilterFlex } from './FilterList.style';
-export { PlayerCardContainer } from './PlayerCard.style';
-export { DisplayedTableContainer, TeamTableContainer } from './Table.style';
+export * from './App.style';
+export * from './PlayerCard.style';
+export * from './Header.style';
+export * from './FilterList.style';
+export * from './PlayerCard.style';
+export * from './Table.style';
+export * from './TeamTable.style';
 
 export const SkillRating = styled.span`
   position: relative;
@@ -55,3 +57,21 @@ export const PitchTypeContainer = styled.span`
       ? 'orange'
       : getPitchType(props.pitchType)};
 `;
+
+export const Img = styled.img`
+  max-height: 100%;
+  max-width: 100%;
+`;
+
+export const Box = styled.div((props) => {
+  const justify = props.justify ? `justify-content: ${props.justify}` : '';
+  const align = props.alignItems ? `align-items: ${props.alignItems}` : '';
+  return `
+    display: flex;
+    margin: ${props.margin ?? 0};
+    padding: ${props.padding ?? 0};
+    gap: ${props.gap || 0};
+    ${justify};
+    ${align};
+  `;
+});

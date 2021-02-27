@@ -16,10 +16,11 @@ import {
 import { tableColumnMap, tableHeaders } from './utilities/constants';
 import { buildChecklist, getUniqTeams } from './utilities/helper';
 
-import { AppContainer, DisplayedTableContainer } from './styles';
+import { AppContainer, DisplayedTableContainer, Img, Loading } from './styles';
 import usePlayerModal from './hooks/usePlayerModal';
 import PlayerTable from './tables/PlayerTable';
 import useFilters from './hooks/useFilters';
+import { TeamContainer } from './styles/Table.style';
 
 const loadPlayers = (cb) => {
   Papa.parse(`${process.env.PUBLIC_URL}/smb_data.csv`, {
@@ -32,6 +33,7 @@ const loadPlayers = (cb) => {
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [players, setPlayers] = useState([]);
+  const [teams, setTeams] = useState([]);
   const {
     filters,
     setFilters,
@@ -57,6 +59,7 @@ function App() {
         ...filters,
         teams: buildChecklist(sortBy(getUniqTeams(buildPlayers)), true),
       });
+      setTeams(buildTeams(buildPlayers));
       setPlayers(buildPlayers);
       setIsLoading(false);
     });
@@ -73,10 +76,23 @@ function App() {
     ({ isPitcher }) => isPitcher
   );
 
+  if (isLoading) {
+    return (
+      <AppContainer>
+        <Loading>
+          <Img
+            alt="Super Mega Baseball Logo"
+            src={`${process.env.PUBLIC_URL}/smb_logo.png`}
+          />
+        </Loading>
+      </AppContainer>
+    );
+  }
+
   return (
     <AppContainer>
       <div className="title-logo">
-        <img
+        <Img
           alt="Super Mega Baseball Logo"
           src={`${process.env.PUBLIC_URL}/smb_logo.png`}
         />
@@ -90,51 +106,55 @@ function App() {
         filters={filters}
       />
 
-      <Filters
-        filters={filters}
-        setFilters={setFilters}
-        selectedPlayers={selectedPlayers}
-        clearCompareSelection={clearCompareSelection}
-        toggleCompare={toggleCompare}
-      />
+      <Switch>
+        <Route path="/teams">
+          <TeamContainer>
+            <TeamTable teams={teams} />
+          </TeamContainer>
+        </Route>
 
-      <DisplayedTableContainer>
-        <PlayerCard
-          player={modalPlayer}
-          isOpen={!!modalPlayer}
-          close={closePlayerModal}
-        />
-        <Switch>
-          <Route path="/teams">
-            <TeamTable teams={buildTeams(players)} />
-          </Route>
-          <Route path="/pitchers">
-            <PlayerTable
-              headers={tableHeaders.pitchers}
-              players={pitchersPlayers}
-              columnNameMap={tableColumnMap.pitchers}
-              setModalPlayer={setPlayerModal}
-              modalPlayer={modalPlayer}
-              addPlayerCompareList={addPlayerCompareList}
-              filters={filters}
-              updateSort={updateSort}
-            />
-          </Route>
-          <Route path="/">
-            <PlayerTable
-              headers={tableHeaders.positions}
-              players={positionPlayers}
-              columnNameMap={tableColumnMap.positions}
-              setModalPlayer={setPlayerModal}
-              modalPlayer={modalPlayer}
-              addPlayerCompareList={addPlayerCompareList}
-              filters={filters}
-              updateSort={updateSort}
-              isLoading={isLoading}
-            />
-          </Route>
-        </Switch>
-      </DisplayedTableContainer>
+        <Route path="/">
+          <Filters
+            filters={filters}
+            setFilters={setFilters}
+            selectedPlayers={selectedPlayers}
+            clearCompareSelection={clearCompareSelection}
+            toggleCompare={toggleCompare}
+          />
+
+          <PlayerCard
+            player={modalPlayer}
+            isOpen={!!modalPlayer}
+            close={closePlayerModal}
+          />
+          <DisplayedTableContainer>
+            <Route exact path="/pitchers">
+              <PlayerTable
+                headers={tableHeaders.pitchers}
+                players={pitchersPlayers}
+                columnNameMap={tableColumnMap.pitchers}
+                setModalPlayer={setPlayerModal}
+                modalPlayer={modalPlayer}
+                addPlayerCompareList={addPlayerCompareList}
+                filters={filters}
+                updateSort={updateSort}
+              />
+            </Route>
+            <Route exact path="/">
+              <PlayerTable
+                headers={tableHeaders.positions}
+                players={positionPlayers}
+                columnNameMap={tableColumnMap.positions}
+                setModalPlayer={setPlayerModal}
+                modalPlayer={modalPlayer}
+                addPlayerCompareList={addPlayerCompareList}
+                filters={filters}
+                updateSort={updateSort}
+              />
+            </Route>
+          </DisplayedTableContainer>
+        </Route>
+      </Switch>
     </AppContainer>
   );
 }
