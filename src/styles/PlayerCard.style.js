@@ -18,9 +18,9 @@ export const PlayerCardContainer = styled.div`
 
 export const InnerCard = styled.div`
   position: relative;
-
   background: black;
   padding: 10px;
+  border-radius: 6px;
 
   .close-btn {
     position: absolute;

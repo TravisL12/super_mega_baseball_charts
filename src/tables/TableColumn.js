@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Img, PitchTypeContainer, ToggleItemLink } from '../styles';
+import { Img, PitchTypeContainer } from '../styles';
 import { positionsAbbrev, SKILLS } from '../utilities/constants';
 import { PlayerColumn } from '../styles/Table.style';
 import { Link } from 'react-router-dom';
@@ -24,7 +24,7 @@ const DISPLAY_VALUES = {
   position: [SKILLS.position, SKILLS.position_2],
 };
 
-const TableColumn = ({ player, header, isSelected, setModalPlayer }) => {
+const TableColumn = ({ player, header, isSelected }) => {
   const logo = useMemo(() => {
     return header === SKILLS.team ? (
       <Img
