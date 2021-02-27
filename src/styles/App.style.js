@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { backgroundColor } from './colors';
+import { backgroundColor, disableGray } from './colors';
 
 export const AppContainer = styled.div`
   background: ${backgroundColor};
@@ -33,6 +33,30 @@ export const AppContainer = styled.div`
     align-items: center;
     grid-column: 1;
     grid-row: 1;
+  }
+`;
+
+export const Loading = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.5;
+`;
+
+export const NoPlayer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: ${disableGray};
+  box-shadow: inset 0 0 0px 2px black;
+  width: 100%;
+  height: 200px;
+
+  p {
+    margin: 0 0 10px;
   }
 `;
 

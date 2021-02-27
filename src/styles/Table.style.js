@@ -231,21 +231,6 @@ const sharedTable = `
     border-collapse: collapse;
   }
 
-  .no-players {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: ${disableGray};
-    box-shadow: inset 0 0 0px 2px black;
-    width: 100%;
-    height: 200px;
-
-    p {
-      margin: 0 0 10px;
-    }
-  }
-
   tr:nth-child(even) ${PlayerColumn} {
     background: ${disableGray};
   }

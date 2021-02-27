@@ -2,6 +2,7 @@ import React from 'react';
 import TableRow from './TableRow';
 import { PlayerColumnHeader } from '../styles/Table.style';
 import { SKILLS } from '../utilities/constants';
+import { NoPlayer } from '../styles';
 
 const centeredColumns = [SKILLS.age, SKILLS.position, SKILLS.arsenal];
 
@@ -14,22 +15,13 @@ const PlayerTable = ({
   addPlayerCompareList,
   filters,
   updateSort,
-  isLoading,
 }) => {
-  if (isLoading) {
-    return (
-      <div className="no-players">
-        <h1>Loading...</h1>
-      </div>
-    );
-  }
-
   if (!players.length) {
     return (
-      <div className="no-players">
+      <NoPlayer>
         <p>No players found.</p>
         <p>Adjust the search filters.</p>
-      </div>
+      </NoPlayer>
     );
   }
 

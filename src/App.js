@@ -16,7 +16,13 @@ import {
 import { tableColumnMap, tableHeaders } from './utilities/constants';
 import { buildChecklist, getUniqTeams } from './utilities/helper';
 
-import { AppContainer, DisplayedTableContainer, Img } from './styles';
+import {
+  AppContainer,
+  DisplayedTableContainer,
+  Img,
+  Loading,
+  NoPlayer,
+} from './styles';
 import usePlayerModal from './hooks/usePlayerModal';
 import PlayerTable from './tables/PlayerTable';
 import useFilters from './hooks/useFilters';
@@ -76,6 +82,19 @@ function App() {
     ({ isPitcher }) => isPitcher
   );
 
+  if (isLoading) {
+    return (
+      <AppContainer>
+        <Loading>
+          <Img
+            alt="Super Mega Baseball Logo"
+            src={`${process.env.PUBLIC_URL}/smb_logo.png`}
+          />
+        </Loading>
+      </AppContainer>
+    );
+  }
+
   return (
     <AppContainer>
       <div className="title-logo">
@@ -125,7 +144,6 @@ function App() {
                 addPlayerCompareList={addPlayerCompareList}
                 filters={filters}
                 updateSort={updateSort}
-                isLoading={isLoading}
               />
             </Route>
             <Route exact path="/">
@@ -138,7 +156,6 @@ function App() {
                 addPlayerCompareList={addPlayerCompareList}
                 filters={filters}
                 updateSort={updateSort}
-                isLoading={isLoading}
               />
             </Route>
           </DisplayedTableContainer>

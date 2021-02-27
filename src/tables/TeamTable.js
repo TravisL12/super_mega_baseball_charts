@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { keys } from 'lodash';
-import TeamView from './TeamView';
+import TeamPlayerDetail from './TeamPlayerDetail';
 import {
   StyledTeamList,
   StyledTeamTable,
   StyledTeamListItem,
   Img,
+  StyledTeamView,
 } from '../styles';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 
@@ -28,9 +29,20 @@ const TeamTable = ({ teams }) => {
         </div>
       </StyledTeamList>
       <Switch>
-        <Route path={`${match.path}/:teamName`}>
-          <TeamView teams={teams} />
-        </Route>
+        <Route
+          path={`${match.path}/:teamName`}
+          render={(props) => {
+            const team = teams[props.match.params.teamName];
+
+            return (
+              <StyledTeamView>
+                {team.players.map((player) => (
+                  <TeamPlayerDetail player={player} />
+                ))}
+              </StyledTeamView>
+            );
+          }}
+        />
       </Switch>
     </StyledTeamTable>
   );
