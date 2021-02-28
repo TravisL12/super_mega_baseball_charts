@@ -14,14 +14,14 @@ const Filters = ({
 }) => {
   return (
     <FilterListContainer direction="column">
-      <Box>
-        <TeamFilterList
-          filterAttr="teams"
-          filters={filters}
-          setFilters={setFilters}
-        />
-      </Box>
       <Box gap="10px">
+        <Box>
+          <TeamFilterList
+            filterAttr="teams"
+            filters={filters}
+            setFilters={setFilters}
+          />
+        </Box>
         <Box direction="column">
           <FilterDropdown
             filterAttr="positions"

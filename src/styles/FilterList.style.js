@@ -122,13 +122,12 @@ export const StyledTeamFilter = styled.div`
   padding-right: 15px;
 
   .team-filter-grid {
-    display: flex;
-    gap: 10px;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(10, 50px);
+    grid-template-rows: 50px 50px;
 
     .team-checkbox-container {
-      height: 50px;
-      width: 50px;
-
       label {
         padding: 2px;
         width: 100%;
