@@ -6,12 +6,6 @@ import {
   backgroundColor,
 } from './colors';
 
-export const FilterFlex = styled.div`
-  display: flex;
-  gap: ${(props) => props.gap ?? 0};
-  flex-direction: ${(props) => (props.isRow ? 'row' : 'column')};
-`;
-
 export const FilterPortalDropdown = styled.div`
   position: absolute;
   z-index: 10;

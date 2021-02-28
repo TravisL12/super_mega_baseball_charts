@@ -66,11 +66,13 @@ export const Img = styled.img`
 export const Box = styled.div((props) => {
   const justify = props.justify ? `justify-content: ${props.justify}` : '';
   const align = props.alignItems ? `align-items: ${props.alignItems}` : '';
+  const direction = props.direction ?? 'row';
   return `
     display: flex;
     margin: ${props.margin ?? 0};
     padding: ${props.padding ?? 0};
     gap: ${props.gap || 0};
+    flex-direction: ${direction};
     ${justify};
     ${align};
   `;

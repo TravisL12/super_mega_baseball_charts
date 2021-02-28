@@ -1,7 +1,7 @@
 import React from 'react';
 import FilterList from './FilterList';
 import TeamFilterList from './TeamFilterList';
-import { FilterListContainer, FilterFlex } from './styles';
+import { FilterListContainer, Box } from './styles';
 import { ToggleItemLink } from './styles/FilterList.style';
 import FilterDropdown from './FilterDropdown';
 
@@ -14,77 +14,78 @@ const Filters = ({
 }) => {
   return (
     <FilterListContainer>
-      <FilterFlex>
-        <TeamFilterList
+      <Box direction="column">
+        <FilterDropdown
           filterAttr="teams"
           filters={filters}
           setFilters={setFilters}
         />
+      </Box>
+      <Box direction="column">
+        <FilterDropdown
+          filterAttr="positions"
+          filters={filters}
+          setFilters={setFilters}
+        />
+        <FilterDropdown
+          filterAttr="positions2"
+          filters={filters}
+          setFilters={setFilters}
+        />
+        <FilterList
+          filterAttr="bats"
+          filters={filters}
+          setFilters={setFilters}
+        />
+      </Box>
+      <Box direction="column">
+        <FilterDropdown
+          filterAttr="traits"
+          filters={filters}
+          setFilters={setFilters}
+        />
 
-        {selectedPlayers.length > 0 && (
-          <FilterFlex isRow={true} gap="10px">
-            <ToggleItemLink onClick={toggleCompare}>
-              {filters.showCompare ? 'Compare Off' : 'Compare On'}
-            </ToggleItemLink>
-            <ToggleItemLink onClick={clearCompareSelection}>
-              Clear Selections
-            </ToggleItemLink>
-          </FilterFlex>
-        )}
-      </FilterFlex>
+        <FilterDropdown
+          filterAttr="traits2"
+          filters={filters}
+          setFilters={setFilters}
+        />
+        <FilterList
+          filterAttr="throws"
+          filters={filters}
+          setFilters={setFilters}
+        />
+      </Box>
+      <Box direction="column">
+        <FilterList
+          filterAttr="rating"
+          filters={filters}
+          setFilters={setFilters}
+          showNoneAll={true}
+        />
+        <FilterList
+          filterAttr="pitchers"
+          filters={filters}
+          setFilters={setFilters}
+          showNoneAll={true}
+        />
+        <FilterList
+          filterAttr="gender"
+          filters={filters}
+          setFilters={setFilters}
+        />
+      </Box>
 
-      <FilterFlex>
-        <FilterFlex>
-          <FilterFlex isRow={true}>
-            <FilterDropdown
-              filterAttr="positions"
-              filters={filters}
-              setFilters={setFilters}
-            />
-            <FilterDropdown
-              filterAttr="traits"
-              filters={filters}
-              setFilters={setFilters}
-            />
-          </FilterFlex>
-          <FilterFlex isRow={true}>
-            <FilterDropdown
-              filterAttr="positions2"
-              filters={filters}
-              setFilters={setFilters}
-            />
-            <FilterDropdown
-              filterAttr="traits2"
-              filters={filters}
-              setFilters={setFilters}
-            />
-          </FilterFlex>
-        </FilterFlex>
-        <FilterFlex isRow={true}>
-          <FilterList
-            filterAttr="bats"
-            filters={filters}
-            setFilters={setFilters}
-          />
-          <FilterList
-            filterAttr="pitchers"
-            filters={filters}
-            setFilters={setFilters}
-          />
-        </FilterFlex>
-        <FilterFlex isRow={true}>
-          <FilterList
-            filterAttr="throws"
-            filters={filters}
-            setFilters={setFilters}
-          />
-          <FilterList
-            filterAttr="gender"
-            filters={filters}
-            setFilters={setFilters}
-          />
-        </FilterFlex>
-      </FilterFlex>
+      {selectedPlayers.length > 0 && (
+        <Box gap="10px">
+          <ToggleItemLink onClick={toggleCompare}>
+            {filters.showCompare ? 'Compare Off' : 'Compare On'}
+          </ToggleItemLink>
+          <ToggleItemLink onClick={clearCompareSelection}>
+            Clear Selections
+          </ToggleItemLink>
+        </Box>
+      )}
     </FilterListContainer>
   );
 };

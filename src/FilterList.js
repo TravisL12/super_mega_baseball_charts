@@ -4,15 +4,17 @@ import { positionsAbbrev } from './utilities/constants';
 import FilterAllNoneControls from './FilterAllNoneControls';
 import { FilterItems } from './styles/FilterList.style';
 
-const FilterList = ({ filters, setFilters, filterAttr }) => {
+const FilterList = ({ filters, setFilters, filterAttr, showNoneAll }) => {
   return (
     <FilterItems>
       <div className="filter-items--title">
         <div className="title">{startCase(filterAttr)}</div>
-        <FilterAllNoneControls
-          setFilters={setFilters}
-          filterAttr={filterAttr}
-        />
+        {showNoneAll && (
+          <FilterAllNoneControls
+            setFilters={setFilters}
+            filterAttr={filterAttr}
+          />
+        )}
       </div>
       <div className="filter-items--list">
         {keys(filters[filterAttr]).map((value) => (
