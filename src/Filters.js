@@ -13,67 +13,71 @@ const Filters = ({
   toggleCompare,
 }) => {
   return (
-    <FilterListContainer>
-      <Box direction="column">
-        <FilterDropdown
+    <FilterListContainer direction="column">
+      <Box>
+        <TeamFilterList
           filterAttr="teams"
           filters={filters}
           setFilters={setFilters}
         />
       </Box>
-      <Box direction="column">
-        <FilterDropdown
-          filterAttr="positions"
-          filters={filters}
-          setFilters={setFilters}
-        />
-        <FilterDropdown
-          filterAttr="positions2"
-          filters={filters}
-          setFilters={setFilters}
-        />
-        <FilterList
-          filterAttr="bats"
-          filters={filters}
-          setFilters={setFilters}
-        />
-      </Box>
-      <Box direction="column">
-        <FilterDropdown
-          filterAttr="traits"
-          filters={filters}
-          setFilters={setFilters}
-        />
+      <Box gap="10px">
+        <Box direction="column">
+          <FilterDropdown
+            filterAttr="positions"
+            filters={filters}
+            setFilters={setFilters}
+          />
+          <FilterDropdown
+            filterAttr="positions2"
+            filters={filters}
+            setFilters={setFilters}
+          />
+        </Box>
+        <Box direction="column">
+          <FilterDropdown
+            filterAttr="traits"
+            filters={filters}
+            setFilters={setFilters}
+          />
 
-        <FilterDropdown
-          filterAttr="traits2"
-          filters={filters}
-          setFilters={setFilters}
-        />
-        <FilterList
-          filterAttr="throws"
-          filters={filters}
-          setFilters={setFilters}
-        />
-      </Box>
-      <Box direction="column">
-        <FilterList
-          filterAttr="rating"
-          filters={filters}
-          setFilters={setFilters}
-          showNoneAll={true}
-        />
-        <FilterList
-          filterAttr="pitchers"
-          filters={filters}
-          setFilters={setFilters}
-          showNoneAll={true}
-        />
-        <FilterList
-          filterAttr="gender"
-          filters={filters}
-          setFilters={setFilters}
-        />
+          <FilterDropdown
+            filterAttr="traits2"
+            filters={filters}
+            setFilters={setFilters}
+          />
+        </Box>
+        <Box direction="column">
+          <FilterList
+            filterAttr="bats"
+            filters={filters}
+            setFilters={setFilters}
+          />
+          <FilterList
+            filterAttr="throws"
+            filters={filters}
+            setFilters={setFilters}
+          />
+          <FilterList
+            filterAttr="gender"
+            filters={filters}
+            setFilters={setFilters}
+          />
+        </Box>
+        <Box direction="column">
+          <FilterList
+            filterAttr="rating"
+            filters={filters}
+            setFilters={setFilters}
+            showNoneAll={true}
+          />
+          <FilterList
+            filterAttr="pitchers"
+            filters={filters}
+            setFilters={setFilters}
+            showNoneAll={true}
+          />
+        </Box>
       </Box>
 
       {selectedPlayers.length > 0 && (

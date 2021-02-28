@@ -127,7 +127,7 @@ function App() {
             }}
           ></Route>
           <DisplayedTableContainer>
-            <Route path="/pitchers">
+            <Route exact path={['/pitchers', '/player/*']}>
               <PlayerTable
                 headers={tableHeaders.pitchers}
                 players={pitchersPlayers}
@@ -137,7 +137,7 @@ function App() {
                 updateSort={updateSort}
               />
             </Route>
-            <Route path="/">
+            <Route exact path={['/', '/player/*']}>
               <PlayerTable
                 headers={tableHeaders.positions}
                 players={positionPlayers}
