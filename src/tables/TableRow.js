@@ -12,8 +12,8 @@ const TableRow = ({ isChecked, player, addPlayerCompareList, headers }) => {
             value={player.id}
             checked={isChecked}
             type="checkbox"
-            onChange={(event) => {
-              addPlayerCompareList(event.target.value);
+            onChange={() => {
+              addPlayerCompareList(player.id);
             }}
           />
           <label htmlFor={`compare-${player.name}`}>

@@ -32,30 +32,28 @@ export const initialFilters = {
 const useFilters = () => {
   const [filters, setFilters] = useState(initialFilters);
 
-  const addPlayerCompareList = useCallback(
-    (playerId) => {
-      const prevFilters = { ...filters };
-      const alreadyChecked = prevFilters.comparePlayerIds.includes(+playerId);
-      if (alreadyChecked) {
-        const filterWithRemoved = prevFilters.comparePlayerIds.filter(
-          (id) => id !== +playerId
-        );
-        return {
-          ...prevFilters,
-          comparePlayerIds: filterWithRemoved,
-          showCompare:
-            prevFilters.showCompare && filterWithRemoved.length !== 0,
-        };
-      }
-      const updatedList = {
+  const addPlayerCompareList = (playerId) => {
+    let updatedList;
+    const prevFilters = { ...filters };
+    const alreadyChecked = prevFilters.comparePlayerIds.includes(+playerId);
+    if (alreadyChecked) {
+      const filterWithRemoved = prevFilters.comparePlayerIds.filter(
+        (id) => id !== +playerId
+      );
+      updatedList = {
+        ...prevFilters,
+        comparePlayerIds: filterWithRemoved,
+        showCompare: prevFilters.showCompare && filterWithRemoved.length !== 0,
+      };
+    } else {
+      updatedList = {
         ...prevFilters,
         comparePlayerIds: [...prevFilters.comparePlayerIds, +playerId],
       };
+    }
 
-      setFilters(updatedList);
-    },
-    [filters]
-  );
+    setFilters(updatedList);
+  };
 
   const toggleCompare = () => {
     if (filters.comparePlayerIds.length > 0) {
