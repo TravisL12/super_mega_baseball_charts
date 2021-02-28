@@ -85,6 +85,24 @@ function App() {
     );
   }
 
+  const getTable = (isPitcher) => {
+    const headers = isPitcher ? tableHeaders.pitchers : tableHeaders.positions;
+    const columnMap = isPitcher
+      ? tableColumnMap.pitchers
+      : tableColumnMap.positions;
+    const playersValue = isPitcher ? pitchersPlayers : positionPlayers;
+    return (
+      <PlayerTable
+        headers={headers}
+        players={playersValue}
+        columnNameMap={columnMap}
+        addPlayerCompareList={addPlayerCompareList}
+        filters={filters}
+        updateSort={updateSort}
+      />
+    );
+  };
+
   return (
     <AppContainer>
       <div className="title-logo">
@@ -127,25 +145,11 @@ function App() {
             }}
           ></Route>
           <DisplayedTableContainer>
-            <Route path="/pitchers">
-              <PlayerTable
-                headers={tableHeaders.pitchers}
-                players={pitchersPlayers}
-                columnNameMap={tableColumnMap.pitchers}
-                addPlayerCompareList={addPlayerCompareList}
-                filters={filters}
-                updateSort={updateSort}
-              />
+            <Route exact path={['/pitchers', '/player/*']}>
+              {getTable(true)}
             </Route>
-            <Route path="/">
-              <PlayerTable
-                headers={tableHeaders.positions}
-                players={positionPlayers}
-                columnNameMap={tableColumnMap.positions}
-                addPlayerCompareList={addPlayerCompareList}
-                filters={filters}
-                updateSort={updateSort}
-              />
+            <Route exact path={['/', '/player/*']}>
+              {getTable()}
             </Route>
           </DisplayedTableContainer>
         </Route>

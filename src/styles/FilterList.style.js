@@ -1,16 +1,11 @@
 import styled from 'styled-components';
+import { Box } from '.';
 import {
   disableGray,
   highlightGray,
   armColor,
   backgroundColor,
 } from './colors';
-
-export const FilterFlex = styled.div`
-  display: flex;
-  gap: ${(props) => props.gap ?? 0};
-  flex-direction: ${(props) => (props.isRow ? 'row' : 'column')};
-`;
 
 export const FilterPortalDropdown = styled.div`
   position: absolute;
@@ -54,8 +49,8 @@ export const FilterDropdownContainer = styled.div`
 
 export const FilterItems = styled.div`
   display: flex;
-  min-width: 220px;
-  max-width: 380px;
+  min-width: 150px;
+  max-width: 300px;
   padding-bottom: 8px;
 
   .filter-items--title {
@@ -86,10 +81,10 @@ export const FilterItems = styled.div`
   }
 `;
 
-export const FilterListContainer = styled.div`
-  display: flex;
+export const FilterListContainer = styled(Box)`
   grid-column: 1 / 3;
   grid-row: 2;
+  gap: 10px;
   padding: 0 10px;
   background: ${backgroundColor};
   overflow: hidden;
@@ -121,16 +116,16 @@ export const FilterListContainer = styled.div`
     background: ${armColor};
     box-shadow: inset 0 0 0px 1px white;
   }
+`;
 
-  .team-filter-items {
-    padding-right: 15px;
-  }
+export const StyledTeamFilter = styled.div`
+  padding-right: 15px;
 
   .team-filter-grid {
     display: grid;
     grid-gap: 10px;
-    grid-template-columns: repeat(10, 70px);
-    grid-template-rows: 70px 70px;
+    grid-template-columns: repeat(10, 50px);
+    grid-template-rows: 50px 50px;
 
     .team-checkbox-container {
       label {

@@ -23,6 +23,7 @@ export const initialFilters = {
   gender: buildChecklist(['M', 'F'], true),
   bats: buildChecklist(['L', 'R', 'S'], true),
   throws: buildChecklist(['L', 'R'], true),
+  rating: buildChecklist(['S', 'A', 'B', 'C', 'D'], true),
   name: '',
   showCompare: false,
   comparePlayerIds: [],
@@ -74,11 +75,16 @@ const useFilters = () => {
       );
     }
 
-    // Filter team names
+    // Filter team / gender / bats / throws / rating
     players = players.filter((player) => filters.teams[player.team]);
     players = players.filter((player) => filters.gender[player.gender]);
     players = players.filter((player) => filters.bats[player.bats]);
     players = players.filter((player) => filters.throws[player.throws]);
+    players = players.filter(
+      (player) => filters.rating[player.rating.slice(0, 1)] // remove the +/- from rating
+    );
+
+    // Filter traits
     players = players.filter(
       (player) =>
         (!player.trait_pretty && filters.traits[NO_TRAIT]) ||

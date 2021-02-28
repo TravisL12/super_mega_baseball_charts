@@ -1,11 +1,11 @@
 import React from 'react';
 import { keys } from 'lodash';
 import FilterAllNoneControls from './FilterAllNoneControls';
-import { Img } from './styles';
+import { StyledTeamFilter, Img } from './styles';
 
 const TeamFilterList = ({ filters, setFilters, filterAttr }) => {
   return (
-    <div className={`team-filter-items`}>
+    <StyledTeamFilter>
       <div className="team-filter-grid">
         {keys(filters[filterAttr]).map((value) => (
           <div
@@ -33,12 +33,8 @@ const TeamFilterList = ({ filters, setFilters, filterAttr }) => {
           </div>
         ))}
       </div>
-      <FilterAllNoneControls
-        setFilters={setFilters}
-        filterAttr={filterAttr}
-        styles={{ justifyContent: 'flex-end' }}
-      />
-    </div>
+      <FilterAllNoneControls setFilters={setFilters} filterAttr={filterAttr} />
+    </StyledTeamFilter>
   );
 };
 

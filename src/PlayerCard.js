@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { InnerCard, PlayerCardContainer, SkillRating } from './styles';
 import TeamPlayerDetail from './tables/TeamPlayerDetail';
 
@@ -15,14 +15,16 @@ export const PlayerSkill = ({ skill, rating }) => {
 };
 
 const PlayerCard = ({ player }) => {
+  const history = useHistory();
+
   return (
     !!player && (
       <PlayerCardContainer>
         <InnerCard>
           <TeamPlayerDetail height={'500px'} player={player} />
-          <Link className="close-btn" to="/">
+          <div onClick={() => history.goBack()} className="close-btn" to="/">
             Close
-          </Link>
+          </div>
         </InnerCard>
       </PlayerCardContainer>
     )
