@@ -106,9 +106,22 @@ const useFilters = () => {
 
     // Filter name search
     if (filters.name) {
-      players = players.filter((player) =>
-        player.name.toLowerCase().includes(filters.name.toLowerCase())
-      );
+      const splitSearch = filters.name
+        .split(',')
+        .map((name) => name.trim())
+        .filter((x) => x);
+      if (splitSearch.length > 1) {
+        players = players.filter(
+          (player) =>
+            splitSearch.filter((name) => {
+              return player.name.toLowerCase().includes(name.toLowerCase());
+            }).length > 0
+        );
+      } else {
+        players = players.filter((player) =>
+          player.name.toLowerCase().includes(splitSearch[0].toLowerCase())
+        );
+      }
     }
     const sorted = orderBy(
       players,
@@ -153,13 +166,13 @@ const useFilters = () => {
     });
   };
 
-  const searchNames = useCallback((event) => {
-    event.persist();
-
-    setFilters((prevFilters) => {
-      return { ...prevFilters, name: event.target.value };
-    });
-  }, []);
+  const searchNames = useCallback(
+    (name) => {
+      const prevFilters = { ...filters };
+      setFilters({ ...prevFilters, name });
+    },
+    [filters]
+  );
 
   const clearSearch = useCallback(() => {
     setFilters((prevFilters) => {

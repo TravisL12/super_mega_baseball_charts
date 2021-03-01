@@ -42,7 +42,7 @@ const Header = ({ playerCount, searchNames, clearSearch, filters }) => {
             type="text"
             placeholder="Search Players by name"
             value={filters.name}
-            onChange={searchNames}
+            onChange={(event) => searchNames(event.target.value)}
           />
           {filters.name && <button onClick={clearSearch}>X</button>}
         </div>
