@@ -5,7 +5,7 @@ import TableColumn from './TableColumn';
 const TableRow = ({ isChecked, player, addPlayerCompareList, headers }) => {
   return (
     <tr key={player.name}>
-      <PlayerColumn isSelected={isChecked} className="player-checkbox">
+      <PlayerColumn className="player-checkbox">
         <SelectionCheckbox>
           <input
             id={`compare-${player.name}`}
@@ -22,14 +22,7 @@ const TableRow = ({ isChecked, player, addPlayerCompareList, headers }) => {
         </SelectionCheckbox>
       </PlayerColumn>
       {headers.map((header) => {
-        return (
-          <TableColumn
-            key={header}
-            isSelected={isChecked}
-            player={player}
-            header={header}
-          />
-        );
+        return <TableColumn key={header} player={player} header={header} />;
       })}
     </tr>
   );

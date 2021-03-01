@@ -89,9 +89,6 @@ export const PlayerColumn = styled.td`
     color: white;
   }
 
-  background: ${(props) =>
-    props.isSelected ? `${speedColor} !important` : ''};
-
   p {
     margin: 0;
   }

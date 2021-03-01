@@ -24,7 +24,7 @@ const DISPLAY_VALUES = {
   position: [SKILLS.position, SKILLS.position_2],
 };
 
-const TableColumn = ({ player, header, isSelected }) => {
+const TableColumn = ({ player, header }) => {
   const logo = useMemo(() => {
     return header === SKILLS.team ? (
       <Img
@@ -70,7 +70,6 @@ const TableColumn = ({ player, header, isSelected }) => {
   return (
     <PlayerColumn
       key={header}
-      isSelected={isSelected}
       centered={centeredColumns.includes(header)}
       className={`player-${header}`}
     >
