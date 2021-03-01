@@ -72,6 +72,7 @@ const TableColumn = ({ player, header }) => {
       key={header}
       centered={centeredColumns.includes(header)}
       className={`player-${header}`}
+      ratingColor={header}
     >
       {ratingPercent && (
         <span className="rating-color" style={{ width: ratingPercent }}></span>
