@@ -88,6 +88,7 @@ function App() {
         headers={headers}
         players={playersValue}
         addPlayerCompareList={addPlayerCompareList}
+        clearCompareSelection={clearCompareSelection}
         filters={filters}
         updateSort={updateSort}
       />
@@ -124,7 +125,6 @@ function App() {
           <Filters
             filters={filters}
             setFilters={setFilters}
-            clearCompareSelection={clearCompareSelection}
             toggleCompare={toggleCompare}
           />
           <Route

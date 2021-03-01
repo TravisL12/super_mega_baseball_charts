@@ -5,12 +5,7 @@ import { FilterListContainer, Box } from './styles';
 import { ToggleItemLink } from './styles/FilterList.style';
 import FilterDropdown from './FilterDropdown';
 
-const Filters = ({
-  filters,
-  setFilters,
-  clearCompareSelection,
-  toggleCompare,
-}) => {
+const Filters = ({ filters, setFilters, toggleCompare }) => {
   return (
     <FilterListContainer direction="column">
       <Box gap="10px">
@@ -80,14 +75,9 @@ const Filters = ({
       </Box>
 
       {filters.comparePlayerIds.length > 0 && (
-        <Box gap="10px">
-          <ToggleItemLink onClick={toggleCompare}>
-            {filters.showCompare ? 'Compare Off' : 'Compare On'}
-          </ToggleItemLink>
-          <ToggleItemLink onClick={clearCompareSelection}>
-            Clear Selections
-          </ToggleItemLink>
-        </Box>
+        <ToggleItemLink onClick={toggleCompare}>
+          {filters.showCompare ? 'Compare Off' : 'Compare On'}
+        </ToggleItemLink>
       )}
     </FilterListContainer>
   );

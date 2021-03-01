@@ -14,7 +14,7 @@ import {
   junkColor,
 } from './colors';
 
-export const SelectionCheckbox = styled.div`
+export const StyledSelectionCheckbox = styled.div`
   input[type='checkbox'] {
     display: none;
   }
@@ -22,6 +22,8 @@ export const SelectionCheckbox = styled.div`
   label {
     cursor: pointer;
     width: 100%;
+    text-transform: lowercase;
+    font-weight: 500;
 
     .checkbox-label {
       display: block;
@@ -197,6 +199,7 @@ export const PlayerColumnHeader = styled.th`
   text-transform: uppercase;
   cursor: pointer;
   position: sticky;
+  height: 40px;
   background: black;
   top: 0;
   padding: ${cellPaddingTb} ${cellPaddingLr};
@@ -205,11 +208,6 @@ export const PlayerColumnHeader = styled.th`
 
   min-width: ${(props) => (props.centered ? '20px' : 'none')};
   text-align: ${(props) => (props.centered ? 'center' : 'left')};
-
-  &:first-child,
-  ${PlayerColumn}:first-child {
-    padding-left: 15px;
-  }
 
   &.header-name {
     min-width: 160px;

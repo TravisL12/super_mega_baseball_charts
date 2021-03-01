@@ -1,25 +1,20 @@
 import React from 'react';
-import { PlayerColumn, SelectionCheckbox } from '../styles/Table.style';
+import { PlayerColumn } from '../styles/Table.style';
+import SelectionCheckbox from './SelectionCheckbox';
 import TableColumn from './TableColumn';
 
 const TableRow = ({ isChecked, player, addPlayerCompareList, headers }) => {
   return (
     <tr key={player.name}>
       <PlayerColumn className="player-checkbox">
-        <SelectionCheckbox>
-          <input
-            id={`compare-${player.name}`}
-            value={player.id}
-            checked={isChecked}
-            type="checkbox"
-            onChange={() => {
-              addPlayerCompareList(player.id);
-            }}
-          />
-          <label htmlFor={`compare-${player.name}`}>
-            <div className="checkbox-label"></div>
-          </label>
-        </SelectionCheckbox>
+        <SelectionCheckbox
+          onChange={() => {
+            addPlayerCompareList(player.id);
+          }}
+          isChecked={isChecked}
+          id={`compare-${player.name}`}
+          value={player.id}
+        />
       </PlayerColumn>
       {headers.map(({ header }) => {
         return <TableColumn key={header} player={player} header={header} />;

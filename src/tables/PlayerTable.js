@@ -3,6 +3,7 @@ import TableRow from './TableRow';
 import { PlayerColumnHeader } from '../styles/Table.style';
 import { SKILLS } from '../utilities/constants';
 import { NoPlayer } from '../styles';
+import SelectionCheckbox from './SelectionCheckbox';
 
 const centeredColumns = [SKILLS.age, SKILLS.position, SKILLS.arsenal];
 
@@ -10,6 +11,7 @@ const PlayerTable = ({
   players,
   headers,
   addPlayerCompareList,
+  clearCompareSelection,
   filters,
   updateSort,
 }) => {
@@ -26,7 +28,16 @@ const PlayerTable = ({
     <table>
       <thead>
         <tr>
-          <PlayerColumnHeader>{/* Compare Checkbox */}</PlayerColumnHeader>
+          <PlayerColumnHeader>
+            {filters.comparePlayerIds.length > 0 && (
+              <SelectionCheckbox
+                onChange={clearCompareSelection}
+                isChecked={filters.comparePlayerIds.length > 0}
+                id="clear-compare"
+                value="on"
+              />
+            )}
+          </PlayerColumnHeader>
           {headers.map(({ header, column }) => (
             <PlayerColumnHeader
               centered={centeredColumns.includes(header)}
