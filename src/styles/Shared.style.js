@@ -1,6 +1,16 @@
 import styled from 'styled-components';
 import { forkBallBg, fastBallBg, speedColor, contactColor } from './colors';
 
+export const StyledPlayerSkill = styled.div`
+  display: flex;
+  width: 200px;
+  text-transform: uppercase;
+
+  span {
+    flex: 1;
+  }
+`;
+
 export const SkillRating = styled.span`
   position: relative;
   display: inline-block;

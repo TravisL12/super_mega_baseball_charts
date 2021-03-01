@@ -1,5 +1,5 @@
 import React from 'react';
-import { PlayerSkill } from '../PlayerCard';
+import { PlayerSkill } from '../PlayerSkill';
 import PlayerImage from '../PlayerImage';
 import { Box, PitchTypeContainer, TeamTablePlayerContainer } from '../styles';
 
@@ -14,31 +14,34 @@ const TeamPlayerDetail = ({ player, height }) => {
           src={`${process.env.PUBLIC_URL}/player_pics/${player.image}`}
         />
       </div>
-      <div className="player-skills">
+      <Box gap="10px" style={{ flex: 1 }}>
         <div className="info">
           <Box>
             <span>{player.name}</span>
           </Box>
-          <Box>
-            <span className="title">Age:</span>
-            <span>{player.age}</span>
+
+          <Box gap="30px">
+            <Box>
+              <span style={{ width: '75px' }}>Bats:</span>
+              <span style={{ width: '20px' }}>{player.bats}</span>
+            </Box>
+            <Box>
+              <span style={{ width: '75px' }}>Throws:</span>
+              <span style={{ width: '20px' }}>{player.throws}</span>
+            </Box>
           </Box>
-          <Box>
-            <span className="title">Rating:</span>
-            <span>{player.rating}</span>
+
+          <Box gap="30px">
+            <Box>
+              <span style={{ width: '75px' }}>Rating:</span>
+              <span style={{ width: '20px' }}>{player.rating}</span>
+            </Box>
+            <Box>
+              <span style={{ width: '75px' }}>Age:</span>
+              <span style={{ width: '20px' }}>{player.age}</span>
+            </Box>
           </Box>
-          <Box>
-            <span className="title">Gender:</span>
-            <span>{player.gender}</span>
-          </Box>
-          <Box>
-            <span className="title">Bats:</span>
-            <span>{player.bats}</span>
-          </Box>
-          <Box>
-            <span className="title">Throws:</span>
-            <span>{player.throws}</span>
-          </Box>
+          <br />
           {player.isPitcher ? (
             <>
               <Box>
@@ -90,7 +93,7 @@ const TeamPlayerDetail = ({ player, height }) => {
             </>
           )}
         </div>
-      </div>
+      </Box>
     </TeamTablePlayerContainer>
   );
 };

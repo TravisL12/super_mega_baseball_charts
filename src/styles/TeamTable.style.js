@@ -57,7 +57,6 @@ export const StyledTeamViewPitchers = styled(StyledTeamView)`
 
 export const TeamTablePlayerContainer = styled.div`
   display: flex;
-  text-transform: uppercase;
   background: ${black};
   padding: 10px;
   gap: 10px;
@@ -67,35 +66,20 @@ export const TeamTablePlayerContainer = styled.div`
     height: 100%;
   }
 
-  .player-skills {
+  .info {
     display: flex;
+    flex-direction: column;
     flex: 1;
-    gap: 10px;
 
-    .info {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-
-      .title {
-        width: 120px;
-      }
+    .title {
+      width: 120px;
     }
+  }
 
-    .skills {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      width: 200px;
-
-      .player-skill {
-        display: flex;
-        width: 200px;
-
-        & > span {
-          flex: 1;
-        }
-      }
-    }
+  .skills {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    width: 200px;
   }
 `;
