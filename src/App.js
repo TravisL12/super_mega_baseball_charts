@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import Papa from 'papaparse';
 import { partition, sortBy, values } from 'lodash';
 import { Switch, Route } from 'react-router-dom';
