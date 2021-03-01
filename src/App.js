@@ -13,7 +13,7 @@ import {
   compileOptions,
   createPlayer,
 } from './utilities/buildPlayer';
-import { tableColumnMap, tableHeaders } from './utilities/constants';
+import { tableHeaders } from './utilities/constants';
 import { buildChecklist, getUniqTeams } from './utilities/helper';
 
 import { AppContainer, DisplayedTableContainer, Img, Loading } from './styles';
@@ -62,11 +62,6 @@ function App() {
     // eslint-disable-next-line
   }, []);
 
-  const selectedPlayers = useMemo(
-    () => players.filter(({ id }) => filters.comparePlayerIds.includes(id)),
-    [players, filters.comparePlayerIds]
-  );
-
   const [pitchersPlayers, positionPlayers] = partition(
     filterPlayers(players),
     ({ isPitcher }) => isPitcher
@@ -87,15 +82,11 @@ function App() {
 
   const getTable = (isPitcher) => {
     const headers = isPitcher ? tableHeaders.pitchers : tableHeaders.positions;
-    const columnMap = isPitcher
-      ? tableColumnMap.pitchers
-      : tableColumnMap.positions;
     const playersValue = isPitcher ? pitchersPlayers : positionPlayers;
     return (
       <PlayerTable
         headers={headers}
         players={playersValue}
-        columnNameMap={columnMap}
         addPlayerCompareList={addPlayerCompareList}
         filters={filters}
         updateSort={updateSort}
@@ -113,8 +104,10 @@ function App() {
       </div>
 
       <Header
-        players={positionPlayers}
-        pitchers={pitchersPlayers}
+        playerCount={{
+          position: positionPlayers.length,
+          pitchers: pitchersPlayers.length,
+        }}
         searchNames={searchNames}
         clearSearch={clearSearch}
         filters={filters}
@@ -131,7 +124,6 @@ function App() {
           <Filters
             filters={filters}
             setFilters={setFilters}
-            selectedPlayers={selectedPlayers}
             clearCompareSelection={clearCompareSelection}
             toggleCompare={toggleCompare}
           />

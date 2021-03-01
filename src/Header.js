@@ -7,7 +7,7 @@ import {
   TEAMS_ROUTE,
 } from './utilities/routeConstants';
 
-const Header = ({ players, pitchers, searchNames, clearSearch, filters }) => {
+const Header = ({ playerCount, searchNames, clearSearch, filters }) => {
   return (
     <HeaderContainer>
       <div className="player-type-nav">
@@ -17,7 +17,7 @@ const Header = ({ players, pitchers, searchNames, clearSearch, filters }) => {
           activeClassName="active"
           to={HOME_ROUTE}
         >
-          Positions ({players.length})
+          Positions ({playerCount.position})
         </NavLink>
 
         <NavLink
@@ -25,7 +25,7 @@ const Header = ({ players, pitchers, searchNames, clearSearch, filters }) => {
           activeClassName="active"
           to={PITCHERS_ROUTE}
         >
-          Pitchers ({pitchers.length})
+          Pitchers ({playerCount.pitchers})
         </NavLink>
 
         <NavLink

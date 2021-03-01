@@ -9,7 +9,6 @@ const centeredColumns = [SKILLS.age, SKILLS.position, SKILLS.arsenal];
 const PlayerTable = ({
   players,
   headers,
-  columnNameMap,
   addPlayerCompareList,
   filters,
   updateSort,
@@ -28,14 +27,14 @@ const PlayerTable = ({
       <thead>
         <tr>
           <PlayerColumnHeader>{/* Compare Checkbox */}</PlayerColumnHeader>
-          {headers.map((header) => (
+          {headers.map(({ header, column }) => (
             <PlayerColumnHeader
               centered={centeredColumns.includes(header)}
               className={`header-${header}`}
               onClick={() => updateSort(header)}
               key={header}
             >
-              {columnNameMap[header]}
+              {column}
             </PlayerColumnHeader>
           ))}
           <PlayerColumnHeader>{/* Player Card */}</PlayerColumnHeader>

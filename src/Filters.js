@@ -8,7 +8,6 @@ import FilterDropdown from './FilterDropdown';
 const Filters = ({
   filters,
   setFilters,
-  selectedPlayers,
   clearCompareSelection,
   toggleCompare,
 }) => {
@@ -80,7 +79,7 @@ const Filters = ({
         </Box>
       </Box>
 
-      {selectedPlayers.length > 0 && (
+      {filters.comparePlayerIds.length > 0 && (
         <Box gap="10px">
           <ToggleItemLink onClick={toggleCompare}>
             {filters.showCompare ? 'Compare Off' : 'Compare On'}

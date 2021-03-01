@@ -21,7 +21,7 @@ const TableRow = ({ isChecked, player, addPlayerCompareList, headers }) => {
           </label>
         </SelectionCheckbox>
       </PlayerColumn>
-      {headers.map((header) => {
+      {headers.map(({ header }) => {
         return <TableColumn key={header} player={player} header={header} />;
       })}
     </tr>
