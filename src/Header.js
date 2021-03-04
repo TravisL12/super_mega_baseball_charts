@@ -1,18 +1,19 @@
 import React from 'react';
 import { NavLink, Route } from 'react-router-dom';
-import { HeaderContainer } from './styles';
+import { HeaderContainer, NavContainer } from './styles';
 import {
   HOME_ROUTE,
   PITCHERS_ROUTE,
   TEAMS_ROUTE,
+  ABOUT_ROUTE,
 } from './utilities/routeConstants';
 
 const Header = ({ playerCount, searchNames, clearSearch, filters }) => {
   return (
     <HeaderContainer>
-      <div className="player-type-nav">
+      <NavContainer>
         <NavLink
-          className="player-type"
+          className="nav-tab"
           exact
           activeClassName="active"
           to={HOME_ROUTE}
@@ -21,21 +22,20 @@ const Header = ({ playerCount, searchNames, clearSearch, filters }) => {
         </NavLink>
 
         <NavLink
-          className="player-type"
+          className="nav-tab"
           activeClassName="active"
           to={PITCHERS_ROUTE}
         >
           Pitchers ({playerCount.pitchers})
         </NavLink>
 
-        <NavLink
-          className="player-type"
-          activeClassName="active"
-          to={TEAMS_ROUTE}
-        >
+        <NavLink className="nav-tab" activeClassName="active" to={TEAMS_ROUTE}>
           Teams
         </NavLink>
-      </div>
+        <NavLink className="nav-tab" activeClassName="active" to={ABOUT_ROUTE}>
+          About
+        </NavLink>
+      </NavContainer>
       <Route exact path={['/', '/pitchers']}>
         <div className="search-input">
           <input

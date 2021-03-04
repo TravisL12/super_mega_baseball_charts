@@ -121,6 +121,10 @@ function App() {
           </TeamContainer>
         </Route>
 
+        <Route path="/about">
+          <div>Hope you like the site!</div>
+        </Route>
+
         <Route path="/">
           <Filters
             filters={filters}
