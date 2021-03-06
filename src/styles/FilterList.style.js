@@ -116,6 +116,10 @@ export const FilterListContainer = styled(Box)`
     background: ${armColor};
     box-shadow: inset 0 0 0px 1px white;
   }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const StyledTeamFilter = styled.div`

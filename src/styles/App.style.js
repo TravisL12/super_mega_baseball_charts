@@ -34,6 +34,11 @@ export const AppContainer = styled.div`
     grid-column: 1;
     grid-row: 1;
   }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
 `;
 
 export const Loading = styled.div`
