@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import Papa from 'papaparse';
-import { partition, sortBy, values } from 'lodash';
-import { Switch, Route } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import Papa from "papaparse";
+import { partition, sortBy, values } from "lodash";
+import { Switch, Route } from "react-router-dom";
 
-import PlayerCard from './PlayerCard';
-import TeamTable from './tables/TeamTable';
-import Header from './Header';
-import Filters from './Filters';
+import PlayerCard from "./PlayerCard";
+import TeamTable from "./tables/TeamTable";
+import Header from "./Header";
+import Filters from "./Filters";
 
 import {
   buildTeams,
   compileOptions,
   createPlayer,
-} from './utilities/buildPlayer';
-import { tableHeaders } from './utilities/constants';
-import { buildChecklist, getUniqTeams } from './utilities/helper';
+} from "./utilities/buildPlayer";
+import { tableHeaders } from "./utilities/constants";
+import { buildChecklist, getUniqTeams } from "./utilities/helper";
 
-import { AppContainer, DisplayedTableContainer, Img, Loading } from './styles';
-import PlayerTable from './tables/PlayerTable';
-import useFilters from './hooks/useFilters';
-import { TeamContainer } from './styles/Table.style';
+import { AppContainer, DisplayedTableContainer, Img, Loading } from "./styles";
+import PlayerTable from "./tables/PlayerTable";
+import useFilters from "./hooks/useFilters";
+import { TeamContainer } from "./styles/Table.style";
 
 const loadPlayers = (cb) => {
   Papa.parse(`${process.env.PUBLIC_URL}/smb_data.csv`, {
@@ -137,10 +137,10 @@ function App() {
             }}
           ></Route>
           <DisplayedTableContainer>
-            <Route exact path={['/pitchers', '/player/*']}>
+            <Route exact path="/pitchers">
               {getTable(true)}
             </Route>
-            <Route exact path={['/', '/player/*']}>
+            <Route exact path="/">
               {getTable()}
             </Route>
           </DisplayedTableContainer>

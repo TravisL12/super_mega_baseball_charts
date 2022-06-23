@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import {
   backgroundColor,
   disableGray,
@@ -11,7 +11,7 @@ import {
   accuracyColor,
   velocityColor,
   junkColor,
-} from './colors';
+} from "./colors";
 
 export const TeamTableContainer = styled.div`
   .title {
@@ -36,8 +36,8 @@ export const TeamTableContainer = styled.div`
   }
 `;
 
-const cellPaddingTb = '7px';
-const cellPaddingLr = '5px';
+const cellPaddingTb = "7px";
+const cellPaddingLr = "5px";
 
 const getSkillColor = {
   speed: speedColor,
@@ -59,11 +59,11 @@ export const PlayerColumn = styled.td`
   font-weight: 500;
   padding: ${cellPaddingTb} ${cellPaddingLr};
   white-space: nowrap;
-  min-width: ${(props) => (props.centered ? '20px' : 'none')};
-  text-align: ${(props) => (props.centered ? 'center' : 'left')};
+  min-width: ${(props) => (props.centered ? "20px" : "none")};
+  text-align: ${(props) => (props.centered ? "center" : "left")};
 
   .rating-color {
-    background: ${(props) => getSkillColor[props.ratingColor] ?? 'white'};
+    background: ${(props) => getSkillColor[props.ratingColor] ?? "white"};
   }
 
   .modal-link {
@@ -104,16 +104,14 @@ export const PlayerColumnHeader = styled.th`
   z-index: 1;
   white-space: nowrap;
 
-  min-width: ${(props) => (props.centered ? '20px' : 'none')};
-  text-align: ${(props) => (props.centered ? 'center' : 'left')};
+  min-width: ${(props) => (props.centered ? "20px" : "none")};
+  text-align: ${(props) => (props.centered ? "center" : "left")};
 
   &.header-name {
     min-width: 160px;
   }
 
   &.header-team {
-    display: flex;
-    align-items: center;
     min-width: 100px;
   }
 `;

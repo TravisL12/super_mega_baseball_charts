@@ -1,17 +1,18 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { InnerCard, PlayerCardContainer } from './styles';
-import TeamPlayerDetail from './tables/TeamPlayerDetail';
+import React from "react";
+import { useHistory } from "react-router-dom";
+import { InnerCard, PlayerCardContainer } from "./styles";
+import TeamPlayerDetail from "./tables/TeamPlayerDetail";
 
 const PlayerCard = ({ player }) => {
+  const history = useHistory();
   return (
     !!player && (
       <PlayerCardContainer>
         <InnerCard>
-          <TeamPlayerDetail height={'500px'} player={player} />
-          <Link className="close-btn" to="/">
+          <TeamPlayerDetail height={"500px"} player={player} />
+          <button className="close-btn" onClick={history.goBack}>
             Close
-          </Link>
+          </button>
         </InnerCard>
       </PlayerCardContainer>
     )
