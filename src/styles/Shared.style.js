@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { forkBallBg, fastBallBg, speedColor, contactColor } from './colors';
+import styled from "styled-components";
+import { forkBallBg, fastBallBg, speedColor, contactColor } from "./colors";
 
 export const StyledPlayerSkill = styled.div`
   display: flex;
@@ -19,7 +19,7 @@ export const SkillRating = styled.span`
   background: ${contactColor};
 
   &:after {
-    content: '';
+    content: "";
     position: absolute;
     right: 0;
     width: 4px;
@@ -30,19 +30,19 @@ export const SkillRating = styled.span`
 
 function getPitchType(pitch) {
   switch (pitch) {
-    case '4F':
-    case '2F':
-    case 'CF':
+    case "4F":
+    case "2F":
+    case "CF":
       return fastBallBg;
-    case 'SB':
-    case 'CW':
-    case 'FK':
+    case "SB":
+    case "CH":
+    case "FK":
       return forkBallBg;
-    case 'CB':
-    case 'SL':
+    case "CB":
+    case "SL":
       return speedColor;
     default:
-      return 'orange';
+      return "orange";
   }
 }
 
@@ -55,8 +55,8 @@ export const PitchTypeContainer = styled.span`
   border-radius: 5px;
   background: ${(props) => getPitchType(props.pitchType)};
   border-color: ${(props) =>
-    ['4F', '2F', 'CF'].includes(props.pitchType)
-      ? 'orange'
+    ["4F", "2F", "CF"].includes(props.pitchType)
+      ? "orange"
       : getPitchType(props.pitchType)};
 `;
 
@@ -66,9 +66,9 @@ export const Img = styled.img`
 `;
 
 export const Box = styled.div((props) => {
-  const justify = props.justify ? `justify-content: ${props.justify}` : '';
-  const align = props.alignItems ? `align-items: ${props.alignItems}` : '';
-  const direction = props.direction ?? 'row';
+  const justify = props.justify ? `justify-content: ${props.justify}` : "";
+  const align = props.alignItems ? `align-items: ${props.alignItems}` : "";
+  const direction = props.direction ?? "row";
   return `
     display: flex;
     margin: ${props.margin ?? 0};
