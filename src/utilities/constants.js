@@ -107,7 +107,7 @@ export const PITCH_TYPE = {
   63: "CB",
   64: "SL",
   60: "SB",
-  61: "CW",
+  61: "CH",
   62: "FK",
 };
 
