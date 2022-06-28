@@ -1,7 +1,7 @@
-import { useState, useCallback } from 'react';
-import { values, orderBy, uniqBy } from 'lodash';
+import { useState, useCallback } from "react";
+import { values, orderBy, uniqBy, keys } from "lodash";
 
-import { buildChecklist } from '../utilities/helper';
+import { buildChecklist } from "../utilities/helper";
 import {
   PRIMARY_POSITIONS,
   ALL_POSITIONS,
@@ -12,7 +12,8 @@ import {
   TRAITS,
   NO_TRAIT,
   RATING_MAP,
-} from '../utilities/constants';
+  PITCH_TYPE,
+} from "../utilities/constants";
 
 export const initialFilters = {
   positions: buildChecklist(values(PRIMARY_POSITIONS), true),
@@ -20,11 +21,12 @@ export const initialFilters = {
   pitchers: buildChecklist(values(PITCHER_ROLES), true),
   traits: buildChecklist(values(TRAITS), true),
   traits2: buildChecklist(values(TRAITS), true),
-  gender: buildChecklist(['M', 'F'], true),
-  bats: buildChecklist(['L', 'R', 'S'], true),
-  throws: buildChecklist(['L', 'R'], true),
-  rating: buildChecklist(['S', 'A', 'B', 'C', 'D'], true),
-  name: '',
+  gender: buildChecklist(["M", "F"], true),
+  bats: buildChecklist(["L", "R", "S"], true),
+  throws: buildChecklist(["L", "R"], true),
+  rating: buildChecklist(["S", "A", "B", "C", "D"], true),
+  pitches: buildChecklist(values(PITCH_TYPE), false),
+  name: "",
   showCompare: false,
   comparePlayerIds: [],
   sort: { header: SKILLS.team, direction: ASC },
@@ -104,10 +106,23 @@ const useFilters = () => {
       return isPitcher || isPosition;
     });
 
+    // Filter pitch arsenal
+    players = players.filter(({ arsenal, pitcherRole }) => {
+      const isPitcher = filters.pitchers[pitcherRole];
+      const checkedPitches = keys(filters.pitches).filter(
+        (pitch) => filters.pitches[pitch]
+      );
+
+      const hasPitches = checkedPitches.every((pitch) =>
+        arsenal.includes(pitch)
+      );
+      return !isPitcher || (isPitcher && hasPitches);
+    });
+
     // Filter name search
     if (filters.name) {
       const splitSearch = filters.name
-        .split(',')
+        .split(",")
         .map((name) => name.trim())
         .filter((x) => x);
       if (splitSearch.length > 1) {
@@ -127,22 +142,22 @@ const useFilters = () => {
       players,
       (player) => {
         const val =
-          filters.sort.header === 'rating'
+          filters.sort.header === "rating"
             ? orderRatings(player.rating)
             : player[filters.sort.header];
-        if (!val) return '';
+        if (!val) return "";
 
         return isNaN(val) ? val.toLowerCase() : +val;
       },
       [filters.sort.direction]
     );
 
-    return uniqBy(sorted, 'name');
+    return uniqBy(sorted, "name");
   };
 
   const updateSort = useCallback(
     (header) => {
-      if (header === 'arsenal') {
+      if (header === "arsenal") {
         return;
       }
 
@@ -176,7 +191,7 @@ const useFilters = () => {
 
   const clearSearch = useCallback(() => {
     setFilters((prevFilters) => {
-      return { ...prevFilters, name: '' };
+      return { ...prevFilters, name: "" };
     });
   }, [setFilters]);
 

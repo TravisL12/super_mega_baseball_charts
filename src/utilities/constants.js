@@ -111,6 +111,17 @@ export const PITCH_TYPE = {
   62: "FK",
 };
 
+export const PITCH_NAME = {
+  [PITCH_TYPE[58]]: "4-seam fastball",
+  [PITCH_TYPE[59]]: "2-seam fastball",
+  [PITCH_TYPE[65]]: "Cut fastball",
+  [PITCH_TYPE[63]]: "Curveball",
+  [PITCH_TYPE[64]]: "Slider",
+  [PITCH_TYPE[60]]: "Screwball",
+  [PITCH_TYPE[61]]: "Change up",
+  [PITCH_TYPE[62]]: "Forkball",
+};
+
 export const positionsAbbrev = {
   [ALL_POSITIONS[2]]: "C",
   [ALL_POSITIONS[3]]: "1B",

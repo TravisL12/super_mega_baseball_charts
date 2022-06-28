@@ -1,9 +1,9 @@
-import React from 'react';
-import FilterList from './FilterList';
-import TeamFilterList from './TeamFilterList';
-import { FilterListContainer, Box } from './styles';
-import { ToggleItemLink } from './styles/FilterList.style';
-import FilterDropdown from './FilterDropdown';
+import React from "react";
+import FilterList from "./FilterList";
+import TeamFilterList from "./TeamFilterList";
+import { FilterListContainer, Box } from "./styles";
+import { ToggleItemLink } from "./styles/FilterList.style";
+import FilterDropdown from "./FilterDropdown";
 
 const Filters = ({ filters, setFilters, toggleCompare }) => {
   return (
@@ -34,7 +34,6 @@ const Filters = ({ filters, setFilters, toggleCompare }) => {
             filters={filters}
             setFilters={setFilters}
           />
-
           <FilterDropdown
             filterAttr="traits2"
             filters={filters}
@@ -71,12 +70,18 @@ const Filters = ({ filters, setFilters, toggleCompare }) => {
             setFilters={setFilters}
             showNoneAll={true}
           />
+          <FilterList
+            filterAttr="pitches"
+            filters={filters}
+            setFilters={setFilters}
+            showNoneAll={true}
+          />
         </Box>
       </Box>
 
       {filters.comparePlayerIds.length > 0 && (
         <ToggleItemLink onClick={toggleCompare}>
-          {filters.showCompare ? 'Compare Off' : 'Compare On'}
+          {filters.showCompare ? "Compare Off" : "Compare On"}
         </ToggleItemLink>
       )}
     </FilterListContainer>
