@@ -1,11 +1,11 @@
-import styled from 'styled-components';
-import { Box } from '.';
+import styled from "styled-components";
+import { Box } from ".";
 import {
   disableGray,
   highlightGray,
   armColor,
   backgroundColor,
-} from './colors';
+} from "./colors";
 
 export const FilterPortalDropdown = styled.div`
   position: absolute;
@@ -49,7 +49,7 @@ export const FilterDropdownContainer = styled.div`
 
 export const FilterItems = styled.div`
   display: flex;
-  min-width: 150px;
+  min-width: 100px;
   max-width: 300px;
   padding-bottom: 8px;
 
@@ -108,24 +108,25 @@ export const FilterListContainer = styled(Box)`
     }
   }
 
-  input[type='checkbox'] {
+  input[type="checkbox"] {
     display: none;
   }
 
-  input[type='checkbox']:checked + label {
+  input[type="checkbox"]:checked + label {
     background: ${armColor};
     box-shadow: inset 0 0 0px 1px white;
   }
 `;
 
+const teamLogoTile = "50px";
 export const StyledTeamFilter = styled.div`
   padding-right: 15px;
 
   .team-filter-grid {
     display: grid;
     grid-gap: 10px;
-    grid-template-columns: repeat(10, 50px);
-    grid-template-rows: 50px 50px;
+    grid-template-columns: repeat(10, ${teamLogoTile});
+    grid-template-rows: ${teamLogoTile} ${teamLogoTile};
 
     .team-checkbox-container {
       label {
@@ -138,7 +139,7 @@ export const StyledTeamFilter = styled.div`
         }
       }
 
-      input[type='checkbox']:checked + label {
+      input[type="checkbox"]:checked + label {
         img {
           filter: grayscale(0);
         }

@@ -1,7 +1,7 @@
-import React from 'react';
-import { keys } from 'lodash';
-import FilterAllNoneControls from './FilterAllNoneControls';
-import { StyledTeamFilter, Img } from './styles';
+import React from "react";
+import { keys } from "lodash";
+import FilterAllNoneControls from "./FilterAllNoneControls";
+import { StyledTeamFilter, Img } from "./styles";
 
 const TeamFilterList = ({ filters, setFilters, filterAttr }) => {
   return (
