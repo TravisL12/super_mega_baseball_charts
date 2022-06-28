@@ -16,7 +16,13 @@ import {
 import { tableHeaders } from "./utilities/constants";
 import { buildChecklist, getUniqTeams } from "./utilities/helper";
 
-import { AppContainer, DisplayedTableContainer, Img, Loading } from "./styles";
+import {
+  LogoContainer,
+  AppContainer,
+  DisplayedTableContainer,
+  Img,
+  Loading,
+} from "./styles";
 import PlayerTable from "./tables/PlayerTable";
 import useFilters from "./hooks/useFilters";
 import { TeamContainer } from "./styles/Table.style";
@@ -97,12 +103,12 @@ function App() {
 
   return (
     <AppContainer>
-      <div className="title-logo">
+      <LogoContainer>
         <Img
           alt="Super Mega Baseball Logo"
           src={`${process.env.PUBLIC_URL}/smb_logo.png`}
         />
-      </div>
+      </LogoContainer>
 
       <Header
         playerCount={{

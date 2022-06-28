@@ -26,14 +26,14 @@ export const AppContainer = styled.div`
       list-style: none;
     }
   }
+`;
 
-  .title-logo {
-    display: flex;
-    background: black;
-    align-items: center;
-    grid-column: 1;
-    grid-row: 1;
-  }
+export const LogoContainer = styled.div`
+  display: flex;
+  background: black;
+  align-items: center;
+  grid-column: 1;
+  grid-row: 1;
 `;
 
 export const Loading = styled.div`

@@ -1,13 +1,13 @@
-import { keys, pick, reduce, snakeCase } from 'lodash';
-import { ALL_POSITIONS, PITCHER_ROLES, SKILLS } from './constants';
-import { options } from './playerOptions';
+import { keys, pick, reduce, snakeCase } from "lodash";
+import { ALL_POSITIONS, PITCHER_ROLES, SKILLS } from "./constants";
+import { options } from "./playerOptions";
 
 const buildArsenal = (info) => {
-  const pitches = pick(info, ['58', '59', '60', '61', '62', '63', '64', '65']);
+  const pitches = pick(info, ["58", "59", "60", "61", "62", "63", "64", "65"]);
   return reduce(
     pitches,
     (total, value, id) => {
-      if (value === '1') {
+      if (value === "1") {
         total.push(options[id]);
       }
       return total;
@@ -17,11 +17,11 @@ const buildArsenal = (info) => {
 };
 
 export const createPlayer = (info) => {
-  const isPitcher = info.primaryPosition === '1';
+  const isPitcher = info.primaryPosition === "1";
 
-  const gender = ['M', 'F'][info[0]];
-  const throws = ['L', 'R'][info[4]];
-  const bats = ['L', 'R', 'S'][info[5]];
+  const gender = ["M", "F"][info[0]];
+  const throws = ["L", "R"][info[4]];
+  const bats = ["L", "R", "S"][info[5]];
   const arsenal = buildArsenal(info);
   const position = ALL_POSITIONS[info[54]];
   const position2 = info[55] ? ALL_POSITIONS[info[55]] : ALL_POSITIONS.none;
@@ -78,10 +78,10 @@ export const compileOptions = (info) => {
     optionKeys.forEach((key) => {
       if (
         !acc[option.id][key] &&
-        !['optionKey', 'optionType', 'optionValue'].includes(key)
+        !["optionKey", "optionType", "optionValue"].includes(key)
       ) {
         acc[option.id][key] = option[key];
-      } else if (key === 'optionKey') {
+      } else if (key === "optionKey") {
         acc[option.id][option.optionKey] = option.optionValue;
       }
     });
