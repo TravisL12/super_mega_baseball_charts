@@ -29,7 +29,7 @@ const TeamTable = ({ teams }) => {
         ))}
       </StyledTeamList>
       <Switch>
-        <Route path={`${match.path}/:teamName`}>
+        <Route exact path={`${match.path}/:teamName`}>
           <TeamView teams={teams} />
         </Route>
       </Switch>
