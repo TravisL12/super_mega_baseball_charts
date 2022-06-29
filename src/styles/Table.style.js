@@ -116,15 +116,13 @@ export const PlayerColumnHeader = styled.th`
   }
 `;
 
-const sharedTable = `
-  table {
-    margin-bottom: 30px;
-    padding: 10px;
-    width: 100%;
-    background: black;
-    color: white;
-    border-collapse: collapse;
-  }
+export const SPlayerTable = styled.table`
+  margin-bottom: 30px;
+  padding: 10px;
+  width: 100%;
+  background: black;
+  color: white;
+  border-collapse: collapse;
 
   tr:nth-child(even) ${PlayerColumn} {
     background: ${disableGray};
@@ -148,7 +146,7 @@ const sharedTable = `
     }
 
     &:after {
-      content: '';
+      content: "";
       position: absolute;
       right: 0;
       width: 4px;
@@ -158,12 +156,6 @@ const sharedTable = `
   }
 `;
 
-export const TeamContainer = styled.div`
-  grid-column: 1 / 3;
-  grid-row: 2 / 4;
-  ${sharedTable}
-`;
-
 export const DisplayedTableContainer = styled.div`
   position: relative;
   background: ${backgroundColor};
@@ -171,5 +163,4 @@ export const DisplayedTableContainer = styled.div`
   grid-column: 1 / 3;
   grid-row: 3;
   overflow: auto;
-  ${sharedTable}
 `;
