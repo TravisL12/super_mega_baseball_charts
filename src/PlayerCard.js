@@ -10,7 +10,16 @@ const PlayerCard = ({ player }) => {
       <PlayerCardContainer>
         <InnerCard>
           <TeamPlayerDetail height={"500px"} player={player} />
-          <button className="close-btn" onClick={history.goBack}>
+          <button
+            className="close-btn"
+            onClick={() => {
+              if (player.pitcherRole) {
+                history.push("/pitchers");
+              } else {
+                history.push("/");
+              }
+            }}
+          >
             Close
           </button>
         </InnerCard>
