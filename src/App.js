@@ -25,7 +25,6 @@ import {
 } from "./styles";
 import PlayerTable from "./tables/PlayerTable";
 import useFilters from "./hooks/useFilters";
-import { TeamContainer } from "./styles/Table.style";
 
 const loadPlayers = (cb) => {
   Papa.parse(`${process.env.PUBLIC_URL}/smb_data.csv`, {
@@ -122,9 +121,7 @@ function App() {
 
       <Switch>
         <Route path="/teams">
-          <TeamContainer>
-            <TeamTable teams={teams} />
-          </TeamContainer>
+          <TeamTable teams={teams} />
         </Route>
 
         <Route path="/">

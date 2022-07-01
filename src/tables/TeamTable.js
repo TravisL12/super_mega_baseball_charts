@@ -1,16 +1,13 @@
-import React from 'react';
-import { keys, partition } from 'lodash';
-import TeamPlayerDetail from './TeamPlayerDetail';
+import React from "react";
+import { keys } from "lodash";
 import {
   StyledTeamList,
   StyledTeamTable,
   StyledTeamListItem,
-  StyledTeamView,
-  StyledTeamViewPitchers,
-  DetailContainer,
   Img,
-} from '../styles';
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
+} from "../styles";
+import { Route, Switch, useRouteMatch } from "react-router-dom";
+import TeamView from "./TeamView";
 
 const TeamTable = ({ teams }) => {
   const match = useRouteMatch();
@@ -28,42 +25,13 @@ const TeamTable = ({ teams }) => {
               alt={`${team} logo`}
               src={`${process.env.PUBLIC_URL}/team_logos/${team}.png`}
             />
-            <span>{teams[team].name}</span>
           </StyledTeamListItem>
         ))}
       </StyledTeamList>
       <Switch>
-        <Route
-          path={`${match.path}/:teamName`}
-          render={(props) => {
-            const team = teams[props.match.params.teamName];
-            const [pitchersPlayers, positionPlayers] = partition(
-              team.players,
-              ({ isPitcher }) => isPitcher
-            );
-
-            return (
-              <>
-                <StyledTeamView>
-                  <h3>Position Players</h3>
-                  <DetailContainer>
-                    {positionPlayers.map((player) => (
-                      <TeamPlayerDetail key={player.name} player={player} />
-                    ))}
-                  </DetailContainer>
-                </StyledTeamView>
-                <StyledTeamViewPitchers>
-                  <h3>Pitchers</h3>
-                  <DetailContainer>
-                    {pitchersPlayers.map((player) => (
-                      <TeamPlayerDetail key={player.name} player={player} />
-                    ))}
-                  </DetailContainer>
-                </StyledTeamViewPitchers>
-              </>
-            );
-          }}
-        />
+        <Route exact path={`${match.path}/:teamName`}>
+          <TeamView teams={teams} />
+        </Route>
       </Switch>
     </StyledTeamTable>
   );
