@@ -53,18 +53,11 @@ const getSkillColor = {
 export const PlayerColumn = styled.td`
   position: relative;
   height: 40px;
-  text-align: left;
-  min-width: 80px;
   box-sizing: border-box;
   font-weight: 500;
   padding: ${cellPaddingTb} ${cellPaddingLr};
   white-space: nowrap;
-  min-width: ${(props) => (props.centered ? "20px" : "none")};
-  text-align: ${(props) => (props.centered ? "center" : "left")};
-
-  .rating-color {
-    background: ${(props) => getSkillColor[props.ratingColor] ?? "white"};
-  }
+  min-width: ${(props) => (props.centered ? "20px" : "80px")};
 
   .modal-link {
     color: white;
@@ -91,6 +84,37 @@ export const PlayerColumn = styled.td`
   &.player-name {
     min-width: 160px;
   }
+`;
+
+export const SRatingColor = styled.div`
+  background: ${(props) => getSkillColor[props.ratingColor] ?? "white"};
+  position: absolute;
+  left: ${cellPaddingLr};
+  top: ${cellPaddingTb};
+  height: calc(100% - (2 * ${cellPaddingTb}));
+
+  &:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    width: 3px;
+    height: 100%;
+    background: ${attrTipHighlight};
+  }
+`;
+
+export const SCardRatingColor = styled(SRatingColor)`
+  height: 100%;
+  left: 0;
+  top: 0;
+  padding: 0;
+`;
+
+export const SRatingValue = styled.span`
+  position: relative;
+  display: block;
+  color: white;
+  text-align: ${(props) => (props.centered ? "center" : "left")};
 `;
 
 export const PlayerColumnHeader = styled.th`
@@ -126,33 +150,6 @@ export const SPlayerTable = styled.table`
 
   tr:nth-child(even) ${PlayerColumn} {
     background: ${disableGray};
-  }
-
-  .rating-value {
-    position: relative;
-    display: block;
-    color: white;
-  }
-
-  .rating-color {
-    position: absolute;
-    left: ${cellPaddingLr};
-    top: ${cellPaddingTb};
-    height: calc(100% - (2 * ${cellPaddingTb}));
-    width: calc(100% - (2 * ${cellPaddingLr}));
-
-    & + .rating-value {
-      text-align: center;
-    }
-
-    &:after {
-      content: "";
-      position: absolute;
-      right: 0;
-      width: 4px;
-      height: 100%;
-      background: ${attrTipHighlight};
-    }
   }
 `;
 

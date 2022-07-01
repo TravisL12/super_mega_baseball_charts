@@ -1,8 +1,12 @@
-import React, { useMemo } from 'react';
-import { Img, PitchTypeContainer } from '../styles';
-import { positionsAbbrev, SKILLS } from '../utilities/constants';
-import { PlayerColumn } from '../styles/Table.style';
-import { Link } from 'react-router-dom';
+import React, { useMemo } from "react";
+import { Img, PitchTypeContainer } from "../styles";
+import { positionsAbbrev, SKILLS } from "../utilities/constants";
+import {
+  PlayerColumn,
+  SRatingColor,
+  SRatingValue,
+} from "../styles/Table.style";
+import { Link } from "react-router-dom";
 
 const centeredColumns = [
   SKILLS.age,
@@ -15,6 +19,14 @@ const centeredColumns = [
   SKILLS.throws,
   SKILLS.position2,
   SKILLS.gender,
+  SKILLS.power,
+  SKILLS.contact,
+  SKILLS.speed,
+  SKILLS.fielding,
+  SKILLS.arm,
+  SKILLS.velocity,
+  SKILLS.junk,
+  SKILLS.accuracy,
 ];
 
 const RATING_PERCENT = [SKILLS.age, SKILLS.trait_pretty, SKILLS.trait_2_pretty];
@@ -36,7 +48,7 @@ const TableColumn = ({ player, header }) => {
 
   const ratingPercent = useMemo(() => {
     return !isNaN(player[header]) && !RATING_PERCENT.includes(header)
-      ? `${player[header]}%`
+      ? player[header]
       : null;
   }, [player, header]);
 
@@ -68,17 +80,17 @@ const TableColumn = ({ player, header }) => {
   }
 
   return (
-    <PlayerColumn
-      key={header}
-      centered={centeredColumns.includes(header)}
-      className={`player-${header}`}
-      ratingColor={header}
-    >
+    <PlayerColumn key={header} className={`player-${header}`}>
       {ratingPercent && (
-        <span className="rating-color" style={{ width: ratingPercent }}></span>
+        <SRatingColor
+          ratingColor={header}
+          style={{ width: `${ratingPercent}%` }}
+        ></SRatingColor>
       )}
       {logo}
-      <span className="rating-value">{displayValue}</span>
+      <SRatingValue centered={centeredColumns.includes(header)}>
+        {displayValue}
+      </SRatingValue>
     </PlayerColumn>
   );
 };

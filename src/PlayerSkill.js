@@ -1,13 +1,19 @@
-import React from 'react';
-import { SkillRating, StyledPlayerSkill } from './styles';
+import React from "react";
+import { SCardRatingColor, SRatingValue, StyledPlayerSkill } from "./styles";
 
 export const PlayerSkill = ({ skill, rating }) => {
   return (
     <StyledPlayerSkill>
       <span>{skill}</span>
-      <span>
-        <SkillRating width={rating} />
-      </span>
+      <div style={{ position: "relative", flex: 1, textAlign: "center" }}>
+        <SCardRatingColor
+          ratingColor={skill}
+          style={{
+            width: `${rating}%`,
+          }}
+        />
+        <SRatingValue>{rating}</SRatingValue>
+      </div>
     </StyledPlayerSkill>
   );
 };
