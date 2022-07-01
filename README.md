@@ -1,8 +1,10 @@
 # Super Mega Baseball 3 Players
 
 I found this data within the SMB3 `sqlite` database located within the `Steam` program files on Windows 10.
+`Program Files (x86)/Steam/steamapps/common/Super Mega Baseball 3/D3D11/bigfly/media/database/bigfly.sqlite`
 
 ## Player Images
+
 Download all the player images from : https://drive.google.com/drive/u/0/folders/1RtlftwSAvzLRdTmpspko-ejrwEhGO6Rl
 
 ## Querying database
@@ -12,6 +14,7 @@ The database was named `bigfly.sqlite`, I made a copy of it and used `sqlite3` t
 - `.open <db name>` open the database.
 - `.tables` displays the db tables to begin queries.
 - `.headers on` displays headers in db output.
+- `.mode column` easier to read.
 - `SELECT * from <table_name>` simple query use `limit 10` to just see the headers.
 - `.output output.csv` to output the query to a CSV file
 
