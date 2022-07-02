@@ -84,4 +84,14 @@ export const TeamTablePlayerContainer = styled.div`
     gap: 3px;
     width: 200px;
   }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+
+    .player-image {
+      height: unset;
+    }
+  }
 `;

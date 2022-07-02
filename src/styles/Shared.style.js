@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { forkBallBg, fastBallBg, speedColor, contactColor } from "./colors";
+import { forkBallBg, fastBallBg, speedColor } from "./colors";
 
 export const StyledPlayerSkill = styled.div`
   position: relative;

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { powerColor } from './colors';
+import styled from "styled-components";
+import { powerColor } from "./colors";
 
 export const PlayerCardContainer = styled.div`
   position: fixed;
@@ -14,6 +14,12 @@ export const PlayerCardContainer = styled.div`
   align-items: center;
   justify-content: center;
   background: #1e5290ab; // speedColor @ 0.67 opacity
+
+  @media (max-width: 768px) {
+    display: unset;
+    width: unset;
+    height: 100%;
+  }
 `;
 
 export const InnerCard = styled.div`
@@ -33,5 +39,9 @@ export const InnerCard = styled.div`
     border: none;
     padding: 10px;
     cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    height: 100%;
   }
 `;
