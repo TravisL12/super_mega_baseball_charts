@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { powerColor } from "./colors";
+import { devices } from "./Responsive.style";
 
 export const PlayerCardContainer = styled.div`
   position: fixed;
@@ -8,17 +9,15 @@ export const PlayerCardContainer = styled.div`
   left: 0;
   bottom: 0;
   z-index: 2;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #1e5290ab; // speedColor @ 0.67 opacity
+  height: 100%;
 
-  @media (max-width: 768px) {
-    display: unset;
-    width: unset;
-    height: 100%;
+  @media ${devices.tablet} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1e5290ab; // speedColor @ 0.67 opacity
+    width: 100vw;
+    height: 100vh;
   }
 `;
 
@@ -27,6 +26,7 @@ export const InnerCard = styled.div`
   background: black;
   padding: 10px;
   border-radius: 6px;
+  height: 100%;
 
   .close-btn {
     position: absolute;
@@ -41,7 +41,7 @@ export const InnerCard = styled.div`
     cursor: pointer;
   }
 
-  @media (max-width: 768px) {
-    height: 100%;
+  @media ${devices.tablet} {
+    height: auto;
   }
 `;

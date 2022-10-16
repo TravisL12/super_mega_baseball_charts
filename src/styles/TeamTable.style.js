@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { black, fieldingColor, speedColor } from "./colors";
+import { devices } from "./Responsive.style";
 
 export const StyledTeamTable = styled.div`
   grid-column: 1 / 3;
@@ -62,11 +63,10 @@ export const TeamTablePlayerContainer = styled.div`
   background: ${black};
   padding: 10px;
   gap: 10px;
-  height: ${(props) => props.height || "200px"};
 
-  .player-image {
-    height: 100%;
-  }
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
 
   .info {
     display: flex;
@@ -85,13 +85,13 @@ export const TeamTablePlayerContainer = styled.div`
     width: 200px;
   }
 
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-    height: 100%;
+  @media ${devices.tablet} {
+    flex-direction: row;
+    align-items: flex-start;
+    height: ${(props) => props.height || "200px"};
 
     .player-image {
-      height: unset;
+      height: 100%;
     }
   }
 `;
