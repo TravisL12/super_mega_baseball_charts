@@ -121,22 +121,17 @@ export const FilterListContainer = styled(Box)`
 
 export const SFilterControls = styled(Box)`
   flex-direction: column;
-  .positions,
-  .traits,
-  .basic-attrs,
-  .pitching-attrs {
-    display: flex;
-  }
 
   @media ${devices.tablet} {
     flex-direction: row;
-    .positions,
-    .traits,
-    .basic-attrs,
-    .pitching-attrs {
-      flex-direction: column;
-    }
   }
+`;
+
+export const SFilterGrid = styled.div`
+  flex: 1;
+  display: grid;
+  grid-template-columns: 100px 100px 200px 1fr;
+  column-gap: 10px;
 `;
 
 const teamLogoTile = "50px";
