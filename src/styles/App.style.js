@@ -11,10 +11,6 @@ export const AppContainer = styled.div`
   grid-row-gap: 10px;
   height: 100vh;
   box-sizing: border-box;
-
-  /* @media ${devices.tablet} {
-    grid-template-rows: 80px 160px 1fr;
-  } */
 `;
 
 export const LogoContainer = styled.div`
