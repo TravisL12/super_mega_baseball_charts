@@ -6,6 +6,7 @@ import {
   armColor,
   backgroundColor,
 } from "./colors";
+import { devices } from "./Responsive.style";
 
 export const FilterPortalDropdown = styled.div`
   position: absolute;
@@ -115,6 +116,26 @@ export const FilterListContainer = styled(Box)`
   input[type="checkbox"]:checked + label {
     background: ${armColor};
     box-shadow: inset 0 0 0px 1px white;
+  }
+`;
+
+export const SFilterControls = styled(Box)`
+  flex-direction: column;
+  .positions,
+  .traits,
+  .basic-attrs,
+  .pitching-attrs {
+    display: flex;
+  }
+
+  @media ${devices.tablet} {
+    flex-direction: row;
+    .positions,
+    .traits,
+    .basic-attrs,
+    .pitching-attrs {
+      flex-direction: column;
+    }
   }
 `;
 

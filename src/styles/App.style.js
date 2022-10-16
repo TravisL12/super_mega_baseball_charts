@@ -1,30 +1,19 @@
-import styled from 'styled-components';
-import { backgroundColor, disableGray } from './colors';
+import styled from "styled-components";
+import { backgroundColor, disableGray } from "./colors";
+import { devices } from "./Responsive.style";
 
 export const AppContainer = styled.div`
   background: ${backgroundColor};
   color: white;
   display: grid;
   grid-template-columns: 220px 1fr;
-  grid-template-rows: 80px 160px 1fr;
+  grid-template-rows: 80px 300px 1fr;
   grid-row-gap: 10px;
   height: 100vh;
   box-sizing: border-box;
 
-  h1,
-  h2,
-  h3,
-  p {
-    margin: 0;
-  }
-
-  ul {
-    padding: 0;
-    margin: 0;
-
-    li {
-      list-style: none;
-    }
+  @media ${devices.tablet} {
+    grid-template-rows: 80px 160px 1fr;
   }
 `;
 

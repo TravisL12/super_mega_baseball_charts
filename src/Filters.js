@@ -2,13 +2,13 @@ import React from "react";
 import FilterList from "./FilterList";
 import TeamFilterList from "./TeamFilterList";
 import { FilterListContainer, Box } from "./styles";
-import { ToggleItemLink } from "./styles/FilterList.style";
+import { ToggleItemLink, SFilterControls } from "./styles/FilterList.style";
 import FilterDropdown from "./FilterDropdown";
 
 const Filters = ({ filters, setFilters, toggleCompare }) => {
   return (
     <FilterListContainer direction="column">
-      <Box gap="10px">
+      <SFilterControls gap="10px">
         <Box>
           <TeamFilterList
             filterAttr="teams"
@@ -16,7 +16,7 @@ const Filters = ({ filters, setFilters, toggleCompare }) => {
             setFilters={setFilters}
           />
         </Box>
-        <Box direction="column">
+        <div className="positions">
           <FilterDropdown
             filterAttr="positions"
             filters={filters}
@@ -27,8 +27,8 @@ const Filters = ({ filters, setFilters, toggleCompare }) => {
             filters={filters}
             setFilters={setFilters}
           />
-        </Box>
-        <Box direction="column">
+        </div>
+        <div className="traits">
           <FilterDropdown
             filterAttr="traits"
             filters={filters}
@@ -39,8 +39,8 @@ const Filters = ({ filters, setFilters, toggleCompare }) => {
             filters={filters}
             setFilters={setFilters}
           />
-        </Box>
-        <Box direction="column">
+        </div>
+        <div className="basic-attrs">
           <FilterList
             filterAttr="bats"
             filters={filters}
@@ -56,8 +56,8 @@ const Filters = ({ filters, setFilters, toggleCompare }) => {
             filters={filters}
             setFilters={setFilters}
           />
-        </Box>
-        <Box direction="column">
+        </div>
+        <div className="pitching-attrs">
           <FilterList
             filterAttr="rating"
             filters={filters}
@@ -76,8 +76,8 @@ const Filters = ({ filters, setFilters, toggleCompare }) => {
             setFilters={setFilters}
             showNoneAll={true}
           />
-        </Box>
-      </Box>
+        </div>
+      </SFilterControls>
 
       {filters.comparePlayerIds.length > 0 && (
         <ToggleItemLink onClick={toggleCompare}>
