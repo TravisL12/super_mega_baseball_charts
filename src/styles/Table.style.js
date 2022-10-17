@@ -74,7 +74,7 @@ export const PlayerColumn = styled.td`
   &.player-team {
     display: flex;
     align-items: center;
-    min-width: 100px;
+    min-width: 150px;
   }
   &.player-team img {
     max-height: 100%;

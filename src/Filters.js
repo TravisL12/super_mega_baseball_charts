@@ -57,7 +57,7 @@ const Filters = ({ filters, setFilters, toggleCompare }) => {
             setFilters={setFilters}
             showNoneAll={true}
           />
-          <div style={{ gridColumn: 3 }}>
+          <div style={{ gridColumn: "1 / 3" }}>
             <FilterList
               filterAttr="gender"
               filters={filters}

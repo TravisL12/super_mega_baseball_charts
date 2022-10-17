@@ -6,11 +6,16 @@ export const AppContainer = styled.div`
   background: ${backgroundColor};
   color: white;
   display: grid;
-  grid-template-columns: 220px 1fr;
+  grid-template-columns: 100px 1fr;
   grid-auto-rows: 80px auto 1fr;
   grid-row-gap: 10px;
   height: 100vh;
+  width: 100vw;
   box-sizing: border-box;
+
+  @media ${devices.tablet} {
+    grid-template-columns: 220px 1fr;
+  }
 `;
 
 export const LogoContainer = styled.div`

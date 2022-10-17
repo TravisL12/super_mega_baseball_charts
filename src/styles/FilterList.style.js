@@ -121,6 +121,7 @@ export const FilterListContainer = styled(Box)`
 
 export const SFilterControls = styled(Box)`
   flex-direction: column;
+  flex-wrap: wrap;
 
   @media ${devices.tablet} {
     flex-direction: row;
@@ -128,10 +129,14 @@ export const SFilterControls = styled(Box)`
 `;
 
 export const SFilterGrid = styled.div`
-  flex: 1;
   display: grid;
-  grid-template-columns: 100px 100px 200px 1fr;
+  grid-template-columns: 1fr 1fr;
   column-gap: 10px;
+
+  @media ${devices.tablet} {
+    flex: 1;
+    grid-template-columns: 100px 100px 200px 1fr;
+  }
 `;
 
 const teamLogoTile = "50px";

@@ -1,11 +1,11 @@
-import React from 'react';
-import { NavLink, Route } from 'react-router-dom';
-import { HeaderContainer } from './styles';
+import React from "react";
+import { NavLink, Route } from "react-router-dom";
+import { HeaderContainer } from "./styles";
 import {
   HOME_ROUTE,
   PITCHERS_ROUTE,
   TEAMS_ROUTE,
-} from './utilities/routeConstants';
+} from "./utilities/routeConstants";
 
 const Header = ({ playerCount, searchNames, clearSearch, filters }) => {
   return (
@@ -36,7 +36,7 @@ const Header = ({ playerCount, searchNames, clearSearch, filters }) => {
           Teams
         </NavLink>
       </div>
-      <Route exact path={['/', '/pitchers']}>
+      {/* <Route exact path={['/', '/pitchers']}>
         <div className="search-input">
           <input
             type="text"
@@ -46,7 +46,7 @@ const Header = ({ playerCount, searchNames, clearSearch, filters }) => {
           />
           {filters.name && <button onClick={clearSearch}>X</button>}
         </div>
-      </Route>
+      </Route> */}
     </HeaderContainer>
   );
 };
