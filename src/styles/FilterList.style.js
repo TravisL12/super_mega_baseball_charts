@@ -5,6 +5,7 @@ import {
   highlightGray,
   armColor,
   backgroundColor,
+  black,
 } from "./colors";
 import { devices } from "./Responsive.style";
 
@@ -93,15 +94,20 @@ export const FilterListContainer = styled(Box)`
 
   .search-input {
     position: relative;
-    width: 400px;
-    height: 40px;
-    font-size: 18px;
+    min-width: 400px;
+    height: 30px;
+    font-size: 16px;
 
     input[type="text"] {
       width: 100%;
       height: 100%;
       font-size: inherit;
-      padding: 8px 10px;
+      padding: 4px 8px;
+      background: ${black};
+      color: white;
+      &::placeholder {
+        font-weight: 300;
+      }
     }
 
     button {
