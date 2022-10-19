@@ -36,7 +36,7 @@ const Header = ({ playerCount, searchNames, clearSearch, filters }) => {
           Teams
         </NavLink>
       </div>
-      {/* <Route exact path={['/', '/pitchers']}>
+      <Route exact path={["/", "/pitchers"]}>
         <div className="search-input">
           <input
             type="text"
@@ -46,7 +46,7 @@ const Header = ({ playerCount, searchNames, clearSearch, filters }) => {
           />
           {filters.name && <button onClick={clearSearch}>X</button>}
         </div>
-      </Route> */}
+      </Route>
     </HeaderContainer>
   );
 };
