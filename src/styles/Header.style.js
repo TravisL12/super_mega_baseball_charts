@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { black, backgroundColor } from './colors';
+import styled from "styled-components";
+import { black, backgroundColor } from "./colors";
 
 export const HeaderContainer = styled.div`
   display: flex;
@@ -9,28 +9,6 @@ export const HeaderContainer = styled.div`
   grid-row: 1;
   padding: 0 20px;
   justify-content: space-between;
-
-  .search-input {
-    position: relative;
-    width: 400px;
-    height: 40px;
-    font-size: 18px;
-
-    input[type='text'] {
-      width: 100%;
-      height: 100%;
-      font-size: inherit;
-      padding: 8px 10px;
-    }
-
-    button {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      height: 100%;
-    }
-  }
 
   .player-type-nav {
     display: flex;

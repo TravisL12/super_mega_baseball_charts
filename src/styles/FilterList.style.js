@@ -91,6 +91,28 @@ export const FilterListContainer = styled(Box)`
   overflow: hidden;
   font-size: 14px;
 
+  .search-input {
+    position: relative;
+    width: 400px;
+    height: 40px;
+    font-size: 18px;
+
+    input[type="text"] {
+      width: 100%;
+      height: 100%;
+      font-size: inherit;
+      padding: 8px 10px;
+    }
+
+    button {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      height: 100%;
+    }
+  }
+
   .all-items {
     cursor: pointer;
     padding: 4px 10px;

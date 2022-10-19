@@ -5,9 +5,26 @@ import { FilterListContainer, Box, SFilterGrid } from "./styles";
 import { ToggleItemLink, SFilterControls } from "./styles/FilterList.style";
 import FilterDropdown from "./FilterDropdown";
 
-const Filters = ({ filters, setFilters, toggleCompare }) => {
+const Filters = ({
+  filters,
+  setFilters,
+  toggleCompare,
+  searchNames,
+  clearSearch,
+}) => {
   return (
     <FilterListContainer direction="column">
+      <Box>
+        <div className="search-input">
+          <input
+            type="text"
+            placeholder="Search Players by name"
+            value={filters.name}
+            onChange={(event) => searchNames(event.target.value)}
+          />
+          {filters.name && <button onClick={clearSearch}>X</button>}
+        </div>
+      </Box>
       <SFilterControls gap="10px">
         <TeamFilterList
           filterAttr="teams"

@@ -114,9 +114,6 @@ function App() {
           position: positionPlayers.length,
           pitchers: pitchersPlayers.length,
         }}
-        searchNames={searchNames}
-        clearSearch={clearSearch}
-        filters={filters}
       />
 
       <Switch>
@@ -129,6 +126,8 @@ function App() {
             filters={filters}
             setFilters={setFilters}
             toggleCompare={toggleCompare}
+            searchNames={searchNames}
+            clearSearch={clearSearch}
           />
           <Route
             exact
