@@ -6,8 +6,11 @@ import {
   PITCHERS_ROUTE,
   TEAMS_ROUTE,
 } from "./utilities/routeConstants";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Header = ({ playerCount }) => {
+  const { loginWithRedirect, logout, isAuthenticated, isLoading } = useAuth0();
+
   return (
     <HeaderContainer>
       <div className="player-type-nav">
@@ -36,6 +39,14 @@ const Header = ({ playerCount }) => {
           Teams
         </NavLink>
       </div>
+
+      {isAuthenticated && !isLoading ? (
+        <button onClick={() => logout({ returnTo: window.location.origin })}>
+          Log Out
+        </button>
+      ) : (
+        <button onClick={() => loginWithRedirect()}>Log In</button>
+      )}
     </HeaderContainer>
   );
 };
