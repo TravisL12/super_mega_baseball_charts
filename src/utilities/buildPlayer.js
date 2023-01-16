@@ -31,7 +31,7 @@ export const createPlayer = (info) => {
   const skills = {
     [SKILLS.team]: info.teamName,
     [SKILLS.name]: `${info.firstName} ${info.lastName}`,
-    [SKILLS.position]: position,
+    [SKILLS.position]: position || PITCHER_ROLES[info.pitcherRole],
     [SKILLS.position_2]: position2,
     [SKILLS.pitcher_role]: PITCHER_ROLES[info.pitcherRole],
     [SKILLS.power]: info.power,

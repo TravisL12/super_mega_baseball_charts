@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Papa from "papaparse";
-import { partition, sortBy, values } from "lodash";
+import { sortBy, values } from "lodash";
 import { Switch, Route } from "react-router-dom";
 
 import PlayerCard from "./PlayerCard";
@@ -67,10 +67,11 @@ function App() {
     // eslint-disable-next-line
   }, []);
 
-  const [pitchersPlayers, positionPlayers] = partition(
-    filterPlayers(players),
-    ({ isPitcher }) => isPitcher
-  );
+  const [pitchersPlayers, positionPlayers] = useMemo(() => {
+    const allPlayers = filterPlayers(players);
+    const pitchers = allPlayers.filter(({ isPitcher }) => isPitcher);
+    return [pitchers, allPlayers];
+  }, [players, filterPlayers]);
 
   if (isLoading) {
     return (
