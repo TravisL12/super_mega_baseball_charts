@@ -2,6 +2,7 @@ import React from "react";
 import { keys } from "lodash";
 import FilterAllNoneControls from "./FilterAllNoneControls";
 import { StyledTeamFilter, Img } from "./styles";
+import { IMAGES_URL } from "./utilities/constants";
 
 const TeamFilterList = ({ filters, setFilters, filterAttr }) => {
   return (
@@ -27,7 +28,7 @@ const TeamFilterList = ({ filters, setFilters, filterAttr }) => {
             <label htmlFor={`${filterAttr}-${value}`}>
               <Img
                 alt={`${value} logo`}
-                src={`${process.env.PUBLIC_URL}/team_logos/${value}.png`}
+                src={`${IMAGES_URL}/team_logos/${value}.png`}
               />
             </label>
           </div>

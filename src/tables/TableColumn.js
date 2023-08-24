@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { Img, PitchTypeContainer } from "../styles";
-import { positionsAbbrev, SKILLS } from "../utilities/constants";
+import { IMAGES_URL, positionsAbbrev, SKILLS } from "../utilities/constants";
 import {
   PlayerColumn,
   SRatingColor,
@@ -41,7 +41,7 @@ const TableColumn = ({ player, header }) => {
     return header === SKILLS.team ? (
       <Img
         alt={`${player[header]} logo`}
-        src={`${process.env.PUBLIC_URL}/team_logos/${player[header]}.png`}
+        src={`${IMAGES_URL}/team_logos/${player[header]}.png`}
       />
     ) : null;
   }, [player, header]);

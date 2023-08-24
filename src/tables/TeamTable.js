@@ -8,6 +8,7 @@ import {
 } from "../styles";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
 import TeamView from "./TeamView";
+import { IMAGES_URL } from "../utilities/constants";
 
 const TeamTable = ({ teams }) => {
   const match = useRouteMatch();
@@ -23,7 +24,7 @@ const TeamTable = ({ teams }) => {
           >
             <Img
               alt={`${team} logo`}
-              src={`${process.env.PUBLIC_URL}/team_logos/${team}.png`}
+              src={`${IMAGES_URL}/team_logos/${team}.png`}
             />
           </StyledTeamListItem>
         ))}

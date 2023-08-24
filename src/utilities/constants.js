@@ -1,7 +1,10 @@
 export const ASC = "asc";
 export const DESC = "desc";
 export const NO_TRAIT = "No Trait";
-
+export const IMAGES_URL =
+  process.env.NODE_ENV === "production"
+    ? `https://smb4.s3.us-west-2.amazonaws.com/smb3`
+    : process.env.PUBLIC_URL;
 // Determines the sort order or Ratings (by index)
 export const RATING_MAP = [
   "s",
