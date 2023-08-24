@@ -90,13 +90,16 @@ export const SECONDARY_POSITIONS = {
   none: "No 2nd Pos.",
 };
 
-export const ALL_POSITIONS = { ...PRIMARY_POSITIONS, ...SECONDARY_POSITIONS };
-
 export const PITCHER_ROLES = {
   1: "Starting",
   2: "Starting/Relief",
   3: "Relief",
   4: "Closer",
+};
+
+export const ALL_POSITIONS = {
+  ...PRIMARY_POSITIONS,
+  ...SECONDARY_POSITIONS,
 };
 
 // The keys are based on the database output `info` value
