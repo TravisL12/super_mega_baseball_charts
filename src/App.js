@@ -103,6 +103,20 @@ function App() {
 
   return (
     <AppContainer>
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          width: "100%",
+          padding: "5px 20px",
+          background: "magenta",
+        }}
+      >
+        Check out the Super Mega Baseball 4 site!{" "}
+        <a href="https://reallyepichardball.com" target="_blank">
+          Really Epic Hardball!
+        </a>
+      </div>
       <LogoContainer>
         <Img
           alt="Super Mega Baseball Logo"
