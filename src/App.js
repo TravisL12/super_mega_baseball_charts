@@ -113,7 +113,11 @@ function App() {
         }}
       >
         Check out the Super Mega Baseball 4 site!{" "}
-        <a href="https://reallyepichardball.com" target="_blank">
+        <a
+          href="https://reallyepichardball.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Really Epic Hardball!
         </a>
       </div>
